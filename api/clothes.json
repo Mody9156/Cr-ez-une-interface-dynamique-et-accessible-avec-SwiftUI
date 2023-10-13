@@ -1,0 +1,86 @@
+[
+  {
+    "id": 0,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/1.jpg",
+    "name": "Sac à main orange",
+    "category": "ACCESSORIES",
+    "likes": 56
+  },
+  {
+    "id": 1,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/1.jpg",
+    "name": "Jean pour femme",
+    "category": "BOTTOMS",
+    "likes": 55
+  },
+  {
+    "id": 2,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/1.jpg",
+    "name": "Bottes noir pour l'automne",
+    "category": "SHOES",
+    "likes": 4
+  },
+  {
+    "id": 3,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/1.jpg",
+   "name": "Blazer marron",
+    "category": "TOPS",
+    "likes": 15
+  },
+  {
+    "id": 4,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/2.jpg",
+   "name": "Pull vert femme",
+    "category": "TOPS",
+    "likes": 15
+  },
+  {
+    "id": 5,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/2.jpg",
+   "name": "Escarpins de soirée",
+    "category": "SHOES",
+    "likes": 15
+  },
+  {
+    "id": 6,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/2.jpg",
+    "name": "Sac à dos d'aventurier",
+    "category": "ACCESSORIES",
+    "likes": 9
+  },
+  {
+    "id": 7,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/3.jpg",
+    "name": "Bomber automnal pour homme",
+    "category": "TOPS",
+    "likes": 30
+  },
+  {
+    "id": 8,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/4.jpg",
+    "name": "Sweat jaune",
+    "category": "TOPS",
+    "likes": 6
+  },
+  {
+    "id": 9,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/5.jpg",
+    "name": "T shirt casual rose",
+    "category": "TOPS",
+    "likes": 35
+  },
+  {
+    "id": 10,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/3.jpg",
+    "name": "Pendentif bleu pour femme",
+    "category": "ACCESSORIES",
+    "likes": 70
+  },
+  {
+    "id": 11,
+    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/2.jpg",
+    "name": "Pantalon noir",
+    "category": "BOTTOMS",
+    "likes": 54
+  }
+]
