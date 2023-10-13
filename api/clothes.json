@@ -4,83 +4,107 @@
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/1.jpg",
     "name": "Sac à main orange",
     "category": "ACCESSORIES",
-    "likes": 56
+    "likes": 56,
+    "price": 69.99,
+    "original_price": 69.99
   },
   {
     "id": 1,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/1.jpg",
     "name": "Jean pour femme",
     "category": "BOTTOMS",
-    "likes": 55
+    "likes": 55,
+    "price": 49.99,
+    "original_price": 59.99
   },
   {
     "id": 2,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/1.jpg",
     "name": "Bottes noir pour l'automne",
     "category": "SHOES",
-    "likes": 4
+    "likes": 4,
+    "price": 99.99,
+    "original_price": 119.99
   },
   {
     "id": 3,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/1.jpg",
    "name": "Blazer marron",
     "category": "TOPS",
-    "likes": 15
+    "likes": 15,
+    "price": 79.99,
+    "original_price": 79.99
   },
   {
     "id": 4,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/2.jpg",
    "name": "Pull vert femme",
     "category": "TOPS",
-    "likes": 15
+    "likes": 15,
+    "price": 29.99,
+    "original_price": 39.99
   },
   {
     "id": 5,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/2.jpg",
    "name": "Escarpins de soirée",
     "category": "SHOES",
-    "likes": 15
+    "likes": 15,
+    "price": 139.99,
+    "original_price": 139.99
   },
   {
     "id": 6,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/2.jpg",
     "name": "Sac à dos d'aventurier",
     "category": "ACCESSORIES",
-    "likes": 9
+    "likes": 9,
+    "price": 69.99,
+    "original_price": 99.99
   },
   {
     "id": 7,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/3.jpg",
     "name": "Bomber automnal pour homme",
     "category": "TOPS",
-    "likes": 30
+    "likes": 30,
+    "price": 89.99,
+    "original_price": 109.99
   },
   {
     "id": 8,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/4.jpg",
     "name": "Sweat jaune",
     "category": "TOPS",
-    "likes": 6
+    "likes": 6,
+    "price": 39.99,
+    "original_price": 39.99
   },
   {
     "id": 9,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/5.jpg",
     "name": "T shirt casual rose",
     "category": "TOPS",
-    "likes": 35
+    "likes": 35,
+    "price": 29.99,
+    "original_price": 29.99
   },
   {
     "id": 10,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/3.jpg",
     "name": "Pendentif bleu pour femme",
     "category": "ACCESSORIES",
-    "likes": 70
+    "likes": 70,
+    "price": 19.99,
+    "original_price": 69.99
   },
   {
     "id": 11,
     "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/2.jpg",
     "name": "Pantalon noir",
     "category": "BOTTOMS",
-    "likes": 54
+    "likes": 54,
+    "price": 49.99,
+    "original_price": 69.99
   }
 ]

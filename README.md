@@ -2,10 +2,7 @@
 
 ## API
 
-Cette API est une API statique hébergée sur Github.
+**Pour utiliser cette API, vous devez faire une requête GET sur une des API disponible :**
 
-Pour l'utiliser, vous devez faire une requête GET sur le fichier que vous voulez :
-
-```
-https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/api/clothes.json
-```
+*Vêtements* : 
+[https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/api/clothes.json](https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/api/clothes.json)
