@@ -1,7 +1,10 @@
 [
   {
     "id": 0,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/1.jpg",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/1.jpg",
+      "description": "Sac à main orange posé sur une poignée de porte"
+    },
     "name": "Sac à main orange",
     "category": "ACCESSORIES",
     "likes": 56,
@@ -10,7 +13,10 @@
   },
   {
     "id": 1,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/1.jpg",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/1.jpg",
+      "description": "Modèle femme qui porte un jean et un haut jaune"
+    },
     "name": "Jean pour femme",
     "category": "BOTTOMS",
     "likes": 55,
@@ -19,8 +25,11 @@
   },
   {
     "id": 2,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/1.jpg",
-    "name": "Bottes noir pour l'automne",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/1.jpg",
+      "description": "Modèle femme qui pose dans la rue en bottes de pluie noires"
+    },
+    "name": "Bottes noires pour l'automne",
     "category": "SHOES",
     "likes": 4,
     "price": 99.99,
@@ -28,8 +37,11 @@
   },
   {
     "id": 3,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/1.jpg",
-   "name": "Blazer marron",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/1.jpg",
+      "description": "Homme qui regarde la caméra avec un costume et une veste de blazer"
+    },
+    "name": "Blazer marron",
     "category": "TOPS",
     "likes": 15,
     "price": 79.99,
@@ -37,8 +49,11 @@
   },
   {
     "id": 4,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/2.jpg",
-   "name": "Pull vert femme",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/2.jpg",
+      "description": "Femme dehors qui pose avec un pull en mailles vertes"
+    },
+    "name": "Pull vert femme",
     "category": "TOPS",
     "likes": 15,
     "price": 29.99,
@@ -46,8 +61,11 @@
   },
   {
     "id": 5,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/2.jpg",
-   "name": "Escarpins de soirée",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/2.jpg",
+      "description": "Escaprins rouges posés sur du marbre"
+    },
+    "name": "Escarpins de soirée",
     "category": "SHOES",
     "likes": 15,
     "price": 139.99,
@@ -55,7 +73,10 @@
   },
   {
     "id": 6,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/2.jpg",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/2.jpg",
+      "description": "Sac d'aventurier usé accroché dans un arbre en forêt"
+    },
     "name": "Sac à dos d'aventurier",
     "category": "ACCESSORIES",
     "likes": 9,
@@ -64,7 +85,10 @@
   },
   {
     "id": 7,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/3.jpg",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/3.jpg",
+      "description": "Homme jeune stylé qui pose dans la rue avec un jean et un bomber"
+    },
     "name": "Bomber automnal pour homme",
     "category": "TOPS",
     "likes": 30,
@@ -73,7 +97,10 @@
   },
   {
     "id": 8,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/4.jpg",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/4.jpg",
+      "description": "Homme qui regarde à droite avec un sweat jaune"
+    },
     "name": "Sweat jaune",
     "category": "TOPS",
     "likes": 6,
@@ -82,7 +109,10 @@
   },
   {
     "id": 9,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/5.jpg",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/5.jpg",
+      "description": "T shirt rose posé sur un cintre dans une penderie"
+    },
     "name": "T shirt casual rose",
     "category": "TOPS",
     "likes": 35,
@@ -91,7 +121,10 @@
   },
   {
     "id": 10,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/3.jpg",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/3.jpg",
+      "description": "Pendentif rond bleu dans la main d'une femme"
+    },
     "name": "Pendentif bleu pour femme",
     "category": "ACCESSORIES",
     "likes": 70,
@@ -100,7 +133,10 @@
   },
   {
     "id": 11,
-    "picture": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/2.jpg",
+    "picture": {
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/2.jpg",
+      "description": "Homme en chemise blance et pantalon noir assis dans la forêt"
+    },
     "name": "Pantalon noir",
     "category": "BOTTOMS",
     "likes": 54,
