@@ -39,7 +39,7 @@
     "id": 3,
     "picture": {
       "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/1.jpg",
-      "description": "Homme qui regarde la caméra avec un costume et une veste de blazer"
+      "description": "Homme en costume et veste de blazer qui regarde la caméra"
     },
     "name": "Blazer marron",
     "category": "TOPS",
@@ -51,7 +51,7 @@
     "id": 4,
     "picture": {
       "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/2.jpg",
-      "description": "Femme dehors qui pose avec un pull en mailles vertes"
+      "description": "Femme dehors qui pose avec un pull en maille vert"
     },
     "name": "Pull vert femme",
     "category": "TOPS",
@@ -63,7 +63,7 @@
     "id": 5,
     "picture": {
       "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/2.jpg",
-      "description": "Escaprins rouges posés sur du marbre"
+      "description": "Escarpins rouges posés sur du marbre"
     },
     "name": "Escarpins de soirée",
     "category": "SHOES",
@@ -87,7 +87,7 @@
     "id": 7,
     "picture": {
       "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/3.jpg",
-      "description": "Homme jeune stylé qui pose dans la rue avec un jean et un bomber"
+      "description": "Homme jeune stylé en jean et bomber qui pose dans la rue"
     },
     "name": "Bomber automnal pour homme",
     "category": "TOPS",
@@ -99,7 +99,7 @@
     "id": 8,
     "picture": {
       "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/4.jpg",
-      "description": "Homme qui regarde à droite avec un sweat jaune"
+      "description": "Homme en sweat jaune qui regarde à droite"
     },
     "name": "Sweat jaune",
     "category": "TOPS",
@@ -111,9 +111,9 @@
     "id": 9,
     "picture": {
       "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/5.jpg",
-      "description": "T shirt rose posé sur un cintre dans une penderie"
+      "description": "T-shirt rose posé sur un cintre dans une penderie"
     },
-    "name": "T shirt casual rose",
+    "name": "T-shirt casual rose",
     "category": "TOPS",
     "likes": 35,
     "price": 29.99,
@@ -135,7 +135,7 @@
     "id": 11,
     "picture": {
       "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/2.jpg",
-      "description": "Homme en chemise blance et pantalon noir assis dans la forêt"
+      "description": "Homme en chemise blanche et pantalon noir assis dans la forêt"
     },
     "name": "Pantalon noir",
     "category": "BOTTOMS",
