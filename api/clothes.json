@@ -2,7 +2,7 @@
   {
     "id": 0,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/1.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/1.jpg",
       "description": "Sac à main orange posé sur une poignée de porte"
     },
     "name": "Sac à main orange",
@@ -14,7 +14,7 @@
   {
     "id": 1,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/1.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/bottoms/1.jpg",
       "description": "Modèle femme qui porte un jean et un haut jaune"
     },
     "name": "Jean pour femme",
@@ -26,7 +26,7 @@
   {
     "id": 2,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/1.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/shoes/1.jpg",
       "description": "Modèle femme qui pose dans la rue en bottes de pluie noires"
     },
     "name": "Bottes noires pour l'automne",
@@ -38,7 +38,7 @@
   {
     "id": 3,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/1.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/1.jpg",
       "description": "Homme en costume et veste de blazer qui regarde la caméra"
     },
     "name": "Blazer marron",
@@ -50,7 +50,7 @@
   {
     "id": 4,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/2.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/2.jpg",
       "description": "Femme dehors qui pose avec un pull en maille vert"
     },
     "name": "Pull vert femme",
@@ -62,7 +62,7 @@
   {
     "id": 5,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/shoes/2.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/shoes/2.jpg",
       "description": "Escarpins rouges posés sur du marbre"
     },
     "name": "Escarpins de soirée",
@@ -74,7 +74,7 @@
   {
     "id": 6,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/2.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/2.jpg",
       "description": "Sac d'aventurier usé accroché dans un arbre en forêt"
     },
     "name": "Sac à dos d'aventurier",
@@ -86,7 +86,7 @@
   {
     "id": 7,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/3.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/3.jpg",
       "description": "Homme jeune stylé en jean et bomber qui pose dans la rue"
     },
     "name": "Bomber automnal pour homme",
@@ -98,7 +98,7 @@
   {
     "id": 8,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/4.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/4.jpg",
       "description": "Homme en sweat jaune qui regarde à droite"
     },
     "name": "Sweat jaune",
@@ -110,7 +110,7 @@
   {
     "id": 9,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/tops/5.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/tops/5.jpg",
       "description": "T-shirt rose posé sur un cintre dans une penderie"
     },
     "name": "T-shirt casual rose",
@@ -122,7 +122,7 @@
   {
     "id": 10,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/accessories/3.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/3.jpg",
       "description": "Pendentif rond bleu dans la main d'une femme"
     },
     "name": "Pendentif bleu pour femme",
@@ -134,7 +134,7 @@
   {
     "id": 11,
     "picture": {
-      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/D-velopper-une-interface-accessible-en-Jetpack-Compose/main/img/bottoms/2.jpg",
+      "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/bottoms/2.jpg",
       "description": "Homme en chemise blanche et pantalon noir assis dans la forêt"
     },
     "name": "Pantalon noir",
