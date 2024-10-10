@@ -8,6 +8,13 @@
 import Foundation
 
 struct ArticleCatalog : Identifiable,Decodable {
-    let id = UUID()
+    var id = UUID()
+    var picture : URL
+    var name :String
+    var category : String
+    var likes : Int
+    var price : Double
+    var original_price : Double
     
 }
+
