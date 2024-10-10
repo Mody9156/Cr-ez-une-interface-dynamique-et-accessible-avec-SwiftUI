@@ -12,6 +12,7 @@
 		230CE30F2CB81E0A006C958B /* ArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230CE30E2CB81E0A006C958B /* ArticleListViewModel.swift */; };
 		230CE3112CB81F63006C958B /* ArticleCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230CE3102CB81F63006C958B /* ArticleCatalog.swift */; };
 		230CE3132CB827B6006C958B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230CE3122CB827B6006C958B /* Service.swift */; };
+		230CE3152CB8352C006C958B /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230CE3142CB8352B006C958B /* Storyboard.storyboard */; };
 		23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5691D2CB8135100FBC18D /* JoieFullApp.swift */; };
 		23B569222CB8135500FBC18D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569212CB8135500FBC18D /* Assets.xcassets */; };
 		23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569242CB8135500FBC18D /* Preview Assets.xcassets */; };
@@ -34,6 +35,7 @@
 		230CE30E2CB81E0A006C958B /* ArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewModel.swift; sourceTree = "<group>"; };
 		230CE3102CB81F63006C958B /* ArticleCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCatalog.swift; sourceTree = "<group>"; };
 		230CE3122CB827B6006C958B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		230CE3142CB8352B006C958B /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		23B5691A2CB8135100FBC18D /* JoieFull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JoieFull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B5691D2CB8135100FBC18D /* JoieFullApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullApp.swift; sourceTree = "<group>"; };
 		23B569212CB8135500FBC18D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				230CE30A2CB81AA6006C958B /* ArticleListView.swift */,
+				230CE3142CB8352B006C958B /* Storyboard.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */,
+				230CE3152CB8352C006C958B /* Storyboard.storyboard in Resources */,
 				230CE30D2CB81D75006C958B /* clothes.json in Resources */,
 				23B569222CB8135500FBC18D /* Assets.xcassets in Resources */,
 			);
