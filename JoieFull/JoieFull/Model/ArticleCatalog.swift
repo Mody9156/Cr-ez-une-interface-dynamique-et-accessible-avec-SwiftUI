@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct ArticleCatalog : Identifiable,Decodable {
+struct ArticleCatalog : Identifiable,Codable {
     var id = UUID()
-    var picture : URL
+    var picture : URLBuilder
     var name :String
     var category : String
     var likes : Int
@@ -18,3 +18,7 @@ struct ArticleCatalog : Identifiable,Decodable {
     
 }
 
+struct URLBuilder : Codable {
+    var url : String
+    var description : String
+}

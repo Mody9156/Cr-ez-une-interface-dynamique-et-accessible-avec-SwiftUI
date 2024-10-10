@@ -12,8 +12,8 @@ struct ArticleListView: View {
     
     var body: some View {
         
-        ForEach(articleListViewModel.articleCatalog) { article  in 
-            Text("")
+        ForEach(articleListViewModel.articleCatalog,id: \.name) { article  in 
+            Text(article.name)
         }
       
         
