@@ -11,8 +11,8 @@
 		230CE30F2CB81E0A006C958B /* ArticleListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230CE30E2CB81E0A006C958B /* ArticleListViewModel.swift */; };
 		230CE3112CB81F63006C958B /* ArticleCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230CE3102CB81F63006C958B /* ArticleCatalog.swift */; };
 		230CE3132CB827B6006C958B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230CE3122CB827B6006C958B /* Service.swift */; };
-		230CE3152CB8352C006C958B /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230CE3142CB8352B006C958B /* Storyboard.storyboard */; };
 		230CE3172CB83B03006C958B /* clothes.json in Resources */ = {isa = PBXBuildFile; fileRef = 230CE3162CB83B02006C958B /* clothes.json */; };
+		230CE3182CB83DC3006C958B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230CE3142CB8352B006C958B /* LaunchScreen.storyboard */; };
 		23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5691D2CB8135100FBC18D /* JoieFullApp.swift */; };
 		23B569222CB8135500FBC18D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569212CB8135500FBC18D /* Assets.xcassets */; };
 		23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569242CB8135500FBC18D /* Preview Assets.xcassets */; };
@@ -34,8 +34,9 @@
 		230CE30E2CB81E0A006C958B /* ArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewModel.swift; sourceTree = "<group>"; };
 		230CE3102CB81F63006C958B /* ArticleCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCatalog.swift; sourceTree = "<group>"; };
 		230CE3122CB827B6006C958B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		230CE3142CB8352B006C958B /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		230CE3142CB8352B006C958B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		230CE3162CB83B02006C958B /* clothes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clothes.json; sourceTree = "<group>"; };
+		230CE3192CB8418B006C958B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		23B5691A2CB8135100FBC18D /* JoieFull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JoieFull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B5691D2CB8135100FBC18D /* JoieFullApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullApp.swift; sourceTree = "<group>"; };
 		23B569212CB8135500FBC18D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,7 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				230CE30A2CB81AA6006C958B /* ArticleListView.swift */,
-				230CE3142CB8352B006C958B /* Storyboard.storyboard */,
+				230CE3142CB8352B006C958B /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -110,6 +111,7 @@
 		23B5691C2CB8135100FBC18D /* JoieFull */ = {
 			isa = PBXGroup;
 			children = (
+				230CE3192CB8418B006C958B /* Info.plist */,
 				230CE3072CB8173E006C958B /* Model */,
 				230CE3092CB81A00006C958B /* View */,
 				230CE3082CB819CE006C958B /* ViewModel */,
@@ -218,7 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */,
-				230CE3152CB8352C006C958B /* Storyboard.storyboard in Resources */,
+				230CE3182CB83DC3006C958B /* LaunchScreen.storyboard in Resources */,
 				230CE3172CB83B03006C958B /* clothes.json in Resources */,
 				23B569222CB8135500FBC18D /* Assets.xcassets in Resources */,
 			);
@@ -384,16 +386,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JoieFull/Preview Content\"";
 				DEVELOPMENT_TEAM = 99UMC25BBL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JoieFull/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = Storyboard.storyboard;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -414,16 +417,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JoieFull/Preview Content\"";
 				DEVELOPMENT_TEAM = 99UMC25BBL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JoieFull/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = Storyboard.storyboard;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
