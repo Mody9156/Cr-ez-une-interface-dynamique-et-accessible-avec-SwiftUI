@@ -8,7 +8,7 @@
 import Foundation
 
 class ArticleListViewModel : ObservableObject {
-    @Published var articles : [ArticleCatalog] = Service().load("clothes")
+    @Published var articleCatalog : [ArticleCatalog] = Service().load("clothes")
     
     
 }
