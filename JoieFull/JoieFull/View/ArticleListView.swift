@@ -11,7 +11,12 @@ struct ArticleListView: View {
     @ObservedObject var articleListViewModel : ArticleListViewModel
     
     var body: some View {
-    
+        
+        ForEach(articleListViewModel.articleCatalog) { article  in 
+            Text("")
+        }
+      
+        
     }
 }
 
