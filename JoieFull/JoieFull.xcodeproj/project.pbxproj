@@ -1,0 +1,477 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5691D2CB8135100FBC18D /* JoieFullApp.swift */; };
+		23B569202CB8135100FBC18D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5691F2CB8135100FBC18D /* ContentView.swift */; };
+		23B569222CB8135500FBC18D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569212CB8135500FBC18D /* Assets.xcassets */; };
+		23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569242CB8135500FBC18D /* Preview Assets.xcassets */; };
+		23B5692F2CB8135600FBC18D /* JoieFullTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5692E2CB8135600FBC18D /* JoieFullTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		23B5692B2CB8135600FBC18D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 23B569122CB8135100FBC18D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 23B569192CB8135100FBC18D;
+			remoteInfo = JoieFull;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		23B5691A2CB8135100FBC18D /* JoieFull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JoieFull.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		23B5691D2CB8135100FBC18D /* JoieFullApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullApp.swift; sourceTree = "<group>"; };
+		23B5691F2CB8135100FBC18D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		23B569212CB8135500FBC18D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		23B569242CB8135500FBC18D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoieFullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		23B5692E2CB8135600FBC18D /* JoieFullTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		23B569172CB8135100FBC18D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23B569272CB8135600FBC18D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		230CE3072CB8173E006C958B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23B569112CB8135100FBC18D = {
+			isa = PBXGroup;
+			children = (
+				23B5691C2CB8135100FBC18D /* JoieFull */,
+				23B5692D2CB8135600FBC18D /* JoieFullTests */,
+				23B5691B2CB8135100FBC18D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		23B5691B2CB8135100FBC18D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				23B5691A2CB8135100FBC18D /* JoieFull.app */,
+				23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		23B5691C2CB8135100FBC18D /* JoieFull */ = {
+			isa = PBXGroup;
+			children = (
+				230CE3072CB8173E006C958B /* Model */,
+				23B5691D2CB8135100FBC18D /* JoieFullApp.swift */,
+				23B5691F2CB8135100FBC18D /* ContentView.swift */,
+				23B569212CB8135500FBC18D /* Assets.xcassets */,
+				23B569232CB8135500FBC18D /* Preview Content */,
+			);
+			path = JoieFull;
+			sourceTree = "<group>";
+		};
+		23B569232CB8135500FBC18D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				23B569242CB8135500FBC18D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		23B5692D2CB8135600FBC18D /* JoieFullTests */ = {
+			isa = PBXGroup;
+			children = (
+				23B5692E2CB8135600FBC18D /* JoieFullTests.swift */,
+			);
+			path = JoieFullTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		23B569192CB8135100FBC18D /* JoieFull */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23B5693E2CB8135600FBC18D /* Build configuration list for PBXNativeTarget "JoieFull" */;
+			buildPhases = (
+				23B569162CB8135100FBC18D /* Sources */,
+				23B569172CB8135100FBC18D /* Frameworks */,
+				23B569182CB8135100FBC18D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JoieFull;
+			productName = JoieFull;
+			productReference = 23B5691A2CB8135100FBC18D /* JoieFull.app */;
+			productType = "com.apple.product-type.application";
+		};
+		23B569292CB8135600FBC18D /* JoieFullTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23B569412CB8135600FBC18D /* Build configuration list for PBXNativeTarget "JoieFullTests" */;
+			buildPhases = (
+				23B569262CB8135600FBC18D /* Sources */,
+				23B569272CB8135600FBC18D /* Frameworks */,
+				23B569282CB8135600FBC18D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23B5692C2CB8135600FBC18D /* PBXTargetDependency */,
+			);
+			name = JoieFullTests;
+			productName = JoieFullTests;
+			productReference = 23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		23B569122CB8135100FBC18D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					23B569192CB8135100FBC18D = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					23B569292CB8135600FBC18D = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 23B569192CB8135100FBC18D;
+					};
+				};
+			};
+			buildConfigurationList = 23B569152CB8135100FBC18D /* Build configuration list for PBXProject "JoieFull" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 23B569112CB8135100FBC18D;
+			productRefGroup = 23B5691B2CB8135100FBC18D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				23B569192CB8135100FBC18D /* JoieFull */,
+				23B569292CB8135600FBC18D /* JoieFullTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		23B569182CB8135100FBC18D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */,
+				23B569222CB8135500FBC18D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23B569282CB8135600FBC18D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		23B569162CB8135100FBC18D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23B569202CB8135100FBC18D /* ContentView.swift in Sources */,
+				23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23B569262CB8135600FBC18D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23B5692F2CB8135600FBC18D /* JoieFullTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		23B5692C2CB8135600FBC18D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 23B569192CB8135100FBC18D /* JoieFull */;
+			targetProxy = 23B5692B2CB8135600FBC18D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		23B5693C2CB8135600FBC18D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		23B5693D2CB8135600FBC18D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		23B5693F2CB8135600FBC18D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"JoieFull/Preview Content\"";
+				DEVELOPMENT_TEAM = 99UMC25BBL;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Joiefull.JoieFull;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		23B569402CB8135600FBC18D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"JoieFull/Preview Content\"";
+				DEVELOPMENT_TEAM = 99UMC25BBL;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Joiefull.JoieFull;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		23B569422CB8135600FBC18D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 99UMC25BBL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Joiefull.JoieFullTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JoieFull.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JoieFull";
+			};
+			name = Debug;
+		};
+		23B569432CB8135600FBC18D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 99UMC25BBL;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Joiefull.JoieFullTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JoieFull.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JoieFull";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		23B569152CB8135100FBC18D /* Build configuration list for PBXProject "JoieFull" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23B5693C2CB8135600FBC18D /* Debug */,
+				23B5693D2CB8135600FBC18D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23B5693E2CB8135600FBC18D /* Build configuration list for PBXNativeTarget "JoieFull" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23B5693F2CB8135600FBC18D /* Debug */,
+				23B569402CB8135600FBC18D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23B569412CB8135600FBC18D /* Build configuration list for PBXNativeTarget "JoieFullTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23B569422CB8135600FBC18D /* Debug */,
+				23B569432CB8135600FBC18D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 23B569122CB8135100FBC18D /* Project object */;
+}
