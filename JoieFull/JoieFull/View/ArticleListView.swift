@@ -13,8 +13,3 @@ struct ArticleListView: View {
     }
 }
 
-struct ArticleListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArticleListView()
-    }
-}
