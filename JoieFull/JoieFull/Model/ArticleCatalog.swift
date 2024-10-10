@@ -8,11 +8,11 @@
 import Foundation
 
 struct ArticleCatalog : Identifiable,Codable {
-    var id = UUID()
+    var id : Int
     var picture : URLBuilder
     var name :String
     var category : String
-    var likes : Int
+    var likes : Int?
     var price : Double
     var original_price : Double
     
