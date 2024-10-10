@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5691D2CB8135100FBC18D /* JoieFullApp.swift */; };
-		23B569202CB8135100FBC18D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5691F2CB8135100FBC18D /* ContentView.swift */; };
 		23B569222CB8135500FBC18D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569212CB8135500FBC18D /* Assets.xcassets */; };
 		23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569242CB8135500FBC18D /* Preview Assets.xcassets */; };
 		23B5692F2CB8135600FBC18D /* JoieFullTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5692E2CB8135600FBC18D /* JoieFullTests.swift */; };
@@ -27,7 +26,6 @@
 /* Begin PBXFileReference section */
 		23B5691A2CB8135100FBC18D /* JoieFull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JoieFull.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B5691D2CB8135100FBC18D /* JoieFullApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullApp.swift; sourceTree = "<group>"; };
-		23B5691F2CB8135100FBC18D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		23B569212CB8135500FBC18D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23B569242CB8135500FBC18D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoieFullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +64,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		230CE3092CB81A00006C958B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		23B569112CB8135100FBC18D = {
 			isa = PBXGroup;
 			children = (
@@ -87,10 +92,10 @@
 		23B5691C2CB8135100FBC18D /* JoieFull */ = {
 			isa = PBXGroup;
 			children = (
-				230CE3082CB819CE006C958B /* ViewModel */,
 				230CE3072CB8173E006C958B /* Model */,
+				230CE3092CB81A00006C958B /* View */,
+				230CE3082CB819CE006C958B /* ViewModel */,
 				23B5691D2CB8135100FBC18D /* JoieFullApp.swift */,
-				23B5691F2CB8135100FBC18D /* ContentView.swift */,
 				23B569212CB8135500FBC18D /* Assets.xcassets */,
 				23B569232CB8135500FBC18D /* Preview Content */,
 			);
@@ -213,7 +218,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23B569202CB8135100FBC18D /* ContentView.swift in Sources */,
 				23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
