@@ -59,6 +59,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		230CE3082CB819CE006C958B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		23B569112CB8135100FBC18D = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +87,7 @@
 		23B5691C2CB8135100FBC18D /* JoieFull */ = {
 			isa = PBXGroup;
 			children = (
+				230CE3082CB819CE006C958B /* ViewModel */,
 				230CE3072CB8173E006C958B /* Model */,
 				23B5691D2CB8135100FBC18D /* JoieFullApp.swift */,
 				23B5691F2CB8135100FBC18D /* ContentView.swift */,
