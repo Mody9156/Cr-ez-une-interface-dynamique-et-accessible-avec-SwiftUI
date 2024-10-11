@@ -77,8 +77,10 @@ struct ArticleView: View {
                         Text("\(article.price)€")
                     }
                     Spacer()
-                    Image(systemName: "star.fill")
-                    Text("\(article.likes)")
+                    if let article = article.likes {
+                        Image(systemName: "star.fill")
+                        Text("\(Int(article))")
+                    }
                 }
             }
         }
