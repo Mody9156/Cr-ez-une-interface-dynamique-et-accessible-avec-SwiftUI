@@ -8,7 +8,7 @@ struct ArticleListView: View {
             ScrollView {
                 VStack{
                     
-                    Section(header:Text("Hauts")) {
+                    Section(header:Text("Hauts").font(.title).fontWeight(.bold).foregroundColor(.black).multilineTextAlignment(.leading)) {
                         ScrollView(.horizontal){//Show TOPS
                             
                             LazyHStack {
@@ -21,7 +21,7 @@ struct ArticleListView: View {
                         
                     }.padding()
                     
-                    Section(header:Text("Bas")) {
+                    Section(header:Text("Bas").font(.title).fontWeight(.bold).foregroundColor(.black).multilineTextAlignment(.leading)) {
                         ScrollView(.horizontal){//Show BOTTOMS
                             
                             LazyHStack {
@@ -59,8 +59,8 @@ struct ArticleView: View {
         if article.category == category {
             AsyncImage(url: URL(string: article.picture.url)) { image in
                 image
-                    .resizable()
-                    
+                .resizable()
+                
             } placeholder: {
                 ProgressView()
             }
