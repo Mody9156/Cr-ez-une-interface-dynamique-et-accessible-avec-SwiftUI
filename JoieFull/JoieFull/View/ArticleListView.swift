@@ -60,14 +60,27 @@ struct ArticleView: View {
     var body: some View {
         
         if article.category == category {
-            AsyncImage(url: URL(string: article.picture.url)) { image in
-                image
-                .resizable()
-                
-            } placeholder: {
-                ProgressView()
-            }
+            
+            VStack {
+                AsyncImage(url: URL(string: article.picture.url)) { image in
+                    image
+                    .resizable()
+                    
+                } placeholder: {
+                    ProgressView()
+                }
             .frame(width: 198, height: 198).cornerRadius(20)
+                
+                HStack {
+                    VStack {
+                        Text(article.name)
+                        Text("\(article.price)€")
+                    }
+                    Spacer()
+                    Image(systemName: "star.fill")
+                    Text("\(article.likes)")
+                }
+            }
         }
         
         
