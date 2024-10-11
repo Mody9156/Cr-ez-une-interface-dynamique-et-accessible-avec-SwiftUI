@@ -12,11 +12,11 @@
 		230CE3112CB81F63006C958B /* ArticleCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230CE3102CB81F63006C958B /* ArticleCatalog.swift */; };
 		230CE3132CB827B6006C958B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230CE3122CB827B6006C958B /* Service.swift */; };
 		230CE3172CB83B03006C958B /* clothes.json in Resources */ = {isa = PBXBuildFile; fileRef = 230CE3162CB83B02006C958B /* clothes.json */; };
-		230CE3182CB83DC3006C958B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230CE3142CB8352B006C958B /* LaunchScreen.storyboard */; };
 		23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5691D2CB8135100FBC18D /* JoieFullApp.swift */; };
 		23B569222CB8135500FBC18D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569212CB8135500FBC18D /* Assets.xcassets */; };
 		23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569242CB8135500FBC18D /* Preview Assets.xcassets */; };
 		23B5692F2CB8135600FBC18D /* JoieFullTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5692E2CB8135600FBC18D /* JoieFullTests.swift */; };
+		23F8E7832CB9201E006F207F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F8E7822CB9201E006F207F /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +34,6 @@
 		230CE30E2CB81E0A006C958B /* ArticleListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewModel.swift; sourceTree = "<group>"; };
 		230CE3102CB81F63006C958B /* ArticleCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCatalog.swift; sourceTree = "<group>"; };
 		230CE3122CB827B6006C958B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		230CE3142CB8352B006C958B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		230CE3162CB83B02006C958B /* clothes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = clothes.json; sourceTree = "<group>"; };
 		230CE3192CB8418B006C958B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		23B5691A2CB8135100FBC18D /* JoieFull.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JoieFull.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +42,7 @@
 		23B569242CB8135500FBC18D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoieFullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B5692E2CB8135600FBC18D /* JoieFullTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullTests.swift; sourceTree = "<group>"; };
+		23F8E7822CB9201E006F207F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				230CE30A2CB81AA6006C958B /* ArticleListView.swift */,
-				230CE3142CB8352B006C958B /* LaunchScreen.storyboard */,
+				23F8E7822CB9201E006F207F /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -220,8 +220,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */,
-				230CE3182CB83DC3006C958B /* LaunchScreen.storyboard in Resources */,
 				230CE3172CB83B03006C958B /* clothes.json in Resources */,
+				23F8E7832CB9201E006F207F /* LaunchScreen.storyboard in Resources */,
 				23B569222CB8135500FBC18D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
