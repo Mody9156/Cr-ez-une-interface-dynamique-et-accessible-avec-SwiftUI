@@ -62,9 +62,9 @@ struct ArticleView: View {
         if article.category == category {
             
             VStack {
-                ZStack{
+                ZStack(alignment: .bottomTrailing){
                     
-                   
+                    
                     AsyncImage(url: URL(string: article.picture.url)) { image in
                         image
                             .resizable()
@@ -74,7 +74,8 @@ struct ArticleView: View {
                     }
                     .frame(width: 198, height: 198).cornerRadius(20)
                     
-                    LikeView(article: article)
+                    LikeView(article: article).padding()
+                    
                     
                 }
                 
@@ -115,17 +116,20 @@ struct LikeView :View {
         
         HStack{
             ZStack {
-               
-                     Capsule()
+                
+                Capsule()
                     .fill(.white)
-                .frame(width: 100, height: 50)
-                Image(systemName: "heart").foregroundColor(.black)
-                if let likes = article.likes {
-                    Text("\(likes)")
-
+                    .frame(width: 60, height: 30)
+                HStack {
+                    Image(systemName: "heart").foregroundColor(.black)
+                    if let likes = article.likes {
+                        Text("\(likes)")
+                        
+                    }
                 }
+                
             }
-           
+            
             
         }
         
