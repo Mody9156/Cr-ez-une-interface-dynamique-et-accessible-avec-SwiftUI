@@ -8,7 +8,12 @@ struct ArticleListView: View {
             ScrollView {
                 VStack(alignment: .leading){
                     
-                    Section(header:Text("Hauts").font(.title).fontWeight(.medium).foregroundColor(.black).multilineTextAlignment(.leading)) {
+                    Section(header:Text("Hauts")
+                        .font(.system(size: 14))
+                        .fontWeight(.semibold)
+                        .lineSpacing(2.71)
+                        .multilineTextAlignment(.leading)) {
+                            
                         ScrollView(.horizontal){//Show TOPS
                             
                             LazyHStack {
@@ -72,7 +77,7 @@ struct ArticleView: View {
                     } placeholder: {
                         ProgressView()
                     }
-                    .frame(width: 198, height: 198).cornerRadius(20)
+                    .frame(width: 198, height: 297).cornerRadius(20)
                     
                     LikeView(article: article).padding()
                     
@@ -82,7 +87,16 @@ struct ArticleView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(article.name)
-                        Text("\(article.price, format: .number.rounded(increment: 10.0))€")
+                            .font(.system(size:14))
+                            .fontWeight(.regular)
+                            .lineSpacing(2.71)
+                            .multilineTextAlignment(.leading)
+                        
+                        Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
+                            .fontWeight(.semibold)
+                            .lineSpacing(2.71)
+                            .multilineTextAlignment(.leading)
+                            
                     }
                     
                     Spacer()
@@ -93,6 +107,10 @@ struct ArticleView: View {
                             if let article = article.likes {
                                 
                                 Text("\(article)")
+                                    .font(.system(size: 14))
+                                    .fontWeight(.semibold)
+                                    .lineSpacing(2.71)
+                                    .multilineTextAlignment(.leading)
                             }
                         }
                         
