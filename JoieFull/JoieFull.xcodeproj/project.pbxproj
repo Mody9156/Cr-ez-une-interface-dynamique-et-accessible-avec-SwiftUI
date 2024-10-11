@@ -16,6 +16,7 @@
 		23B569222CB8135500FBC18D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569212CB8135500FBC18D /* Assets.xcassets */; };
 		23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569242CB8135500FBC18D /* Preview Assets.xcassets */; };
 		23B5692F2CB8135600FBC18D /* JoieFullTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5692E2CB8135600FBC18D /* JoieFullTests.swift */; };
+		23F8E7832CB9201E006F207F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F8E7822CB9201E006F207F /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		23B569242CB8135500FBC18D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoieFullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B5692E2CB8135600FBC18D /* JoieFullTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullTests.swift; sourceTree = "<group>"; };
+		23F8E7822CB9201E006F207F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				230CE30A2CB81AA6006C958B /* ArticleListView.swift */,
+				23F8E7822CB9201E006F207F /* Launch Screen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			files = (
 				23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */,
 				230CE3172CB83B03006C958B /* clothes.json in Resources */,
+				23F8E7832CB9201E006F207F /* Launch Screen.storyboard in Resources */,
 				23B569222CB8135500FBC18D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
