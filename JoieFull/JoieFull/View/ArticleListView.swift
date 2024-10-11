@@ -19,7 +19,8 @@ struct ArticleListView: View {
                             }
                         }
                         
-                    }.padding()
+                    }.padding(.leading)
+                        .padding(.trailing)
                     
                     Section(header:Text("Bas").font(.title).fontWeight(.medium).foregroundColor(.black).multilineTextAlignment(.leading)) {
                         ScrollView(.horizontal){//Show BOTTOMS
@@ -31,7 +32,8 @@ struct ArticleListView: View {
                                 
                             }
                         }
-                    }.padding()
+                    }.padding(.leading)
+                        .padding(.trailing)
                     
                     Section(header:Text("Sacs").font(.title).fontWeight(.medium).foregroundColor(.black).multilineTextAlignment(.leading)) {
                         
@@ -44,7 +46,8 @@ struct ArticleListView: View {
                                 
                             }
                         }
-                    }.padding()
+                    }.padding(.leading)
+                    .padding(.trailing)
                 }
             }
         }
@@ -64,7 +67,7 @@ struct ArticleView: View {
             } placeholder: {
                 ProgressView()
             }
-            .frame(width: 198, height: 198).cornerRadius(10)
+            .frame(width: 198, height: 198).cornerRadius(20)
         }
         
         
