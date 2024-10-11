@@ -47,7 +47,7 @@ struct ArticleListView: View {
                             }
                         }
                     }.padding(.leading)
-                    .padding(.trailing)
+                        .padding(.trailing)
                 }
             }
         }
@@ -64,12 +64,12 @@ struct ArticleView: View {
             VStack {
                 AsyncImage(url: URL(string: article.picture.url)) { image in
                     image
-                    .resizable()
+                        .resizable()
                     
                 } placeholder: {
                     ProgressView()
                 }
-            .frame(width: 198, height: 198).cornerRadius(20)
+                .frame(width: 198, height: 198).cornerRadius(20)
                 
                 HStack {
                     VStack(alignment: .leading) {
@@ -94,6 +94,28 @@ struct ArticleView: View {
                     }
                 }
             }
+        }
+        
+    }
+}
+
+
+
+struct LikeView :View {
+    var article: ArticleCatalog
+    
+    var body: some View {
+        
+        HStack{
+            ZStack {
+                Image(systemName: "")
+                Text("\(article.likes)")
+                Capsule()
+                    .fill(.green)
+                .frame(width: 100, height: 50)
+            }
+           
+            
         }
         
         
