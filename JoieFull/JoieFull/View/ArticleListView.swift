@@ -6,35 +6,43 @@ struct ArticleListView: View {
     var body: some View {
         NavigationStack {
             VStack{
-            ScrollView(.horizontal){//Show TOPS
-                
-                LazyHStack {
-                    ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                        ArticleView(article: article,category: "TOPS")
-                    }
-                    
-                }
-            }
-            ScrollView(.horizontal){//Show BOTTOMS
-                
-                LazyHStack {
-                    ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                        ArticleView(article: article,category: "BOTTOMS")
-                    }
-                    
-                }
-            }
-                ScrollView(.horizontal){//Show ACCESSORIES
-                    
-                    LazyHStack {
-                        ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                            ArticleView(article: article,category: "ACCESSORIES")
-                        }
+                Section(header:Text("Hauts")) {
+                    ScrollView(.horizontal){//Show TOPS
                         
+                        LazyHStack {
+                            ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
+                                ArticleView(article: article,category: "TOPS")
+                            }
+                            
+                        }
+                    }
+                    
+                }
+                Section(header:Text("Bas")) {
+                    ScrollView(.horizontal){//Show BOTTOMS
+                        
+                        LazyHStack {
+                            ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
+                                ArticleView(article: article,category: "BOTTOMS")
+                            }
+                            
+                        }
                     }
                 }
+                Section(header:Text("Sacs")) {
+                    
+                    ScrollView(.horizontal){//Show ACCESSORIES
+                        
+                        LazyHStack {
+                            ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
+                                ArticleView(article: article,category: "ACCESSORIES")
+                            }
+                            
+                        }
+                    }
+                }
+            }
         }
-    }
     }
 }
 
