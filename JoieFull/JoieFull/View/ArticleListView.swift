@@ -17,7 +17,13 @@ struct ArticleListView: View {
                         ForEach(articleListViewModel.articleCatalog,id: \.name) { article  in
                             if article.category == "TOPS" {
                                 Section{
-                                    AsyncImage(url: URL(string: article.picture.url)).scaledToFit().cornerRadius(10)
+                                    AsyncImage(url: URL(string: article.picture.url)){ image in
+                                        image.resizable()
+                                        
+                                        
+                                    }placeholder:{
+                                        ProgressView()
+                                    }.frame(width: 50, height: 50)
                                         
                                 }
                                         
