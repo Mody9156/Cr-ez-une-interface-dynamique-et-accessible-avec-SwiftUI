@@ -9,9 +9,9 @@ struct ArticleListView: View {
                 VStack(alignment: .leading){
                     
                     Section(header:Text("Hauts")
-                        .font(.system(size: 14))
+                        .font(.system(size: 22))
                         .fontWeight(.semibold)
-                        .lineSpacing(2.71)
+                        .lineSpacing(4.25)
                         .multilineTextAlignment(.leading)) {
                             
                         ScrollView(.horizontal){//Show TOPS
@@ -27,7 +27,11 @@ struct ArticleListView: View {
                     }.padding(.leading)
                         .padding(.trailing)
                     
-                    Section(header:Text("Bas").font(.title).fontWeight(.medium).foregroundColor(.black).multilineTextAlignment(.leading)) {
+                    Section(header:Text("Bas").font(.system(size: 22))
+                        .fontWeight(.semibold)
+                        .lineSpacing(4.25)
+                        .multilineTextAlignment(.leading)) {
+                            
                         ScrollView(.horizontal){//Show BOTTOMS
                             
                             LazyHStack {
@@ -40,7 +44,10 @@ struct ArticleListView: View {
                     }.padding(.leading)
                         .padding(.trailing)
                     
-                    Section(header:Text("Sacs").font(.title).fontWeight(.medium).foregroundColor(.black).multilineTextAlignment(.leading)) {
+                    Section(header:Text("Sacs").font(.system(size: 22))
+                        .fontWeight(.semibold)
+                        .lineSpacing(4.25)
+                        .multilineTextAlignment(.leading)) {
                         
                         ScrollView(.horizontal){//Show ACCESSORIES
                             
@@ -87,14 +94,13 @@ struct ArticleView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(article.name)
-                            .font(.system(size:14))
-                            .fontWeight(.regular)
+                            .font(.system(size: 14))
+                            .fontWeight(.semibold)
                             .lineSpacing(2.71)
                             .multilineTextAlignment(.leading)
                         
                         Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
-                            .fontWeight(.semibold)
-                            .lineSpacing(2.71)
+                            .fontWeight(.regular).lineSpacing(2.71)
                             .multilineTextAlignment(.leading)
                             
                     }
@@ -115,7 +121,10 @@ struct ArticleView: View {
                         }
                         
                         
-                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€").strikethrough() .foregroundColor(.gray)
+                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€").strikethrough().font(.system(size: 14))
+                            .fontWeight(.regular)
+                            .lineSpacing(2.71)
+                            .multilineTextAlignment(.leading).foregroundColor(.gray)
                         
                     }
                 }
@@ -138,8 +147,14 @@ struct LikeView :View {
                 Capsule()
                     .fill(.white)
                     .frame(width: 60, height: 30)
-                HStack {
-                    Image(systemName: "heart").foregroundColor(.black)
+                HStack{
+                    Image(systemName: "heart.fill")
+                        .resizable()
+                        .frame(width: 12, height: 12.02)
+                        .foregroundColor(Color(red: 249/255, green: 159/255, blue: 67/255))
+                        .offset(x: 0, y: -0.01)
+                        .opacity(0)
+                    
                     if let likes = article.likes {
                         Text("\(likes)")
                         
