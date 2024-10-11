@@ -11,10 +11,13 @@ struct ArticleListView: View {
     @ObservedObject var articleListViewModel : ArticleListViewModel
     
     var body: some View {
-        
-        ForEach(articleListViewModel.articleCatalog,id: \.name) { article  in 
-            Text(article.name)
+        LazyVStack{
+            ForEach(articleListViewModel.articleCatalog,id: \.name) { article  in
+                Text(article.name)
+                AsyncImage(url: URL(string: article.picture.url))
+            }
         }
+        
       
         
     }
