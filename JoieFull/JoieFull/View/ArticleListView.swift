@@ -6,9 +6,9 @@ struct ArticleListView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack{
+                VStack(alignment: .leading){
                     
-                    Section(header:Text("Hauts").font(.title).fontWeight(.bold).foregroundColor(.black).multilineTextAlignment(.leading)) {
+                    Section(header:Text("Hauts").font(.title).fontWeight(.medium).foregroundColor(.black).multilineTextAlignment(.leading)) {
                         ScrollView(.horizontal){//Show TOPS
                             
                             LazyHStack {
@@ -21,7 +21,7 @@ struct ArticleListView: View {
                         
                     }.padding()
                     
-                    Section(header:Text("Bas").font(.title).fontWeight(.bold).foregroundColor(.black).multilineTextAlignment(.leading)) {
+                    Section(header:Text("Bas").font(.title).fontWeight(.medium).foregroundColor(.black).multilineTextAlignment(.leading)) {
                         ScrollView(.horizontal){//Show BOTTOMS
                             
                             LazyHStack {
@@ -33,7 +33,7 @@ struct ArticleListView: View {
                         }
                     }.padding()
                     
-                    Section(header:Text("Sacs").font(.title).fontWeight(.bold).foregroundColor(.black).multilineTextAlignment(.leading)) {
+                    Section(header:Text("Sacs").font(.title).fontWeight(.medium).foregroundColor(.black).multilineTextAlignment(.leading)) {
                         
                         ScrollView(.horizontal){//Show ACCESSORIES
                             
