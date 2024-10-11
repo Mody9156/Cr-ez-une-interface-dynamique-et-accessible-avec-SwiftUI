@@ -6,6 +6,7 @@ struct ArticleListView: View {
     var body: some View {
         NavigationStack {
             VStack{
+                
                 Section(header:Text("Hauts")) {
                     ScrollView(.horizontal){//Show TOPS
                         
@@ -17,7 +18,8 @@ struct ArticleListView: View {
                         }
                     }
                     
-                }
+                }.padding()
+                
                 Section(header:Text("Bas")) {
                     ScrollView(.horizontal){//Show BOTTOMS
                         
@@ -28,7 +30,8 @@ struct ArticleListView: View {
                             
                         }
                     }
-                }
+                }.padding()
+                
                 Section(header:Text("Sacs")) {
                     
                     ScrollView(.horizontal){//Show ACCESSORIES
@@ -40,7 +43,7 @@ struct ArticleListView: View {
                             
                         }
                     }
-                }
+                }.padding()
             }
         }
     }
