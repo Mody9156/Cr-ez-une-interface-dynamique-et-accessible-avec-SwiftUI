@@ -11,14 +11,23 @@ struct ArticleListView: View {
     @ObservedObject var articleListViewModel : ArticleListViewModel
     
     var body: some View {
-        LazyVStack{
+        VStack{
+            ScrollView {
             ForEach(articleListViewModel.articleCatalog,id: \.name) { article  in
-                Text(article.name)
-                AsyncImage(url: URL(string: article.picture.url))
+               
+                    if article.category == "TOPS" {
+                        VStack(alignment: .top){
+                            AsyncImage(url: URL(string: article.picture.url))
+                                .frame(width: 44, height: 44)
+                                .clipShape(Circle())
+                            
+                        }
+                    }
+                }
             }
         }
         
-      
+        
         
     }
 }
