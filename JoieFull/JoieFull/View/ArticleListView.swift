@@ -74,11 +74,12 @@ struct ArticleView: View {
                 HStack {
                     VStack {
                         Text(article.name)
-                        Text("\(article.price)€")
+                        Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     }
                     Spacer()
                     if let article = article.likes {
-                        Image(systemName: "star.fill")
+                       
+                        Image(systemName: "star.fill").foregroundColor(.yellow)
                         Text("\(Int(article))")
                     }
                 }
