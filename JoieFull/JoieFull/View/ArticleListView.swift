@@ -74,19 +74,22 @@ struct ArticleView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text(article.name)
-                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
+                        Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     }
                     
                     Spacer()
                     
                     VStack(alignment: .leading) {
-                        if let article = article.likes {
-                            
+                        HStack {
                             Image(systemName: "star.fill").foregroundColor(.yellow)
-                            Text("\(article)")
+                            if let article = article.likes {
+                                
+                                Text("\(article)")
+                            }
                         }
                         
-                        Text("\(article.price, format: .number.rounded(increment: 10.0))€").strikethrough() .foregroundColor(.gray)
+                        
+                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€").strikethrough() .foregroundColor(.gray)
                         
                     }
                 }
