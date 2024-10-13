@@ -16,13 +16,15 @@ struct DetailView: View {
                     
                     AsyncImage(url: URL(string: article.picture.url)) { image in
                         image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding()
+                        
                         
                     } placeholder: {
                         ProgressView()
                     }
-                    .frame(width: 198, height: 297).cornerRadius(20)
+                    
                     
                     LikeView(article: article).padding()
                     
