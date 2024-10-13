@@ -16,10 +16,10 @@ struct DetailView: View {
                     
                     AsyncImage(url: URL(string: article.picture.url)) { image in
                         image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                        .padding()
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .clipShape(RoundedRectangle(cornerRadius: 25))
+                            .padding()
                         
                         
                     } placeholder: {
@@ -27,14 +27,16 @@ struct DetailView: View {
                     }
                     
                     
-                    LikeView(article: article,width: 77.00,height: 33.00).padding()
+                    LikeView(article: article,width:
+                                51.73,height:
+                                21.02).padding()
                     
                     
                 }
-
+                
             }
         }
-       
+        
     }
 }
 
