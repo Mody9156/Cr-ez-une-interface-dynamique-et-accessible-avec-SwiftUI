@@ -43,11 +43,11 @@ struct DetailView: View {
                     VStack {
                         HStack{
                             VStack(alignment: .leading) {
-                                Text(article.name).font(.system(size: 28))
+                                Text(article.name).font(.system(size: 14))
                                     .fontWeight(.semibold)
                                     .lineSpacing(2.71)
                                     .multilineTextAlignment(.leading)
-                                Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 28))
+                                Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
                                     .fontWeight(.regular).lineSpacing(2.71)
                                     .multilineTextAlignment(.leading)
                             }
@@ -75,7 +75,7 @@ struct DetailView: View {
                                 
                             }
                         }.padding()
-                       
+                        Text(article.picture.description)
                     }
                        
                 }
