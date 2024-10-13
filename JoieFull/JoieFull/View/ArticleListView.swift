@@ -76,7 +76,7 @@ struct ArticleView: View {
             VStack {
                 
                 NavigationLink {
-                    DetailView()
+                    DetailView(articleCatalog: article)
                 } label: {
                     ZStack(alignment: .bottomTrailing){
                         
