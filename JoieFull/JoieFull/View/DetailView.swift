@@ -27,7 +27,7 @@ struct DetailView: View {
                     }
                     
                     
-                    LikeView(article: article).padding()
+                    LikeView(article: article,width: 77.00,height: 33.00).padding()
                     
                     
                 }

@@ -89,7 +89,7 @@ struct ArticleView: View {
                         }
                         .frame(width: 198, height: 297).cornerRadius(20)
                         
-                        LikeView(article: article).padding()
+                        LikeView(article: article,width: 12.00,height: 12.02).padding()
                         
                         
                     }
@@ -143,6 +143,8 @@ struct ArticleView: View {
 
 struct LikeView :View {
     var article: ArticleCatalog
+    var width : Double
+    var height : Double
     
     var body: some View {
         
@@ -155,7 +157,7 @@ struct LikeView :View {
                 HStack{
                     Image(systemName: "heart")
                         .resizable()
-                        .frame(width: 12, height: 12.02)
+                        .frame(width: width, height: height)
                         .foregroundColor(.black)
                         .offset(x: 0, y: -0.01)
                     
