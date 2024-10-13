@@ -89,7 +89,7 @@ struct ArticleView: View {
                         }
                         .frame(width: 198, height: 297).cornerRadius(20)
                         
-                        LikeView(article: article,width: 12.00,height: 12.02).padding()
+                        LikeView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30).padding()
                         
                         
                     }
@@ -145,7 +145,8 @@ struct LikeView :View {
     var article: ArticleCatalog
     var width : Double
     var height : Double
-    
+    var widthFrame : Double
+    var heightFrame : Double
     var body: some View {
         
         HStack{
@@ -153,13 +154,13 @@ struct LikeView :View {
                 
                 Capsule()
                     .fill(.white)
-                    .frame(width: 60, height: 30)
+                    .frame(width: widthFrame, height: heightFrame)
                 HStack{
                     Image(systemName: "heart")
                         .resizable()
                         .frame(width: width, height: height)
                         .foregroundColor(.black)
-                        .offset(x: 0, y: -0.01)
+                      
                     
                     if let likes = article.likes {
                         Text("\(likes)")

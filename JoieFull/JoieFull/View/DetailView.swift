@@ -28,8 +28,7 @@ struct DetailView: View {
                     
                     
                     LikeView(article: article,width:
-                                51.73,height:
-                                21.02).padding()
+                                20.92,height: 20.92,widthFrame: 90,heightFrame: 40).padding([.bottom, .trailing], 30)
                     
                     
                 }
