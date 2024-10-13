@@ -18,6 +18,7 @@ struct DetailView: View {
                         image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
                         .padding()
                         
                         
