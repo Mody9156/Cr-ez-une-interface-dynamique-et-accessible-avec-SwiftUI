@@ -40,13 +40,20 @@ struct DetailView: View {
                                         20.92,height: 20.92,widthFrame: 90,heightFrame: 40).padding([.bottom, .trailing], 30)
                      
                     }
-                    Section {
-                        VStack {
-                            VStack {
-                                Text(article.name)
-                                Text("\(article.price)€")
+                    VStack {
+                        HStack{
+                            VStack(alignment: .leading) {
+                                Text(article.name).font(.system(size: 28))
+                                    .fontWeight(.semibold)
+                                    .lineSpacing(2.71)
+                                    .multilineTextAlignment(.leading)
+                                Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 28))
+                                    .fontWeight(.regular).lineSpacing(2.71)
+                                    .multilineTextAlignment(.leading)
                             }
+                            
                             Spacer()
+                            
                             VStack(alignment: .trailing) {
                                 HStack {
                                     Image(systemName: "star.fill").foregroundColor(.yellow)
@@ -67,9 +74,10 @@ struct DetailView: View {
                                     .multilineTextAlignment(.leading).foregroundColor(.gray)
                                 
                             }
-                        }
+                        }.padding()
                        
                     }
+                       
                 }
             }
         }

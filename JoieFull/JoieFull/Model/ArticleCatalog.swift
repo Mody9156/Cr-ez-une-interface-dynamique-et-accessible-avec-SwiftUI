@@ -15,6 +15,7 @@ struct ArticleCatalog : Identifiable,Codable {
     var likes : Int?
     var price : Double
     var original_price : Double
+    var description : String
     
 }
 
