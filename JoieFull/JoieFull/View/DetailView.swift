@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct DetailView: View {
-    let articleCatalog : ArticleCatalog
+    let articleCatalog: [ArticleCatalog]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ForEach(articleCatalog) { article in
+                Text(article.name).foregroundColor(.black)
+                
+                AsyncImage(url: URL(string: article.picture.url)) { image in
+                    image
+                        .resizable()
+                    
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 198, height: 297).cornerRadius(20)
+                
+            }
+        }
+       
     }
 }
 
