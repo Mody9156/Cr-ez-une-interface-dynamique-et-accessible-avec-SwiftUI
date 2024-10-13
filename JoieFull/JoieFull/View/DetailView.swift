@@ -11,34 +11,44 @@ struct DetailView: View {
     let articleCatalog: [ArticleCatalog]
     
     var body: some View {
-        VStack {
-            ForEach(articleCatalog) { article in
-                ZStack(alignment: .bottomTrailing){
+        ScrollView {
+            VStack (alignment: .leading){
+                ForEach(articleCatalog) { article in
                     
-                    Image(systemName: "Share")
-                    
-                    AsyncImage(url: URL(string: article.picture.url)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
-                            .padding()
+                    ZStack(alignment: .bottomTrailing){
+                        
+                        ZStack (alignment: .topTrailing){
+                            
+                            
+                            AsyncImage(url: URL(string: article.picture.url)) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                                    .padding()
+                                
+                                
+                            } placeholder: {
+                                ProgressView()
+                        }
+                            ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
+                                Label("", image: "Share")
+                            }.padding([.top, .trailing], 30)
+                        }
+                        
+                            
+                            
+
+                           
+                            LikeView(article: article,width:
+                                        20.92,height: 20.92,widthFrame: 90,heightFrame: 40).padding([.bottom, .trailing], 30)
+                     
                         
                         
-                    } placeholder: {
-                        ProgressView()
+                        
                     }
-                    
-                    
-                    LikeView(article: article,width:
-                                20.92,height: 20.92,widthFrame: 90,heightFrame: 40).padding([.bottom, .trailing], 30)
-                    
-                    
                 }
-                
             }
         }
-        
     }
 }
-
