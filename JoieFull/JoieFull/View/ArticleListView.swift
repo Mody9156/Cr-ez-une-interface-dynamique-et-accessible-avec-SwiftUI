@@ -112,7 +112,7 @@ struct ArticleView: View {
                     
                     Spacer()
                     
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .trailing) {
                         HStack {
                             Image(systemName: "star.fill").foregroundColor(.yellow)
                             if let article = article.likes {
