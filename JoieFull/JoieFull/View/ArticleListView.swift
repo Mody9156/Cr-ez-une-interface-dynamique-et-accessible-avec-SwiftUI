@@ -153,14 +153,15 @@ struct LikeView :View {
                     .fill(.white)
                     .frame(width: 60, height: 30)
                 HStack{
-                    Image(systemName: "heart.fill")
+                    Image(systemName: "heart")
                         .resizable()
                         .frame(width: 12, height: 12.02)
+                        .foregroundColor(.black)
                         .offset(x: 0, y: -0.01)
-                        .opacity(0)
                     
                     if let likes = article.likes {
                         Text("\(likes)")
+                        .foregroundColor(.black)
                         
                     }
                 }

@@ -12,17 +12,22 @@ struct DetailView: View {
     var body: some View {
         VStack {
             ForEach(articleCatalog) { article in
-                Text(article.name).foregroundColor(.black)
-                
-                AsyncImage(url: URL(string: article.picture.url)) { image in
-                    image
-                        .resizable()
+                ZStack(alignment: .bottomTrailing){
                     
-                } placeholder: {
-                    ProgressView()
+                    AsyncImage(url: URL(string: article.picture.url)) { image in
+                        image
+                            .resizable()
+                        
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 198, height: 297).cornerRadius(20)
+                    
+                    LikeView(article: article).padding()
+                    
+                    
                 }
-                .frame(width: 198, height: 297).cornerRadius(20)
-                
+
             }
         }
        
