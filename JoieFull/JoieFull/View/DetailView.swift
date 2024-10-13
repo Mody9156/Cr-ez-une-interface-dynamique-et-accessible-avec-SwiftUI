@@ -9,10 +9,13 @@ import SwiftUI
 
 struct DetailView: View {
     let articleCatalog: [ArticleCatalog]
+    
     var body: some View {
         VStack {
             ForEach(articleCatalog) { article in
                 ZStack(alignment: .bottomTrailing){
+                    
+                    Image(systemName: "Share")
                     
                     AsyncImage(url: URL(string: article.picture.url)) { image in
                         image
