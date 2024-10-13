@@ -74,22 +74,28 @@ struct ArticleView: View {
         if article.category == category {
             
             VStack {
-                ZStack(alignment: .bottomTrailing){
-                    
-                    
-                    AsyncImage(url: URL(string: article.picture.url)) { image in
-                        image
-                            .resizable()
+                NavigationLink {
+                    <#code#>
+                } label: {
+                    ZStack(alignment: .bottomTrailing){
                         
-                    } placeholder: {
-                        ProgressView()
+                        
+                        AsyncImage(url: URL(string: article.picture.url)) { image in
+                            image
+                                .resizable()
+                            
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 198, height: 297).cornerRadius(20)
+                        
+                        LikeView(article: article).padding()
+                        
+                        
                     }
-                    .frame(width: 198, height: 297).cornerRadius(20)
-                    
-                    LikeView(article: article).padding()
-                    
-                    
                 }
+
+                
                 
                 HStack {
                     VStack(alignment: .leading) {
