@@ -74,8 +74,9 @@ struct ArticleView: View {
         if article.category == category {
             
             VStack {
+                
                 NavigationLink {
-                    <#code#>
+                    DetailView()
                 } label: {
                     ZStack(alignment: .bottomTrailing){
                         
@@ -93,7 +94,9 @@ struct ArticleView: View {
                         
                         
                     }
+
                 }
+
 
                 
                 
