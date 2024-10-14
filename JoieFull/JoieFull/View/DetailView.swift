@@ -119,27 +119,31 @@ struct ImageSystemName : View {
     
     var body: some View {
         
-        Button {
-            
-            showRightColor.toggle()
-           
-            
-                if showRightColor {
-                    foregroundColor = .yellow
-                    start = "star.fill"
+        VStack (alignment: .leading){
+            HStack {
+                Button {
                     
-                }else{
-                    foregroundColor = .gray
-                    start = "star"
-                }
-                
-            for _ in 1...5 {
-                print("\(order)")
-                
-            }
+                    showRightColor.toggle()
+                   
+                    
+                        if showRightColor {
+                            foregroundColor = .yellow
+                            start = "star.fill"
+                            
+                        }else{
+                            foregroundColor = .gray
+                            start = "star"
+                        }
+                        
+                    for _ in 1...5 {
+                        print("\(order)")
+                        
+                    }
 
-        } label: {
-            Image(systemName: start).foregroundColor(foregroundColor)
+                } label: {
+                
+            }       Image(systemName: start).foregroundColor(foregroundColor)
+        }
         }
     }
     
