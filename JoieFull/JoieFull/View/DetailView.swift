@@ -30,15 +30,15 @@ struct DetailView: View {
                                 
                             } placeholder: {
                                 ProgressView()
-                        }
+                            }
                             ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
                                 Label("", image: "Share")
                             }.padding([.top, .trailing], 30)
                         }
-                         
-                            LikeView(article: article,width:
-                                        20.92,height: 20.92,widthFrame: 90,heightFrame: 40).padding([.bottom, .trailing], 30)
-                     
+                        
+                        LikeView(article: article,width:
+                                    20.92,height: 20.92,widthFrame: 90,heightFrame: 40).padding([.bottom, .trailing], 30)
+                        
                     }
                     VStack {
                         Section {
@@ -82,7 +82,7 @@ struct DetailView: View {
                                     .fontWeight(.regular)
                                     .font(.largeTitle)
                                     .multilineTextAlignment(.leading).padding(.leading).padding(.trailing)
-                                   
+                                
                             }
                         }
                         Section{
@@ -94,17 +94,17 @@ struct DetailView: View {
                                         .frame(width:50)
                                     
                                     HStack {
-                                        ImageSystemName()
-                                        ImageSystemName()
-                                        ImageSystemName()
-                                        ImageSystemName()
-                                        ImageSystemName()
+                                        ImageSystemName(order: 1)
+                                        ImageSystemName(order: 2)
+                                        ImageSystemName(order: 3)
+                                        ImageSystemName(order: 4)
+                                        ImageSystemName(order: 5)
                                     }
                                 }
                             }
                         }
                     }
-                       
+                    
                 }
             }
         }
@@ -113,25 +113,37 @@ struct DetailView: View {
 
 struct ImageSystemName : View {
     @State var foregroundColor : Color = .gray
-    @State var showRightColor : Bool = false
+    @State var showRightColor: Bool = false
     @State var start : String = "star"
+    var order : Int
+    
     var body: some View {
+        
         Button {
-
+            
             showRightColor.toggle()
+           
             
-            if showRightColor {
-                foregroundColor = .yellow
-                start = "star.fill"
-            }else{
-                foregroundColor = .gray
-                start = "star"
+                if showRightColor {
+                    foregroundColor = .yellow
+                    start = "star.fill"
+                    
+                }else{
+                    foregroundColor = .gray
+                    start = "star"
+                }
+                
+            for _ in 1...5 {
+                print("\(order)")
+                
             }
-            
+
         } label: {
             Image(systemName: start).foregroundColor(foregroundColor)
         }
-
-        
     }
+    
 }
+
+
+
