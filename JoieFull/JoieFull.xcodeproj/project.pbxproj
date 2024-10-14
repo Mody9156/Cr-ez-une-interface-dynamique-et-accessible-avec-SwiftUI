@@ -18,6 +18,9 @@
 		23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569242CB8135500FBC18D /* Preview Assets.xcassets */; };
 		23B5692F2CB8135600FBC18D /* JoieFullTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5692E2CB8135600FBC18D /* JoieFullTests.swift */; };
 		23F8E7832CB9201E006F207F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F8E7822CB9201E006F207F /* LaunchScreen.storyboard */; };
+		23FDB72A2CBD4812008046EA /* CatalogProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FDB7292CBD4812008046EA /* CatalogProduct.swift */; };
+		23FDB72C2CBD48B2008046EA /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FDB72B2CBD48B2008046EA /* HTTPService.swift */; };
+		23FDB72E2CBD48F2008046EA /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FDB72D2CBD48F2008046EA /* URLSessionHTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoieFullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B5692E2CB8135600FBC18D /* JoieFullTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullTests.swift; sourceTree = "<group>"; };
 		23F8E7822CB9201E006F207F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		23FDB7292CBD4812008046EA /* CatalogProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogProduct.swift; sourceTree = "<group>"; };
+		23FDB72B2CBD48B2008046EA /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
+		23FDB72D2CBD48F2008046EA /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,9 @@
 				230CE3162CB83B02006C958B /* clothes.json */,
 				230CE3102CB81F63006C958B /* ArticleCatalog.swift */,
 				230CE3122CB827B6006C958B /* Service.swift */,
+				23FDB7292CBD4812008046EA /* CatalogProduct.swift */,
+				23FDB72B2CBD48B2008046EA /* HTTPService.swift */,
+				23FDB72D2CBD48F2008046EA /* URLSessionHTTPClient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -244,11 +253,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */,
+				23FDB72A2CBD4812008046EA /* CatalogProduct.swift in Sources */,
 				2345AD152CBC3739005B122E /* DetailView.swift in Sources */,
 				230CE30F2CB81E0A006C958B /* ArticleListViewModel.swift in Sources */,
 				230CE3132CB827B6006C958B /* Service.swift in Sources */,
+				23FDB72C2CBD48B2008046EA /* HTTPService.swift in Sources */,
 				230CE3112CB81F63006C958B /* ArticleCatalog.swift in Sources */,
 				230CE30B2CB81AA6006C958B /* ArticleListView.swift in Sources */,
+				23FDB72E2CBD48F2008046EA /* URLSessionHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

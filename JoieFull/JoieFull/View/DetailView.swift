@@ -38,20 +38,26 @@ struct DetailView: View {
                         }
                         
                         LikeView(article: article,width:
-                                    20.92,height: 20.92,widthFrame: 90,heightFrame: 40).padding([.bottom, .trailing], 30)
+                                    20.92,height: 20.92,widthFrame: 90,heightFrame: 40)
+                        .padding([.bottom, .trailing], 30)
                         
                     }
                     VStack {
                         Section {
-                            VStack {
+                            VStack(alignment: .leading) {
                                 HStack{
                                     VStack(alignment: .leading) {
-                                        Text(article.name).font(.system(size: 14))
+                                        
+                                        Text(article.name)
+                                            .font(.system(size: 14))
                                             .fontWeight(.semibold)
                                             .lineSpacing(2.71)
                                             .multilineTextAlignment(.leading)
-                                        Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
-                                            .fontWeight(.regular).lineSpacing(2.71)
+                                        
+                                        Text("\(article.price,format: .number.rounded(increment: 10.0))€")
+                                            .font(.system(size: 14))
+                                            .fontWeight(.regular)
+                                            .lineSpacing(2.71)
                                             .multilineTextAlignment(.leading)
                                     }
                                     
@@ -59,7 +65,9 @@ struct DetailView: View {
                                     
                                     VStack(alignment: .trailing) {
                                         HStack {
-                                            Image(systemName: "star.fill").foregroundColor(.yellow)
+                                            Image(systemName: "star.fill")
+                                                .foregroundColor(.yellow)
+                                            
                                             if let article = article.likes {
                                                 
                                                 Text("\(article)")
@@ -71,23 +79,33 @@ struct DetailView: View {
                                         }
                                         
                                         
-                                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€").strikethrough().font(.system(size: 14))
+                                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
+                                            .strikethrough()
+                                            .font(.system(size: 14))
                                             .fontWeight(.regular)
                                             .lineSpacing(2.71)
-                                            .multilineTextAlignment(.leading).foregroundColor(.gray)
+                                            .multilineTextAlignment(.leading)
+                                            .foregroundColor(.gray)
                                         
                                     }
-                                }.padding()
+                                    
+                                }
+                                
                                 Text(article.picture.description)
                                     .font(.custom("SF Pro", size: 14))
                                     .fontWeight(.regular)
                                     .font(.largeTitle)
-                                    .multilineTextAlignment(.leading).padding(.leading).padding(.trailing)
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.top)
+                                
                                 
                             }
-                        }
+                            
+                        }.padding()
+                        
                         Section{
                             VStack(alignment: .leading) {
+                                
                                 HStack {
                                     Image("UserPicture")
                                         .resizable()
@@ -103,14 +121,27 @@ struct DetailView: View {
                                     }
                                     Spacer()
                                 }
+                            }.padding()
+                            
+                            ZStack(alignment: .topLeading) {
+                                RoundedRectangle(cornerRadius: 20)
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
+                                    .background(Color.white)
+                                    .foregroundColor(.white)
+                                    .border(Color.gray, width: 1)
+                                    .opacity(1)
+                                    .cornerRadius(10)
+                                
+                                TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
+                                    .font(.custom("SF Pro", size: 14))
+                                    .fontWeight(.regular)
+                                    .font(.largeTitle)
+                                    .multilineTextAlignment(.leading)
+                                    .padding()
                             }
-                            ZStack (alignment: .topLeading){
-                                Rectangle().frame(width:361,height:117).background(.white).foregroundColor(.white).border(.gray,width:1).cornerRadius(10)
-                                TextField("Partagez ici vos impressions sur cette pièce",
-                                          text: $comment
-                                )
-                            }
-                        }.padding()
+                            .padding()
+                            
+                        }
                     }
                     
                 }
@@ -147,7 +178,11 @@ struct ImageSystemName : View {
             }
             
         } label: {
-            Image(systemName: start).foregroundColor(foregroundColor)
+            Image(systemName: start)
+                .resizable()
+                .frame(width: 27.51, height: 23.98)
+                .foregroundColor(foregroundColor)
+            
         }
         
     }
