@@ -2,17 +2,42 @@ import SwiftUI
 
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
+    @Environment (\.verticalSizeClass) private var verticalSizeClass
+    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    let articleCatalog : [ArticleCatalog]
+    
+    //Iphone
+    var isDeviceLandscapeMode : Bool{
+         horizontalSizeClass == .regular
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators:true) {
                 VStack(alignment: .leading){
+                    if isDeviceLandscapeMode {
+                        HStack {
+                            
+                            ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
+                            ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
+                            
+                            ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
+                            Spacer()
+                            DetailView(articleCatalog: articleCatalog)
+                        }
+                        
+                       
+                       
+                    }else{
+                        ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
+                        
+                        ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
+                        
+                        ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
+                       
+                        
+                    }
                     
-                    ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
-                    
-                    ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
-                    
-                    ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
-                   
                 }.onAppear{
                     Task{
                         try? await articleListViewModel.loadArticles()
