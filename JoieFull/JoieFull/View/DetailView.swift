@@ -86,14 +86,20 @@ struct DetailView: View {
                             }
                         }
                         Section{
-                            HStack {
-                                Image("")
+                            VStack {
                                 HStack {
-                                    ImageSystemName()
-                                    ImageSystemName()
-                                    ImageSystemName()
-                                    ImageSystemName()
-                                    ImageSystemName()
+                                    Image("UserPicture")
+                                        .resizable()
+                                        .clipShape(Circle())
+                                        .frame(width:50)
+                                    
+                                    HStack {
+                                        ImageSystemName()
+                                        ImageSystemName()
+                                        ImageSystemName()
+                                        ImageSystemName()
+                                        ImageSystemName()
+                                    }
                                 }
                             }
                         }
@@ -107,11 +113,20 @@ struct DetailView: View {
 
 struct ImageSystemName : View {
     @State var foregroundColor : Color = .white
+    @State var showRightColor : Bool = false
+    @State var start : String = "star"
     var body: some View {
         Button {
-            foregroundColor = .yellow
+
+            showRightColor.toggle()
+            
+            if showRightColor {
+                foregroundColor = .yellow
+                start = "star.fill"
+            }
+            
         } label: {
-            Image(systemName: "star.fill").foregroundColor(foregroundColor)
+            Image(systemName: start).foregroundColor(foregroundColor)
         }
 
         
