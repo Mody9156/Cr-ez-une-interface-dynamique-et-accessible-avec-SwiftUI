@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     let articleCatalog: [ArticleCatalog]
+    @State private var comment: String = ""
     
     var body: some View {
         ScrollView {
@@ -86,7 +87,7 @@ struct DetailView: View {
                             }
                         }
                         Section{
-                            VStack {
+                            VStack(alignment: .leading) {
                                 HStack {
                                     Image("UserPicture")
                                         .resizable()
@@ -100,9 +101,16 @@ struct DetailView: View {
                                         ImageSystemName(order: 4)
                                         ImageSystemName(order: 5)
                                     }
+                                    Spacer()
                                 }
                             }
-                        }
+                            ZStack (alignment: .topLeading){
+                                Rectangle().frame(width:361,height:117).background(.white).foregroundColor(.white).border(.gray,width:1).cornerRadius(10)
+                                TextField("Partagez ici vos impressions sur cette pièce",
+                                          text: $comment
+                                )
+                            }
+                        }.padding()
                     }
                     
                 }
@@ -119,33 +127,29 @@ struct ImageSystemName : View {
     
     var body: some View {
         
-        VStack (alignment: .leading){
+        Button {
             
-            HStack {
-                Button {
-                    
-                    showRightColor.toggle()
-                   
-                    
-                        if showRightColor {
-                            foregroundColor = .yellow
-                            start = "star.fill"
-                            
-                        }else{
-                            foregroundColor = .gray
-                            start = "star"
-                        }
-                        
-                    for _ in 1...5 {
-                        print("\(order)")
-                        
-                    }
-
-                } label: {
-                    Image(systemName: start).foregroundColor(foregroundColor)
+            showRightColor.toggle()
+            
+            
+            if showRightColor {
+                foregroundColor = .yellow
+                start = "star.fill"
+                
+            }else{
+                foregroundColor = .gray
+                start = "star"
             }
+            
+            for _ in 1...5 {
+                print("\(order)")
+                
             }
+            
+        } label: {
+            Image(systemName: start).foregroundColor(foregroundColor)
         }
+        
     }
     
 }
