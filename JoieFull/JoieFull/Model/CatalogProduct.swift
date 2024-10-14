@@ -24,23 +24,29 @@ class CatalogProduct {
         let url = URL(string: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return request
     }
     
-    func loadArticlesFromURL(request:URLRequest) async throws -> ArticleCatalog {
+    @MainActor
+    @discardableResult
+    
+    func loadArticlesFromURL() async throws -> [ArticleCatalog] {
         do{
-            let (data,response) = try await httpService.request(request)
+            let (data,response) = try await httpService.request(createURLRequest())
             
             guard response.statusCode == 200 else {
-                        throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
-                    }
+                throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
+            }
             
-            let article = try JSONDecoder().decode(ArticleCatalog.self, from: data)
+            let articles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
+           
+            return articles
             
-            return article
         }catch{
             throw CandidateFetchError.loadArticlesFromURLError
+            print("error de la fonction loadArticlesFromURL")
         }
     }
 }

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
-    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -17,6 +16,7 @@ struct ArticleListView: View {
                             ScrollView(.horizontal){//Show TOPS
                                 
                                 LazyHStack {
+                                                                    
                                     ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
                                         ArticleView(article: article,category: "TOPS")
                                     }
@@ -60,6 +60,12 @@ struct ArticleListView: View {
                             }
                         }.padding(.leading)
                         .padding(.trailing)
+                }.onAppear{
+                    Task{
+                        try? await  articleListViewModel.loadArticles()
+                        print("\(ArticleCatalog)")
+                    }
+                    
                 }
             }
         }

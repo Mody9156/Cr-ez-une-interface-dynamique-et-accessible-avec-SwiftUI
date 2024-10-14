@@ -11,7 +11,7 @@ import SwiftUI
 struct JoieFullApp: App {
     var body: some Scene {
         WindowGroup {
-            ArticleListView(articleListViewModel: ArticleListViewModel())
+            ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()))
         }
     }
 }
