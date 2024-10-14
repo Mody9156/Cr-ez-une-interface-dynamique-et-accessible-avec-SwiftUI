@@ -22,16 +22,14 @@ class CatalogProduct {
     
     func createURLRequest()throws -> URLRequest{
         let url = URL(string: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json")!
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return request
     }
-    
-    @MainActor
-    @discardableResult
-    
+  
     func loadArticlesFromURL() async throws -> [ArticleCatalog] {
         do{
             let (data,response) = try await httpService.request(createURLRequest())
@@ -40,9 +38,9 @@ class CatalogProduct {
                 throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
             }
             
-            let articles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
+            let DecoderArticles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
             
-            return articles
+            return DecoderArticles
             
         }catch{
             throw CandidateFetchError.loadArticlesFromURLError

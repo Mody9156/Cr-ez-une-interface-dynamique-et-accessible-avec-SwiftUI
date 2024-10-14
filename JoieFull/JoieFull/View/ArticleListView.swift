@@ -62,8 +62,7 @@ struct ArticleListView: View {
                         .padding(.trailing)
                 }.onAppear{
                     Task{
-                        try? await  articleListViewModel.loadArticles()
-                        print("\(articleListViewModel.articleCatalog)")
+                        try? await articleListViewModel.loadArticles()
 
                     }
                     
