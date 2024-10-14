@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class URLSessionHTTPClient : HTTPService {
+final class URLSessionHTTPClient: HTTPService {
     
     private let session : URLSession
     
@@ -16,17 +16,18 @@ final class URLSessionHTTPClient : HTTPService {
     }
     
     private enum AuthenticationFailure: Swift.Error {
-           case invalidRequest
-       }
+            case invalidRequest
+        }
     
     func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        
         let (data,response) = try await session.data(for:request )
         
         guard let httpResponse = response as? HTTPURLResponse else {
-            
             throw AuthenticationFailure.invalidRequest
         }
-        return (data,response)
+        return (data,httpResponse)
     }
+    
+    
+    
 }
