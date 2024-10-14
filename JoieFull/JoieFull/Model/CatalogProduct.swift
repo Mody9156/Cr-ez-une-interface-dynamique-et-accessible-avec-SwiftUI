@@ -41,12 +41,11 @@ class CatalogProduct {
             }
             
             let articles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
-           
+            
             return articles
             
         }catch{
             throw CandidateFetchError.loadArticlesFromURLError
-            print("error de la fonction loadArticlesFromURL")
         }
     }
 }

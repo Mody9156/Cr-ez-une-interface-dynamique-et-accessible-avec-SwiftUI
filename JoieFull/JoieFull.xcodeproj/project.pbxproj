@@ -74,10 +74,9 @@
 		230CE3072CB8173E006C958B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				23FDB7342CBD66DB008046EA /* OtherOption */,
 				23FDB72F2CBD4939008046EA /* Protocols */,
-				230CE3162CB83B02006C958B /* clothes.json */,
 				230CE3102CB81F63006C958B /* ArticleCatalog.swift */,
-				230CE3122CB827B6006C958B /* Service.swift */,
 				23FDB7292CBD4812008046EA /* CatalogProduct.swift */,
 			);
 			path = Model;
@@ -156,6 +155,15 @@
 				23FDB7322CBD4FDF008046EA /* URLSessionHTTPClient.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		23FDB7342CBD66DB008046EA /* OtherOption */ = {
+			isa = PBXGroup;
+			children = (
+				230CE3122CB827B6006C958B /* Service.swift */,
+				230CE3162CB83B02006C958B /* clothes.json */,
+			);
+			path = OtherOption;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
