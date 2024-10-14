@@ -4,7 +4,7 @@ struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(showsIndicators:true) {
                 VStack(alignment: .leading){
                     
                     ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
@@ -40,7 +40,7 @@ struct ShowCategories: View {
                         AsyncImage(url: URL(string: article.picture.url)) { image in
                             image
                             .resizable()
-                            
+                           
                         } placeholder: {
                             ProgressView()
                         }
@@ -50,7 +50,8 @@ struct ShowCategories: View {
                         LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
                             .padding()
                     }
-                }
+                    
+                }.accessibilityLabel(Text("You select \(article.name)"))
                 
                 HStack {
                     VStack(alignment: .leading) {
