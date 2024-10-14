@@ -112,7 +112,7 @@ struct DetailView: View {
 }
 
 struct ImageSystemName : View {
-    @State var foregroundColor : Color = .white
+    @State var foregroundColor : Color = .gray
     @State var showRightColor : Bool = false
     @State var start : String = "star"
     var body: some View {
@@ -123,6 +123,9 @@ struct ImageSystemName : View {
             if showRightColor {
                 foregroundColor = .yellow
                 start = "star.fill"
+            }else{
+                foregroundColor = .gray
+                start = "star"
             }
             
         } label: {
