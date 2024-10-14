@@ -20,7 +20,6 @@ struct DetailView: View {
                         
                         ZStack (alignment: .topTrailing){
                             
-                            
                             AsyncImage(url: URL(string: article.picture.url)) { image in
                                 image
                                     .resizable()
@@ -43,105 +42,9 @@ struct DetailView: View {
                         
                     }
                     VStack {
-                        Section {
-                            VStack(alignment: .leading) {
-                                HStack{
-                                    VStack(alignment: .leading) {
-                                        
-                                        Text(article.name)
-                                            .font(.system(size: 14))
-                                            .fontWeight(.semibold)
-                                            .lineSpacing(2.71)
-                                            .multilineTextAlignment(.leading)
-                                        
-                                        Text("\(article.price,format: .number.rounded(increment: 10.0))€")
-                                            .font(.system(size: 14))
-                                            .fontWeight(.regular)
-                                            .lineSpacing(2.71)
-                                            .multilineTextAlignment(.leading)
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    VStack(alignment: .trailing) {
-                                        HStack {
-                                            Image(systemName: "star.fill")
-                                                .foregroundColor(.yellow)
-                                            
-                                            if let article = article.likes {
-                                                
-                                                Text("\(article)")
-                                                    .font(.system(size: 14))
-                                                    .fontWeight(.semibold)
-                                                    .lineSpacing(2.71)
-                                                    .multilineTextAlignment(.leading)
-                                            }
-                                        }
-                                        
-                                        
-                                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                                            .strikethrough()
-                                            .font(.system(size: 14))
-                                            .fontWeight(.regular)
-                                            .lineSpacing(2.71)
-                                            .multilineTextAlignment(.leading)
-                                            .foregroundColor(.gray)
-                                        
-                                    }
-                                    
-                                }
-                                
-                                Text(article.picture.description)
-                                    .font(.custom("SF Pro", size: 14))
-                                    .fontWeight(.regular)
-                                    .font(.largeTitle)
-                                    .multilineTextAlignment(.leading)
-                                    .padding(.top)
-                                
-                                
-                            }
-                            
-                        }.padding()
+                        SupplementData(article: article)
                         
-                        Section{
-                            VStack(alignment: .leading) {
-                                
-                                HStack {
-                                    Image("UserPicture")
-                                        .resizable()
-                                        .clipShape(Circle())
-                                        .frame(width:50)
-                                    
-                                    HStack {
-                                        ImageSystemName(order: 1)
-                                        ImageSystemName(order: 2)
-                                        ImageSystemName(order: 3)
-                                        ImageSystemName(order: 4)
-                                        ImageSystemName(order: 5)
-                                    }
-                                    Spacer()
-                                }
-                            }.padding()
-                            
-                            ZStack(alignment: .topLeading) {
-                                RoundedRectangle(cornerRadius: 20)
-                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
-                                    .background(Color.white)
-                                    .foregroundColor(.white)
-                                    .border(Color.gray, width: 1)
-                                    .opacity(1)
-                                    .cornerRadius(10)
-                                
-                                TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
-                                    .font(.custom("SF Pro", size: 14))
-                                    .fontWeight(.regular)
-                                    .font(.largeTitle)
-                                    .multilineTextAlignment(.leading)
-                                    .padding()
-                            }
-                            .padding()
-                            
-                        }
+                        ReviewControl(comment: $comment)
                     }
                     
                 }
@@ -191,3 +94,111 @@ struct ImageSystemName : View {
 
 
 
+
+struct ReviewControl: View {
+    @Binding var comment : String
+    var body: some View {
+        Section{
+            VStack(alignment: .leading) {
+                
+                HStack {
+                    Image("UserPicture")
+                        .resizable()
+                        .clipShape(Circle())
+                        .frame(width:50)
+                    
+                    HStack {
+                        ImageSystemName(order: 1)
+                        ImageSystemName(order: 2)
+                        ImageSystemName(order: 3)
+                        ImageSystemName(order: 4)
+                        ImageSystemName(order: 5)
+                    }
+                    Spacer()
+                }
+            }.padding()
+            
+            ZStack(alignment: .topLeading) {
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
+                    .background(Color.white)
+                    .foregroundColor(.white)
+                    .border(Color.gray, width: 1)
+                    .opacity(1)
+                    .cornerRadius(10)
+                
+                TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
+                    .font(.custom("SF Pro", size: 14))
+                    .fontWeight(.regular)
+                    .font(.largeTitle)
+                    .multilineTextAlignment(.leading)
+                    .padding()
+            }
+            .padding()
+            
+        }
+    }
+}
+
+struct SupplementData: View {
+    var article : ArticleCatalog
+    var body: some View {
+        Section {
+            VStack(alignment: .leading) {
+                HStack{
+                    VStack(alignment: .leading) {
+                        
+                        Text(article.name)
+                            .font(.system(size: 14))
+                            .fontWeight(.semibold)
+                            .lineSpacing(2.71)
+                            .multilineTextAlignment(.leading)
+                        
+                        Text("\(article.price,format: .number.rounded(increment: 10.0))€")
+                            .font(.system(size: 14))
+                            .fontWeight(.regular)
+                            .lineSpacing(2.71)
+                            .multilineTextAlignment(.leading)
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                            
+                            if let article = article.likes {
+                                
+                                Text("\(article)")
+                                    .font(.system(size: 14))
+                                    .fontWeight(.semibold)
+                                    .lineSpacing(2.71)
+                                    .multilineTextAlignment(.leading)
+                            }
+                        }
+                        
+                        
+                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
+                            .strikethrough()
+                            .font(.system(size: 14))
+                            .fontWeight(.regular)
+                            .lineSpacing(2.71)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(.gray)
+                    }
+                    
+                }
+                
+                Text(article.picture.description)
+                    .font(.custom("SF Pro", size: 14))
+                    .fontWeight(.regular)
+                    .font(.largeTitle)
+                    .multilineTextAlignment(.leading)
+                    .padding(.top)
+                
+            }
+            
+        }.padding()
+    }
+}

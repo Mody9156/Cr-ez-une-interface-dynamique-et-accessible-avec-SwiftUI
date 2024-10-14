@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ArticleCatalog : Identifiable,Codable {
+struct ArticleCatalog : Hashable,Identifiable,Codable {
     var id : Int
     var picture : URLBuilder
     var name :String

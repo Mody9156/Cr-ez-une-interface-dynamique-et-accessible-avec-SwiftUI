@@ -30,8 +30,8 @@ class ArticleListViewModel : ObservableObject {
             DispatchQueue.main.async {
                 self.articleCatalog = articles
             }
-            print("\(articles)")
             return articles
+            
         }catch{
             
             throw ArticleListViewModelError.loadArticlesError
