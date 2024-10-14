@@ -40,53 +40,80 @@ struct DetailView: View {
                                         20.92,height: 20.92,widthFrame: 90,heightFrame: 40).padding([.bottom, .trailing], 30)
                      
                     }
-                    Section {
-                        VStack {
-                            HStack{
-                                VStack(alignment: .leading) {
-                                    Text(article.name).font(.system(size: 14))
-                                        .fontWeight(.semibold)
-                                        .lineSpacing(2.71)
-                                        .multilineTextAlignment(.leading)
-                                    Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
-                                        .fontWeight(.regular).lineSpacing(2.71)
-                                        .multilineTextAlignment(.leading)
-                                }
-                                
-                                Spacer()
-                                
-                                VStack(alignment: .trailing) {
-                                    HStack {
-                                        Image(systemName: "star.fill").foregroundColor(.yellow)
-                                        if let article = article.likes {
-                                            
-                                            Text("\(article)")
-                                                .font(.system(size: 14))
-                                                .fontWeight(.semibold)
-                                                .lineSpacing(2.71)
-                                                .multilineTextAlignment(.leading)
-                                        }
+                    VStack {
+                        Section {
+                            VStack {
+                                HStack{
+                                    VStack(alignment: .leading) {
+                                        Text(article.name).font(.system(size: 14))
+                                            .fontWeight(.semibold)
+                                            .lineSpacing(2.71)
+                                            .multilineTextAlignment(.leading)
+                                        Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
+                                            .fontWeight(.regular).lineSpacing(2.71)
+                                            .multilineTextAlignment(.leading)
                                     }
                                     
+                                    Spacer()
                                     
-                                    Text("\(article.original_price, format: .number.rounded(increment: 10.0))€").strikethrough().font(.system(size: 14))
-                                        .fontWeight(.regular)
-                                        .lineSpacing(2.71)
-                                        .multilineTextAlignment(.leading).foregroundColor(.gray)
-                                    
+                                    VStack(alignment: .trailing) {
+                                        HStack {
+                                            Image(systemName: "star.fill").foregroundColor(.yellow)
+                                            if let article = article.likes {
+                                                
+                                                Text("\(article)")
+                                                    .font(.system(size: 14))
+                                                    .fontWeight(.semibold)
+                                                    .lineSpacing(2.71)
+                                                    .multilineTextAlignment(.leading)
+                                            }
+                                        }
+                                        
+                                        
+                                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€").strikethrough().font(.system(size: 14))
+                                            .fontWeight(.regular)
+                                            .lineSpacing(2.71)
+                                            .multilineTextAlignment(.leading).foregroundColor(.gray)
+                                        
+                                    }
+                                }.padding()
+                                Text(article.picture.description)
+                                    .font(.custom("SF Pro", size: 14))
+                                    .fontWeight(.regular)
+                                    .font(.largeTitle)
+                                    .multilineTextAlignment(.leading).padding(.leading).padding(.trailing)
+                                   
+                            }
+                        }
+                        Section{
+                            HStack {
+                                Image("")
+                                HStack {
+                                    ImageSystemName()
+                                    ImageSystemName()
+                                    ImageSystemName()
+                                    ImageSystemName()
+                                    ImageSystemName()
                                 }
-                            }.padding()
-                            Text(article.picture.description)
-                                .font(.custom("SF Pro", size: 14))
-                                .fontWeight(.regular)
-                                .font(.largeTitle)
-                                .multilineTextAlignment(.leading)
-                               
-                        }.padding()
+                            }
+                        }
                     }
                        
                 }
             }
         }
+    }
+}
+
+struct ImageSystemName : View {
+    @State var foregroundColor : Color = .white
+    var body: some View {
+        Button {
+            foregroundColor = .yellow
+        } label: {
+            Image(systemName: "star.fill").foregroundColor(foregroundColor)
+        }
+
+        
     }
 }
