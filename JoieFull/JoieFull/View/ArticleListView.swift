@@ -7,63 +7,16 @@ struct ArticleListView: View {
             ScrollView {
                 VStack(alignment: .leading){
                     
-                    Section(header:Text("Hauts")
-                        .font(.system(size: 22))
-                        .fontWeight(.semibold)
-                        .lineSpacing(4.25)
-                        .multilineTextAlignment(.leading)) {
-                            
-                            ScrollView(.horizontal){//Show TOPS
-                                
-                                LazyHStack {
-                                                                    
-                                    ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                        ArticleView(article: article,category: "TOPS")
-                                    }
-                                    
-                                }
-                            }
-                            
-                        }.padding(.leading)
-                        .padding(.trailing)
+                    ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
                     
-                    Section(header:Text("Bas").font(.system(size: 22))
-                        .fontWeight(.semibold)
-                        .lineSpacing(4.25)
-                        .multilineTextAlignment(.leading)) {
-                            
-                            ScrollView(.horizontal){//Show BOTTOMS
-                                
-                                LazyHStack {
-                                    ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                        ArticleView(article: article,category: "BOTTOMS")
-                                    }
-                                    
-                                }
-                            }
-                        }.padding(.leading)
-                        .padding(.trailing)
+                    ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
                     
-                    Section(header:Text("Sacs").font(.system(size: 22))
-                        .fontWeight(.semibold)
-                        .lineSpacing(4.25)
-                        .multilineTextAlignment(.leading)) {
-                            
-                            ScrollView(.horizontal){//Show ACCESSORIES
-                                
-                                LazyHStack {
-                                    ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                        ArticleView(article: article,category: "ACCESSORIES")
-                                    }
-                                    
-                                }
-                            }
-                        }.padding(.leading)
-                        .padding(.trailing)
+                    ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
+                   
                 }.onAppear{
                     Task{
                         try? await articleListViewModel.loadArticles()
-
+                        
                     }
                     
                 }
@@ -166,11 +119,11 @@ struct LikeView :View {
                         .resizable()
                         .frame(width: width, height: height)
                         .foregroundColor(.black)
-                      
+                    
                     
                     if let likes = article.likes {
                         Text("\(likes)")
-                        .foregroundColor(.black)
+                            .foregroundColor(.black)
                         
                     }
                 }
@@ -181,5 +134,32 @@ struct LikeView :View {
         }
         
         
+    }
+}
+
+struct ArticlesFinder: View {
+    var sectionName : String
+    var categoryName : String
+    @StateObject var articleListViewModel: ArticleListViewModel
+    var body: some View {
+        Section(header:Text(sectionName)
+            .font(.system(size: 22))
+            .fontWeight(.semibold)
+            .lineSpacing(4.25)
+            .multilineTextAlignment(.leading)) {
+                
+                ScrollView(.horizontal){//Show TOPS
+                    
+                    LazyHStack {
+                        
+                        ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
+                            ArticleView(article: article,category: categoryName)
+                        }
+                        
+                    }
+                }
+                
+            }.padding(.leading)
+            .padding(.trailing)
     }
 }
