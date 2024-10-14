@@ -76,6 +76,10 @@ struct DetailView: View {
                             }
                         }.padding()
                         Text(article.picture.description)
+                            .font(.custom("SF Pro", size: 14))
+                            .fontWeight(.regular)
+                            .lineSpacing(16.71 - 14)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                        
                 }
