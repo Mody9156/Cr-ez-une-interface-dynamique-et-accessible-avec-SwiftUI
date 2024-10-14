@@ -16,16 +16,14 @@ struct ArticleListView: View {
                 }.onAppear{
                     Task{
                         try? await articleListViewModel.loadArticles()
-                        
                     }
-                    
                 }
             }
         }
     }
 }
 
-struct ArticleView: View {
+struct ShowCategories: View {
     var article: ArticleCatalog
     var category : String = ""
     var body: some View {
@@ -41,19 +39,18 @@ struct ArticleView: View {
                         
                         AsyncImage(url: URL(string: article.picture.url)) { image in
                             image
-                                .resizable()
+                            .resizable()
                             
                         } placeholder: {
                             ProgressView()
                         }
-                        .frame(width: 198, height: 297).cornerRadius(20)
+                        .frame(width: 198, height: 297)
+                        .cornerRadius(20)
                         
-                        LikeView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30).padding()
-                        
-                        
+                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                            .padding()
                     }
                 }
-                
                 
                 HStack {
                     VStack(alignment: .leading) {
@@ -85,11 +82,12 @@ struct ArticleView: View {
                         }
                         
                         
-                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€").strikethrough().font(.system(size: 14))
+                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
+                            .strikethrough()
+                            .font(.system(size: 14))
                             .fontWeight(.regular)
                             .lineSpacing(2.71)
                             .multilineTextAlignment(.leading).foregroundColor(.gray)
-                        
                     }
                 }
             }
@@ -99,8 +97,7 @@ struct ArticleView: View {
 }
 
 
-
-struct LikeView :View {
+struct LikesView :View {
     var article: ArticleCatalog
     var width : Double
     var height : Double
@@ -127,12 +124,9 @@ struct LikeView :View {
                         
                     }
                 }
-                
             }
             
-            
         }
-        
         
     }
 }
@@ -153,7 +147,7 @@ struct ArticlesFinder: View {
                     LazyHStack {
                         
                         ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                            ArticleView(article: article,category: categoryName)
+                            ShowCategories(article: article,category: categoryName)
                         }
                         
                     }

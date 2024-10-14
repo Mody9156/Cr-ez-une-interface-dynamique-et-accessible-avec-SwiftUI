@@ -37,7 +37,7 @@ struct DetailView: View {
                             }.padding([.top, .trailing], 30)
                         }
                         
-                        LikeView(article: article,width:
+                        LikesView(article: article,width:
                                     20.92,height: 20.92,widthFrame: 90,heightFrame: 40)
                         .padding([.bottom, .trailing], 30)
                         
