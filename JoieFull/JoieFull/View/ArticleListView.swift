@@ -63,7 +63,7 @@ struct ArticleListView: View {
                 }.onAppear{
                     Task{
                         try? await  articleListViewModel.loadArticles()
-                        print("\(ArticleCatalog)")
+                        print("\(articleListViewModel.articleCatalog)")
                     }
                     
                 }
