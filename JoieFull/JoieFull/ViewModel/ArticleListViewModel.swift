@@ -8,7 +8,35 @@
 import Foundation
 
 class ArticleListViewModel : ObservableObject {
-    @Published var articleCatalog : [ArticleCatalog] = Service().load("clothes.json")
+    let catalogProduct : CatalogProduct
+    @Published var articleCatalog : [ArticleCatalog] = []
+    
+    init(catalogProduct: CatalogProduct)    {
+        self.catalogProduct = catalogProduct
+    }
+    
+    enum ArticleListViewModelError : Error{
+        case loadArticlesError
+    }
+    
+    @MainActor
+    @discardableResult
+    
+    func loadArticles() async throws -> [ArticleCatalog]{
+        
+        do{
+            let articles = try await catalogProduct.loadArticlesFromURL()
+            
+            DispatchQueue.main.async {
+                self.articleCatalog = articles
+            }
+            return articles
+            
+        }catch{
+            
+            throw ArticleListViewModelError.loadArticlesError
+        }
+    }
     
     
 }

@@ -2,71 +2,53 @@ import SwiftUI
 
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
+    @Environment (\.verticalSizeClass) private var verticalSizeClass
+    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    let articleCatalog : [ArticleCatalog]
+    
+    //Iphone
+    var isDeviceLandscapeMode : Bool{
+         horizontalSizeClass == .regular
+    }
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(showsIndicators:true) {
                 VStack(alignment: .leading){
+                    if isDeviceLandscapeMode {
+                        HStack {
+                            
+                            ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
+                            ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
+                            
+                            ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
+                            Spacer()
+                            DetailView(articleCatalog: articleCatalog)
+                        }
+                        
+                       
+                       
+                    }else{
+                        ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
+                        
+                        ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
+                        
+                        ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
+                       
+                        
+                    }
                     
-                    Section(header:Text("Hauts")
-                        .font(.system(size: 22))
-                        .fontWeight(.semibold)
-                        .lineSpacing(4.25)
-                        .multilineTextAlignment(.leading)) {
-                            
-                            ScrollView(.horizontal){//Show TOPS
-                                
-                                LazyHStack {
-                                    ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                        ArticleView(article: article,category: "TOPS")
-                                    }
-                                    
-                                }
-                            }
-                            
-                        }.padding(.leading)
-                        .padding(.trailing)
-                    
-                    Section(header:Text("Bas").font(.system(size: 22))
-                        .fontWeight(.semibold)
-                        .lineSpacing(4.25)
-                        .multilineTextAlignment(.leading)) {
-                            
-                            ScrollView(.horizontal){//Show BOTTOMS
-                                
-                                LazyHStack {
-                                    ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                        ArticleView(article: article,category: "BOTTOMS")
-                                    }
-                                    
-                                }
-                            }
-                        }.padding(.leading)
-                        .padding(.trailing)
-                    
-                    Section(header:Text("Sacs").font(.system(size: 22))
-                        .fontWeight(.semibold)
-                        .lineSpacing(4.25)
-                        .multilineTextAlignment(.leading)) {
-                            
-                            ScrollView(.horizontal){//Show ACCESSORIES
-                                
-                                LazyHStack {
-                                    ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                        ArticleView(article: article,category: "ACCESSORIES")
-                                    }
-                                    
-                                }
-                            }
-                        }.padding(.leading)
-                        .padding(.trailing)
+                }.onAppear{
+                    Task{
+                        try? await articleListViewModel.loadArticles()
+                    }
                 }
             }
         }
     }
 }
 
-struct ArticleView: View {
+struct ShowCategories: View {
     var article: ArticleCatalog
     var category : String = ""
     var body: some View {
@@ -82,19 +64,19 @@ struct ArticleView: View {
                         
                         AsyncImage(url: URL(string: article.picture.url)) { image in
                             image
-                                .resizable()
-                            
+                            .resizable()
+                           
                         } placeholder: {
                             ProgressView()
                         }
-                        .frame(width: 198, height: 297).cornerRadius(20)
+                        .frame(width: 198, height: 297)
+                        .cornerRadius(20)
                         
-                        LikeView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30).padding()
-                        
-                        
+                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                            .padding()
                     }
-                }
-                
+                    
+                }.accessibilityLabel(Text("You select \(article.name)"))
                 
                 HStack {
                     VStack(alignment: .leading) {
@@ -126,11 +108,12 @@ struct ArticleView: View {
                         }
                         
                         
-                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€").strikethrough().font(.system(size: 14))
+                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
+                            .strikethrough()
+                            .font(.system(size: 14))
                             .fontWeight(.regular)
                             .lineSpacing(2.71)
                             .multilineTextAlignment(.leading).foregroundColor(.gray)
-                        
                     }
                 }
             }
@@ -140,8 +123,7 @@ struct ArticleView: View {
 }
 
 
-
-struct LikeView :View {
+struct LikesView :View {
     var article: ArticleCatalog
     var width : Double
     var height : Double
@@ -160,20 +142,44 @@ struct LikeView :View {
                         .resizable()
                         .frame(width: width, height: height)
                         .foregroundColor(.black)
-                      
+                    
                     
                     if let likes = article.likes {
                         Text("\(likes)")
-                        .foregroundColor(.black)
+                            .foregroundColor(.black)
+                        
+                    }
+                }
+            }
+            
+        }
+        
+    }
+}
+
+struct ArticlesFinder: View {
+    var sectionName : String
+    var categoryName : String
+    @StateObject var articleListViewModel: ArticleListViewModel
+    var body: some View {
+        Section(header:Text(sectionName)
+            .font(.system(size: 22))
+            .fontWeight(.semibold)
+            .lineSpacing(4.25)
+            .multilineTextAlignment(.leading)) {
+                
+                ScrollView(.horizontal){//Show TOPS
+                    
+                    LazyHStack {
+                        
+                        ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
+                            ShowCategories(article: article,category: categoryName)
+                        }
                         
                     }
                 }
                 
-            }
-            
-            
-        }
-        
-        
+            }.padding(.leading)
+            .padding(.trailing)
     }
 }
