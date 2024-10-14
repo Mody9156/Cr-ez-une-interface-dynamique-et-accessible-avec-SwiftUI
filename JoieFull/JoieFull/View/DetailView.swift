@@ -120,6 +120,7 @@ struct ImageSystemName : View {
     var body: some View {
         
         VStack (alignment: .leading){
+            
             HStack {
                 Button {
                     
@@ -141,9 +142,9 @@ struct ImageSystemName : View {
                     }
 
                 } label: {
-                
-            }       Image(systemName: start).foregroundColor(foregroundColor)
-        }
+                    Image(systemName: start).foregroundColor(foregroundColor)
+            }
+            }
         }
     }
     
