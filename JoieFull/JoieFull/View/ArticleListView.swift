@@ -4,28 +4,27 @@ struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
     @Environment (\.verticalSizeClass) private var verticalSizeClass
     let articleCatalog : [ArticleCatalog]
-    
-    
+   
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators:true) {
+               
                 VStack(alignment: .leading){
-                  
-                        ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
-                        
-                        ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
-                        
-                        ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
-                       
-                        
-              
+                    
+                    ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
+                    
+                    ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
+                    
+                    ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
+                    
                     
                 }.onAppear{
                     Task{
                         try? await articleListViewModel.loadArticles()
                     }
                 }
+              
             }
         }
     }
@@ -38,41 +37,55 @@ struct ShowCategories: View {
     @State var presentArticles : Bool = false
     //Ipad
     var isDeviceLandscapeMode : Bool{
-         horizontalSizeClass == .regular
+        horizontalSizeClass == .regular
     }
-    
+
     var body: some View {
         
         if article.category == category {
             
             VStack {
-                //ici
+                
                 if isDeviceLandscapeMode {
                     Button {
-                        presentArticles = true
+                        presentArticles.toggle()
                     } label: {
                         ZStack(alignment: .bottomTrailing){
-                            
+
                             AsyncImage(url: URL(string: article.picture.url)) { image in
                                 image
-                                .resizable()
-                               
+                                    .resizable()
+
                             } placeholder: {
                                 ProgressView()
                             }
                             .frame(width: 198, height: 297)
                             .cornerRadius(20)
-                            
+
                             LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
                                 .padding()
-                        }
-                        
-                    }.accessibilityLabel(Text("You select \(article.name)")).sheet(isPresented: $presentArticles) {
-                        DetailView(articleCatalog: [article])
-                    }
+                        }.border(presentArticles ? .blue : .clear, width:3)
 
+                    }.accessibilityLabel(Text("You select \(article.name)")).fullScreenCover(isPresented: $presentArticles) {
+                        ZStack {
+                            // Arrière-plan transparent ou gris pour donner un effet de modal
+//                            Color.black.opacity(0.3)
+//                                .edgesIgnoringSafeArea(.all)
+//                                .onTapGesture {
+//                                    presentArticles = false // Permet de fermer en cliquant à l'extérieur
+//                                }
+
+                            // DetailView ancré à droite avec une largeur réduite
+                            DetailView(articleCatalog: [article])
+                                .frame(width: UIScreen.main.bounds.width * 0.4) // Largeur ajustée à 40% de l'écran
+                                .background(Color.white.shadow(radius: 10)) // Ajout d'une ombre pour du contraste
+                                .cornerRadius(16) // Coins arrondis pour style
+                                .offset(x: UIScreen.main.bounds.width * 0.3) // Ancrer sur la droite
+                        }
+                    }
+//
+                }else{
                     
-                }else {
                     NavigationLink {
                         DetailView(articleCatalog: [article])
                     } label: {
@@ -80,8 +93,8 @@ struct ShowCategories: View {
                             
                             AsyncImage(url: URL(string: article.picture.url)) { image in
                                 image
-                                .resizable()
-                               
+                                    .resizable()
+                                
                             } placeholder: {
                                 ProgressView()
                             }
@@ -93,50 +106,49 @@ struct ShowCategories: View {
                         }
                         
                     }.accessibilityLabel(Text("You select \(article.name)"))
-                }
-
                 
-                //fin
-                
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text(article.name)
-                            .font(.system(size: 14))
-                            .fontWeight(.semibold)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
-                        
-                        Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
-                            .fontWeight(.regular).lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
-                        
-                    }
                     
-                    Spacer()
-                    
-                    VStack(alignment: .trailing) {
-                        HStack {
-                            Image(systemName: "star.fill").foregroundColor(.yellow)
-                            if let article = article.likes {
-                                
-                                Text("\(article)")
-                                    .font(.system(size: 14))
-                                    .fontWeight(.semibold)
-                                    .lineSpacing(2.71)
-                                    .multilineTextAlignment(.leading)
-                            }
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(article.name)
+                                .font(.system(size: 14))
+                                .fontWeight(.semibold)
+                                .lineSpacing(2.71)
+                                .multilineTextAlignment(.leading)
+                            
+                            Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
+                                .fontWeight(.regular).lineSpacing(2.71)
+                                .multilineTextAlignment(.leading)
+                            
                         }
                         
+                        Spacer()
                         
-                        Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                            .strikethrough()
-                            .font(.system(size: 14))
-                            .fontWeight(.regular)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading).foregroundColor(.gray)
+                        VStack(alignment: .trailing) {
+                            HStack {
+                                Image(systemName: "star.fill").foregroundColor(.yellow)
+                                if let article = article.likes {
+                                    
+                                    Text("\(article)")
+                                        .font(.system(size: 14))
+                                        .fontWeight(.semibold)
+                                        .lineSpacing(2.71)
+                                        .multilineTextAlignment(.leading)
+                                }
+                            }
+                            
+                            
+                            Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
+                                .strikethrough()
+                                .font(.system(size: 14))
+                                .fontWeight(.regular)
+                                .lineSpacing(2.71)
+                                .multilineTextAlignment(.leading).foregroundColor(.gray)
+                        }
                     }
                 }
             }
+            
         }
         
     }
@@ -180,6 +192,7 @@ struct LikesView :View {
 struct ArticlesFinder: View {
     var sectionName : String
     var categoryName : String
+
     @StateObject var articleListViewModel: ArticleListViewModel
     var body: some View {
         Section(header:Text(sectionName)
