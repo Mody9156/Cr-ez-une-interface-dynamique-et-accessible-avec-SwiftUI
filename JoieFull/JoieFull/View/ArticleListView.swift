@@ -15,20 +15,7 @@ struct ArticleListView: View {
         NavigationStack {
             ScrollView(showsIndicators:true) {
                 VStack(alignment: .leading){
-                    if isDeviceLandscapeMode {
-                        HStack {
-                            
-                            ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
-                            ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
-                            
-                            ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
-                            Spacer()
-                            DetailView(articleCatalog: articleCatalog)
-                        }
-                        
-                       
-                       
-                    }else{
+                  
                         ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
                         
                         ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
@@ -36,7 +23,7 @@ struct ArticleListView: View {
                         ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
                        
                         
-                    }
+              
                     
                 }.onAppear{
                     Task{
