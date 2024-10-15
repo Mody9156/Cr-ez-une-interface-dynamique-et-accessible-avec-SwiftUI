@@ -4,26 +4,34 @@ struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
     @Environment (\.verticalSizeClass) private var verticalSizeClass
     let articleCatalog : [ArticleCatalog]
-    
+    @State var presentArticles : Bool = false
+
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators:true) {
                 
-                VStack(alignment: .leading){
-                    
-                    ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", articleListViewModel: articleListViewModel)
-                    
-                    ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", articleListViewModel: articleListViewModel)
-                    
-                    ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", articleListViewModel: articleListViewModel)
-                    
-                    
-                }.onAppear{
-                    Task{
-                        try? await articleListViewModel.loadArticles()
+                LazyHStack {
+                    LazyVStack(alignment: .leading){
+                        
+                        ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
+                        
+                        ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
+                        
+                        ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
+                        
+                        
+                    }.onAppear{
+                        Task{
+                            try? await articleListViewModel.loadArticles()
+                        }
+                }
+                    if presentArticles {
+                        DetailView(articleCatalog: articleCatalog)
                     }
                 }
+                
+                
                 
             }
         }
@@ -34,7 +42,8 @@ struct ShowCategories: View {
     var article: ArticleCatalog
     var category : String = ""
     @Environment (\.horizontalSizeClass) private var horizontalSizeClass
-    
+    @Binding var presentArticles : Bool
+
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
     }
@@ -43,10 +52,8 @@ struct ShowCategories: View {
         
         if article.category == category {
             
-            
-            
             if isDeviceLandscapeMode {
-                ExtractionDeviceLandscapeMode(article: article)
+                ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article)
             }else{
                 VStack {
                     NavigationLink {
@@ -71,44 +78,7 @@ struct ShowCategories: View {
                     }.accessibilityLabel(Text("You select \(article.name)"))
                     
                     
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(article.name)
-                                .font(.system(size: 14))
-                                .fontWeight(.semibold)
-                                .lineSpacing(2.71)
-                                .multilineTextAlignment(.leading)
-                            
-                            Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
-                                .fontWeight(.regular).lineSpacing(2.71)
-                                .multilineTextAlignment(.leading)
-                            
-                        }
-                        
-                        Spacer()
-                        
-                        VStack(alignment: .trailing) {
-                            HStack {
-                                Image(systemName: "star.fill").foregroundColor(.yellow)
-                                if let article = article.likes {
-                                    
-                                    Text("\(article)")
-                                        .font(.system(size: 14))
-                                        .fontWeight(.semibold)
-                                        .lineSpacing(2.71)
-                                        .multilineTextAlignment(.leading)
-                                }
-                            }
-                            
-                            
-                            Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                                .strikethrough()
-                                .font(.system(size: 14))
-                                .fontWeight(.regular)
-                                .lineSpacing(2.71)
-                                .multilineTextAlignment(.leading).foregroundColor(.gray)
-                        }
-                    }
+                    InfoExtract(article: article)
                 }
             }
             
@@ -155,7 +125,7 @@ struct LikesView :View {
 struct ArticlesFinder: View {
     var sectionName : String
     var categoryName : String
-    
+    @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
     var body: some View {
         Section(header:Text(sectionName)
@@ -164,12 +134,12 @@ struct ArticlesFinder: View {
             .lineSpacing(4.25)
             .multilineTextAlignment(.leading)) {
                 
-                ScrollView(.horizontal){//Show TOPS
+                ScrollView(.horizontal){
                     
                     LazyHStack {
                         
                         ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                            ShowCategories(article: article,category: categoryName)
+                            ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles)
                         }
                         
                     }
@@ -182,91 +152,81 @@ struct ArticlesFinder: View {
 
 
 struct ExtractionDeviceLandscapeMode : View{
-    @State var presentArticles : Bool = false
+    @Binding var presentArticles : Bool
     var article: ArticleCatalog
     
     var body: some View {
-        VStack {
+        LazyVStack {
             VStack {
-                Button {
-                    presentArticles.toggle()
-                } label: {
-                    ZStack(alignment: .bottomTrailing){
-                        
-                        AsyncImage(url: URL(string: article.picture.url)) { image in
-                            image
-                                .resizable()
+                    Button {
+                        presentArticles.toggle()
+                    } label: {
+                        ZStack(alignment: .bottomTrailing){
                             
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 198, height: 297)
-                        .cornerRadius(20)
+                            AsyncImage(url: URL(string: article.picture.url)) { image in
+                                image
+                                    .resizable()
+                                
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 198, height: 297)
+                            .cornerRadius(20)
+                            
+                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                                .padding()
+                        }.border(presentArticles ? .blue : .clear, width:3)
                         
-                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
-                            .padding()
-                    }.border(presentArticles ? .blue : .clear, width:3)
-                    
-                    
-                    
-                }
-            }.accessibilityLabel(Text("You select \(article.name)")).fullScreenCover(isPresented: $presentArticles) {
-                ZStack {
-                    // Arrière-plan transparent ou gris pour donner un effet de modal
-                    Color.black.opacity(0.4)
-                        .edgesIgnoringSafeArea(.all)
-                        .background(.clear)
-                        .onTapGesture {
-                            presentArticles = false // Permet de fermer en cliquant à l'extérieur
-                        }
-                    
-                    // DetailView ancré à droite avec une largeur réduite
-                    DetailView(articleCatalog: [article])
-                        .frame(width: UIScreen.main.bounds.width * 0.4) // Largeur ajustée à 40% de l'écran
-                        .background(Color.white.shadow(radius: 10)) // Ajout d'une ombre pour du contraste
-                        .cornerRadius(16) // Coins arrondis pour style
-                        .offset(x: UIScreen.main.bounds.width * 0.3) // Ancrer sur la droite
-                }
+                        
+                        
+                    }
+            }.accessibilityLabel(Text("You select \(article.name)"))
+            
+            InfoExtract(article: article)
+        }
+    }
+}
+
+struct InfoExtract: View {
+    var article: ArticleCatalog
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(article.name)
+                    .font(.system(size: 14))
+                    .fontWeight(.semibold)
+                    .lineSpacing(2.71)
+                    .multilineTextAlignment(.leading)
+                
+                Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
+                    .fontWeight(.regular).lineSpacing(2.71)
+                    .multilineTextAlignment(.leading)
+                
             }
             
+            Spacer()
             
-            HStack{
-                VStack(alignment: .leading) {
-                    Text(article.name)
-                        .font(.system(size: 14))
-                        .fontWeight(.semibold)
-                        .lineSpacing(2.71)
-                        .multilineTextAlignment(.leading)
-                    
-                    Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
-                        .fontWeight(.regular).lineSpacing(2.71)
-                        .multilineTextAlignment(.leading)
-                    
-                }
-                
-                Spacer()
-                
-                VStack(alignment: .trailing) {
-                    HStack {
-                        Image(systemName: "star.fill").foregroundColor(.yellow)
-                        if let article = article.likes {
-                            
-                            Text("\(article)")
-                                .font(.system(size: 14))
-                                .fontWeight(.semibold)
-                                .lineSpacing(2.71)
-                                .multilineTextAlignment(.leading)
-                        }
+            VStack(alignment: .trailing) {
+                HStack {
+                    Image(systemName: "star.fill").foregroundColor(.yellow)
+                    if let article = article.likes {
+                        
+                        Text("\(article)")
+                            .font(.system(size: 14))
+                            .fontWeight(.semibold)
+                            .lineSpacing(2.71)
+                            .multilineTextAlignment(.leading)
                     }
-                    
-                    
-                    Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                        .strikethrough()
-                        .font(.system(size: 14))
-                        .fontWeight(.regular)
-                        .lineSpacing(2.71)
-                        .multilineTextAlignment(.leading).foregroundColor(.gray)
                 }
+                
+                
+                Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
+                    .strikethrough()
+                    .font(.system(size: 14))
+                    .fontWeight(.regular)
+                    .lineSpacing(2.71)
+                    .multilineTextAlignment(.leading).foregroundColor(.gray)
             }
         }
     }
