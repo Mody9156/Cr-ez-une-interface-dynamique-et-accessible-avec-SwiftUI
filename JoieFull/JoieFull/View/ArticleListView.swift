@@ -1,58 +1,33 @@
 import SwiftUI
-
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
-    let articleCatalog : [ArticleCatalog]
-    @State var presentArticles : Bool = false
-    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    @State var presentArticles: Bool = false
+    @State var selectedArticle: ArticleCatalog? // Ajouter une variable d'état pour l'article sélectionné
     
-    var isDeviceLandscapeMode : Bool{
-        horizontalSizeClass == .regular
-    }
     
     var body: some View {
         NavigationStack {
-            ScrollView(showsIndicators:true) {
-                if isDeviceLandscapeMode {
-                    LazyHStack {
-                        LazyVStack(alignment: .leading){
-                            
-                            ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
-                            
-                            ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
-                            
-                            ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
-                            
-                            
-                        }.onAppear{
-                            Task{
-                                try? await articleListViewModel.loadArticles()
-                            }
-                        }
-                        if presentArticles {
-                            DetailView(articleCatalog: articleCatalog)
-                        }
+            ScrollView(showsIndicators: true) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        // Passer les bindings aux ArticlesFinder (ici on n'a pas la définition, mais ça doit fonctionner de manière similaire)
+                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        
+                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        
+                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
                     }
-                }else {
-                    LazyVStack(alignment: .leading){
-                        
-                        ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
-                        
-                        ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
-                        
-                        ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
-                        
-                        
-                    }.onAppear{
-                        Task{
+                    .onAppear {
+                        Task {
                             try? await articleListViewModel.loadArticles()
                         }
                     }
                     
                     
                 }
-                
             }
+               
+            
         }
     }
 }
@@ -62,6 +37,8 @@ struct ShowCategories: View {
     var category : String = ""
     @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var presentArticles : Bool
+    @Binding var selectedArticle: ArticleCatalog? // Binding pour l'article sélectionné
+    
     
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
@@ -71,12 +48,22 @@ struct ShowCategories: View {
         
         if article.category == category {
             
-            if isDeviceLandscapeMode {
-                ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article)
-            }else{
-                VStack {
+            VStack {
+                
+                
+                if isDeviceLandscapeMode {
+                   
+//                    // NavigationLink pour afficher DetailView si un article est sélectionné
+//                    if let selectedArticle = selectedArticle {
+//                        NavigationLink(destination: DetailView(articleCatalog: selectedArticle), isActive: $presentArticles) {
+//                            EmptyView()
+//                        }
+//                    }
+                }else{
+                    //
                     NavigationLink {
-                        DetailView(articleCatalog: [article])
+                        
+                        DetailView(articleCatalog: article)
                     } label: {
                         ZStack(alignment: .bottomTrailing){
                             
@@ -146,26 +133,31 @@ struct ArticlesFinder: View {
     var categoryName : String
     @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
+    @Binding var selectedArticle: ArticleCatalog? // @Binding pour l'article sélectionné
+    
     var body: some View {
-        Section(header:Text(sectionName)
-            .font(.system(size: 22))
-            .fontWeight(.semibold)
-            .lineSpacing(4.25)
-            .multilineTextAlignment(.leading)) {
-                
-                ScrollView(.horizontal){
+        VStack {
+            Section(header:Text(sectionName)
+                .font(.system(size: 22))
+                .fontWeight(.semibold)
+                .lineSpacing(4.25)
+                .multilineTextAlignment(.leading)) {
                     
-                    LazyHStack {
+                    ScrollView(.horizontal){
                         
-                        ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                            ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles)
+                        HStack {
+                            
+                            ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
+                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
+                            }
+                            
                         }
-                        
                     }
-                }
-                
-            }.padding(.leading)
-            .padding(.trailing)
+                    
+                }.padding(.leading)
+                .padding(.trailing)
+            
+        }
     }
 }
 
@@ -175,7 +167,7 @@ struct ExtractionDeviceLandscapeMode : View{
     var article: ArticleCatalog
     
     var body: some View {
-        LazyVStack {
+        VStack {
             VStack {
                 Button {
                     presentArticles.toggle()
@@ -199,7 +191,9 @@ struct ExtractionDeviceLandscapeMode : View{
                     
                     
                 }
-            }.accessibilityLabel(Text("You select \(article.name)"))
+            }.accessibilityLabel(Text("You select \(article.name)")).sheet(isPresented: $presentArticles) {
+                DetailView(articleCatalog: article)
+            }
             
             InfoExtract(article: article)
         }
@@ -221,7 +215,6 @@ struct InfoExtract: View {
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€").font(.system(size: 14))
                     .fontWeight(.regular).lineSpacing(2.71)
                     .multilineTextAlignment(.leading)
-                
             }
             
             Spacer()
