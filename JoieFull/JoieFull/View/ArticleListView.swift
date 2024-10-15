@@ -2,16 +2,38 @@ import SwiftUI
 
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
-    @Environment (\.verticalSizeClass) private var verticalSizeClass
     let articleCatalog : [ArticleCatalog]
     @State var presentArticles : Bool = false
-
+    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    
+    var isDeviceLandscapeMode : Bool{
+        horizontalSizeClass == .regular
+    }
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators:true) {
-                
-                LazyHStack {
+                if isDeviceLandscapeMode {
+                    LazyHStack {
+                        LazyVStack(alignment: .leading){
+                            
+                            ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
+                            
+                            ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
+                            
+                            ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
+                            
+                            
+                        }.onAppear{
+                            Task{
+                                try? await articleListViewModel.loadArticles()
+                            }
+                        }
+                        if presentArticles {
+                            DetailView(articleCatalog: articleCatalog)
+                        }
+                    }
+                }else {
                     LazyVStack(alignment: .leading){
                         
                         ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
@@ -25,13 +47,10 @@ struct ArticleListView: View {
                         Task{
                             try? await articleListViewModel.loadArticles()
                         }
-                }
-                    if presentArticles {
-                        DetailView(articleCatalog: articleCatalog)
                     }
+                    
+                    
                 }
-                
-                
                 
             }
         }
@@ -43,7 +62,7 @@ struct ShowCategories: View {
     var category : String = ""
     @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var presentArticles : Bool
-
+    
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
     }
@@ -158,28 +177,28 @@ struct ExtractionDeviceLandscapeMode : View{
     var body: some View {
         LazyVStack {
             VStack {
-                    Button {
-                        presentArticles.toggle()
-                    } label: {
-                        ZStack(alignment: .bottomTrailing){
+                Button {
+                    presentArticles.toggle()
+                } label: {
+                    ZStack(alignment: .bottomTrailing){
+                        
+                        AsyncImage(url: URL(string: article.picture.url)) { image in
+                            image
+                                .resizable()
                             
-                            AsyncImage(url: URL(string: article.picture.url)) { image in
-                                image
-                                    .resizable()
-                                
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 198, height: 297)
-                            .cornerRadius(20)
-                            
-                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
-                                .padding()
-                        }.border(presentArticles ? .blue : .clear, width:3)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 198, height: 297)
+                        .cornerRadius(20)
                         
-                        
-                        
-                    }
+                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                            .padding()
+                    }.border(presentArticles ? .blue : .clear, width:3)
+                    
+                    
+                    
+                }
             }.accessibilityLabel(Text("You select \(article.name)"))
             
             InfoExtract(article: article)
@@ -189,7 +208,7 @@ struct ExtractionDeviceLandscapeMode : View{
 
 struct InfoExtract: View {
     var article: ArticleCatalog
-
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
