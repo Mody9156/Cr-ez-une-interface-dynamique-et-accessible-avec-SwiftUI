@@ -3,13 +3,9 @@ import SwiftUI
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
     @Environment (\.verticalSizeClass) private var verticalSizeClass
-    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     let articleCatalog : [ArticleCatalog]
     
-    //Iphone
-    var isDeviceLandscapeMode : Bool{
-         horizontalSizeClass == .regular
-    }
+    
     
     var body: some View {
         NavigationStack {
@@ -38,32 +34,69 @@ struct ArticleListView: View {
 struct ShowCategories: View {
     var article: ArticleCatalog
     var category : String = ""
+    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    @State var presentArticles : Bool = false
+    //Ipad
+    var isDeviceLandscapeMode : Bool{
+         horizontalSizeClass == .regular
+    }
+    
     var body: some View {
         
         if article.category == category {
             
             VStack {
-                
-                NavigationLink {
-                    DetailView(articleCatalog: [article])
-                } label: {
-                    ZStack(alignment: .bottomTrailing){
-                        
-                        AsyncImage(url: URL(string: article.picture.url)) { image in
-                            image
-                            .resizable()
-                           
-                        } placeholder: {
-                            ProgressView()
+                //ici
+                if isDeviceLandscapeMode {
+                    Button {
+                        presentArticles = true
+                    } label: {
+                        ZStack(alignment: .bottomTrailing){
+                            
+                            AsyncImage(url: URL(string: article.picture.url)) { image in
+                                image
+                                .resizable()
+                               
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 198, height: 297)
+                            .cornerRadius(20)
+                            
+                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                                .padding()
                         }
-                        .frame(width: 198, height: 297)
-                        .cornerRadius(20)
                         
-                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
-                            .padding()
+                    }.accessibilityLabel(Text("You select \(article.name)")).sheet(isPresented: $presentArticles) {
+                        Text("Hello \(article.name)")
                     }
+
                     
-                }.accessibilityLabel(Text("You select \(article.name)"))
+                }else {
+                    NavigationLink {
+                        DetailView(articleCatalog: [article])
+                    } label: {
+                        ZStack(alignment: .bottomTrailing){
+                            
+                            AsyncImage(url: URL(string: article.picture.url)) { image in
+                                image
+                                .resizable()
+                               
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 198, height: 297)
+                            .cornerRadius(20)
+                            
+                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                                .padding()
+                        }
+                        
+                    }.accessibilityLabel(Text("You select \(article.name)"))
+                }
+
+                
+                //fin
                 
                 HStack {
                     VStack(alignment: .leading) {
@@ -170,3 +203,5 @@ struct ArticlesFinder: View {
             .padding(.trailing)
     }
 }
+
+
