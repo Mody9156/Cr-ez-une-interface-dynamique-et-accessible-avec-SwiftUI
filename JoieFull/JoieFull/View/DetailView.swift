@@ -4,33 +4,34 @@
 //
 //  Created by KEITA on 13/10/2024.
 //
-
+import Kingfisher
 import SwiftUI
 
 struct DetailView: View {
-    let articleCatalog: [ArticleCatalog]
+    let articleCatalog: ArticleCatalog
     @State private var comment: String = ""
     
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
-                ForEach(articleCatalog) { article in
+                ForEach([articleCatalog]) { article in
                     
                     ZStack(alignment: .bottomTrailing){
                         
                         ZStack (alignment: .topTrailing){
-                            
+
                             AsyncImage(url: URL(string: article.picture.url)) { image in
-                                image
+                               image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .clipShape(RoundedRectangle(cornerRadius: 25))
                                     .padding()
-                                
-                                
+
+
                             } placeholder: {
                                 ProgressView()
                             }
+                            
                             ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
                                 Label("", image: "Share")
                             }.padding([.top, .trailing], 30)
