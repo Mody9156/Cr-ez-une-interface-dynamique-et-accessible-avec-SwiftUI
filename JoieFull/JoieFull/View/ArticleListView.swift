@@ -68,7 +68,7 @@ struct ShowCategories: View {
                         }
                         
                     }.accessibilityLabel(Text("You select \(article.name)")).sheet(isPresented: $presentArticles) {
-                        Text("Hello \(article.name)")
+                        DetailView(articleCatalog: [article])
                     }
 
                     
