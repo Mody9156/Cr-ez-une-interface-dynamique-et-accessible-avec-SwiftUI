@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
-    @ObservableObject var articleListViewModel :ArticleListViewModel
+    @ObservedObject var articleListViewModel :ArticleListViewModel
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -48,7 +48,7 @@ struct DetailView: View {
                     VStack {
                         SupplementData(article: article)
                         
-                        ReviewControl(comment: $comment, articleCatalog: articleCatalog)
+                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
                     }
                     
                 }
@@ -64,6 +64,8 @@ struct DetailView: View {
 struct ReviewControl: View {
     @Binding var comment : String
     var articleCatalog: ArticleCatalog
+    @StateObject var articleListViewModel :ArticleListViewModel
+
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -75,11 +77,11 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(order: 1, articleCatalog: articleCatalog)
-                        ImageSystemName(order: 2, articleCatalog: articleCatalog)
-                        ImageSystemName(order: 3, articleCatalog: articleCatalog)
-                        ImageSystemName(order: 4, articleCatalog: articleCatalog)
-                        ImageSystemName(order: 5, articleCatalog: articleCatalog)
+                        ImageSystemName(order: 1, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
+                        ImageSystemName(order: 2, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(order: 3, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(order: 4, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(order: 5, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
                     }
                     Spacer()
                 }
@@ -113,6 +115,7 @@ struct ImageSystemName : View {
     @State var start : String = "star"
     var order : Int
     var articleCatalog: ArticleCatalog
+    @StateObject var articleListViewModel :ArticleListViewModel
 
     var body: some View {
         
@@ -145,6 +148,10 @@ struct ImageSystemName : View {
             .accessibilityLabel(showRightColor ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
             .onTapGesture {
                 showRightColor.toggle()
+            }.onAppear {
+                Task{
+                try await articleListViewModel.reloadArticles()
+                }
             }
             
         

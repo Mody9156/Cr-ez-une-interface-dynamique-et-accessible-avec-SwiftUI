@@ -36,7 +36,8 @@ struct ShowCategories: View {
     var category : String = ""
     @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var presentArticles : Bool
-    
+    @StateObject var articleListViewModel: ArticleListViewModel
+
     
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
@@ -52,12 +53,12 @@ struct ShowCategories: View {
                 if isDeviceLandscapeMode {
                    
 
-                        DetailView(articleCatalog: article)
+                    DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
                 }else{
                     //
                     NavigationLink {
                         
-                        DetailView(articleCatalog: article)
+                        DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
                     } label: {
                         ZStack(alignment: .bottomTrailing){
                             
@@ -141,7 +142,7 @@ struct ArticlesFinder: View {
                         HStack {
                             
                             ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles)
+                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
                             }
                             
                         }
@@ -158,7 +159,8 @@ struct ArticlesFinder: View {
 struct ExtractionDeviceLandscapeMode : View{
     @Binding var presentArticles : Bool
     var article: ArticleCatalog
-    
+    @StateObject var articleListViewModel: ArticleListViewModel
+
     var body: some View {
         VStack {
             VStack {
@@ -185,7 +187,7 @@ struct ExtractionDeviceLandscapeMode : View{
                     
                 }
             }.accessibilityLabel(Text("You select \(article.name)")).sheet(isPresented: $presentArticles) {
-                DetailView(articleCatalog: article)
+                DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
             }
             
             InfoExtract(article: article)
