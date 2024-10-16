@@ -87,7 +87,10 @@ struct ImageSystemName : View {
                 .frame(width: 27.51, height: 23.98)
                 .foregroundColor(foregroundColor)
             
-        }
+        }.accessibilityLabel(showRightColor ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
+            .onTapGesture {
+                showRightColor.toggle()
+            }
         
     }
     
