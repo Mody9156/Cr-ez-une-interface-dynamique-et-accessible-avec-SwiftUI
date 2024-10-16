@@ -26,6 +26,7 @@ struct DetailView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .clipShape(RoundedRectangle(cornerRadius: 25))
                                     .padding()
+                                    .accessibilityValue("Image représentant \(article.name)")
 
 
                             } placeholder: {
@@ -139,9 +140,9 @@ struct ReviewControl: View {
                 TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
                     .font(.custom("SF Pro", size: 14))
                     .fontWeight(.regular)
-                    .font(.largeTitle)
                     .multilineTextAlignment(.leading)
                     .padding()
+                    .accessibilityValue("Zone de texte pour vos impressions sur l'article")
             }
             .padding()
             
