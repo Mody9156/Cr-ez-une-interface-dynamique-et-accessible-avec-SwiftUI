@@ -2,7 +2,6 @@ import SwiftUI
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
     @State var presentArticles: Bool = false
-    @State var selectedArticle: ArticleCatalog? // Ajouter une variable d'état pour l'article sélectionné
     
     
     var body: some View {
@@ -11,11 +10,11 @@ struct ArticleListView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         // Passer les bindings aux ArticlesFinder (ici on n'a pas la définition, mais ça doit fonctionner de manière similaire)
-                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
                         
-                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
                         
-                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
                     }
                     .onAppear {
                         Task {
@@ -37,7 +36,6 @@ struct ShowCategories: View {
     var category : String = ""
     @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var presentArticles : Bool
-    @Binding var selectedArticle: ArticleCatalog? // Binding pour l'article sélectionné
     
     
     var isDeviceLandscapeMode : Bool{
@@ -53,12 +51,8 @@ struct ShowCategories: View {
                 
                 if isDeviceLandscapeMode {
                    
-//                    // NavigationLink pour afficher DetailView si un article est sélectionné
-//                    if let selectedArticle = selectedArticle {
-//                        NavigationLink(destination: DetailView(articleCatalog: selectedArticle), isActive: $presentArticles) {
-//                            EmptyView()
-//                        }
-//                    }
+
+                        DetailView(articleCatalog: article)
                 }else{
                     //
                     NavigationLink {
@@ -133,7 +127,6 @@ struct ArticlesFinder: View {
     var categoryName : String
     @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
-    @Binding var selectedArticle: ArticleCatalog? // @Binding pour l'article sélectionné
     
     var body: some View {
         VStack {
@@ -148,7 +141,7 @@ struct ArticlesFinder: View {
                         HStack {
                             
                             ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
+                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles)
                             }
                             
                         }
