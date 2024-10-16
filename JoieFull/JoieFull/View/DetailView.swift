@@ -48,11 +48,61 @@ struct DetailView: View {
                     VStack {
                         SupplementData(article: article)
                         
-                        ReviewControl(comment: $comment)
+                        ReviewControl(comment: $comment, articleCatalog: articleCatalog)
                     }
                     
                 }
             }
+        }
+    }
+}
+
+
+
+
+
+struct ReviewControl: View {
+    @Binding var comment : String
+    let articleCatalog: ArticleCatalog
+    var body: some View {
+        Section{
+            VStack(alignment: .leading) {
+                
+                HStack {
+                    Image("UserPicture")
+                        .resizable()
+                        .clipShape(Circle())
+                        .frame(width:50)
+                    
+                    HStack {
+                        ImageSystemName(order: 1, articleCatalog: articleCatalog)
+                        ImageSystemName(order: 2, articleCatalog: articleCatalog)
+                        ImageSystemName(order: 3, articleCatalog: articleCatalog)
+                        ImageSystemName(order: 4, articleCatalog: articleCatalog)
+                        ImageSystemName(order: 5, articleCatalog: articleCatalog)
+                    }
+                    Spacer()
+                }
+            }.padding()
+            
+            ZStack(alignment: .topLeading) {
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
+                    .background(Color.white)
+                    .foregroundColor(.white)
+                    .border(Color.gray, width: 1)
+                    .opacity(1)
+                    .cornerRadius(10)
+                
+                TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
+                    .font(.custom("SF Pro", size: 14))
+                    .fontWeight(.regular)
+                    .multilineTextAlignment(.leading)
+                    .padding()
+                    .accessibilityValue("Zone de texte pour vos impressions sur l'article")
+            }
+            .padding()
+            
         }
     }
 }
@@ -80,10 +130,10 @@ struct ImageSystemName : View {
                 start = "star"
             }
             
-            for _ in 1...5 {
-                print("\(order)")
-                
+            for articles in [articleCatalog.name] {
+                print("premier : \(articles) ")
             }
+           
             
         } label: {
             Image(systemName: start)
@@ -101,54 +151,6 @@ struct ImageSystemName : View {
         
     }
     
-}
-
-
-
-
-struct ReviewControl: View {
-    @Binding var comment : String
-    var body: some View {
-        Section{
-            VStack(alignment: .leading) {
-                
-                HStack {
-                    Image("UserPicture")
-                        .resizable()
-                        .clipShape(Circle())
-                        .frame(width:50)
-                    
-                    HStack {
-                        ImageSystemName(order: 1)
-                        ImageSystemName(order: 2)
-                        ImageSystemName(order: 3)
-                        ImageSystemName(order: 4)
-                        ImageSystemName(order: 5)
-                    }
-                    Spacer()
-                }
-            }.padding()
-            
-            ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: 20)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
-                    .background(Color.white)
-                    .foregroundColor(.white)
-                    .border(Color.gray, width: 1)
-                    .opacity(1)
-                    .cornerRadius(10)
-                
-                TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
-                    .font(.custom("SF Pro", size: 14))
-                    .fontWeight(.regular)
-                    .multilineTextAlignment(.leading)
-                    .padding()
-                    .accessibilityValue("Zone de texte pour vos impressions sur l'article")
-            }
-            .padding()
-            
-        }
-    }
 }
 
 struct SupplementData: View {
