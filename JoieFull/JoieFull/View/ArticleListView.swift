@@ -129,7 +129,7 @@ struct ArticlesFinder: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Section(header:Text(sectionName)
                 .font(.system(size: 22))
                 .fontWeight(.semibold)

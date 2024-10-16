@@ -62,7 +62,8 @@ struct ImageSystemName : View {
     @State var showRightColor: Bool = false
     @State var start : String = "star"
     var order : Int
-    
+    let articleCatalog: ArticleCatalog
+
     var body: some View {
         
         Button {
