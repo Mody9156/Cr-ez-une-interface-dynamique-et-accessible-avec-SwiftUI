@@ -15,8 +15,8 @@ class CatalogProduct {
         self.httpService = httpService
     }
     
-    enum CandidateFetchError: Error {
-        case httpResponseInvalid(statusCode:Int)
+    enum CandidateFetchError: Error ,Equatable{
+        case httpResponseInvalid
         case loadArticlesFromURLError
     }
     
@@ -35,9 +35,8 @@ class CatalogProduct {
             let (data,response) = try await httpService.request(createURLRequest())
             
             guard response.statusCode == 200 else {
-                throw CandidateFetchError.httpResponseInvalid(statusCode: response.statusCode)
+                throw CandidateFetchError.httpResponseInvalid
             }
-            
             let DecoderArticles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
             
             return DecoderArticles

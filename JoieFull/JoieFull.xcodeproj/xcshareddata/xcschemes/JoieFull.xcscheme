@@ -26,14 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "23B569292CB8135600FBC18D"
+               BlueprintIdentifier = "23F6E3062CBFB9B000D68223"
                BuildableName = "JoieFullTests.xctest"
                BlueprintName = "JoieFullTests"
                ReferencedContainer = "container:JoieFull.xcodeproj">
