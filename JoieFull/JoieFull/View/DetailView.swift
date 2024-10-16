@@ -8,9 +8,9 @@ import Kingfisher
 import SwiftUI
 
 struct DetailView: View {
-    let articleCatalog: ArticleCatalog
+    var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
-    
+    @ObservableObject var articleListViewModel :ArticleListViewModel
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -63,7 +63,7 @@ struct DetailView: View {
 
 struct ReviewControl: View {
     @Binding var comment : String
-    let articleCatalog: ArticleCatalog
+    var articleCatalog: ArticleCatalog
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -112,7 +112,7 @@ struct ImageSystemName : View {
     @State var showRightColor: Bool = false
     @State var start : String = "star"
     var order : Int
-    let articleCatalog: ArticleCatalog
+    var articleCatalog: ArticleCatalog
 
     var body: some View {
         
@@ -124,17 +124,16 @@ struct ImageSystemName : View {
             if showRightColor {
                 foregroundColor = .yellow
                 start = "star.fill"
-                
+                if var likes = articleCatalog.likes {
+                    likes += order
+                    print("likes = \(likes)")
+                }
             }else{
                 foregroundColor = .gray
                 start = "star"
+                
             }
-            
-            for articles in [articleCatalog.name] {
-                print("premier : \(articles) ")
-            }
-           
-            
+                        
         } label: {
             Image(systemName: start)
                 .resizable()
