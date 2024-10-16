@@ -14,15 +14,16 @@
 		23B5691E2CB8135100FBC18D /* JoieFullApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B5691D2CB8135100FBC18D /* JoieFullApp.swift */; };
 		23B569222CB8135500FBC18D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569212CB8135500FBC18D /* Assets.xcassets */; };
 		23B569252CB8135500FBC18D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B569242CB8135500FBC18D /* Preview Assets.xcassets */; };
+		23F6E30A2CBFB9B100D68223 /* JoieFullTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6E3092CBFB9B100D68223 /* JoieFullTests.swift */; };
+		23F6E3152CBFBA4200D68223 /* CatalogProductTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F6E3142CBFBA4200D68223 /* CatalogProductTests.swift */; };
 		23F8E7832CB9201E006F207F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23F8E7822CB9201E006F207F /* LaunchScreen.storyboard */; };
-		23FC5E542CBEA15600B0E872 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 23FC5E532CBEA15600B0E872 /* Kingfisher */; };
 		23FDB72A2CBD4812008046EA /* CatalogProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FDB7292CBD4812008046EA /* CatalogProduct.swift */; };
 		23FDB7312CBD4F71008046EA /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FDB7302CBD4F71008046EA /* HTTPService.swift */; };
 		23FDB7332CBD4FDF008046EA /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FDB7322CBD4FDF008046EA /* URLSessionHTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		23B5692B2CB8135600FBC18D /* PBXContainerItemProxy */ = {
+		23F6E30B2CBFB9B100D68223 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 23B569122CB8135100FBC18D /* Project object */;
 			proxyType = 1;
@@ -41,7 +42,9 @@
 		23B5691D2CB8135100FBC18D /* JoieFullApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullApp.swift; sourceTree = "<group>"; };
 		23B569212CB8135500FBC18D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23B569242CB8135500FBC18D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoieFullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		23F6E3072CBFB9B000D68223 /* JoieFullTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JoieFullTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		23F6E3092CBFB9B100D68223 /* JoieFullTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoieFullTests.swift; sourceTree = "<group>"; };
+		23F6E3142CBFBA4200D68223 /* CatalogProductTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogProductTests.swift; sourceTree = "<group>"; };
 		23F8E7822CB9201E006F207F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		23FDB7292CBD4812008046EA /* CatalogProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogProduct.swift; sourceTree = "<group>"; };
 		23FDB7302CBD4F71008046EA /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
@@ -53,11 +56,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23FC5E542CBEA15600B0E872 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		23B569272CB8135600FBC18D /* Frameworks */ = {
+		23F6E3042CBFB9B000D68223 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -99,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				23B5691C2CB8135100FBC18D /* JoieFull */,
-				23B5692D2CB8135600FBC18D /* JoieFullTests */,
+				23F6E3082CBFB9B100D68223 /* JoieFullTests */,
 				23B5691B2CB8135100FBC18D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				23B5691A2CB8135100FBC18D /* JoieFull.app */,
-				23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */,
+				23F6E3072CBFB9B000D68223 /* JoieFullTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,11 +137,29 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		23B5692D2CB8135600FBC18D /* JoieFullTests */ = {
+		23F6E3082CBFB9B100D68223 /* JoieFullTests */ = {
+			isa = PBXGroup;
+			children = (
+				23F6E3102CBFB9BB00D68223 /* Model */,
+				23F6E3112CBFB9C200D68223 /* ViewModel */,
+				23F6E3092CBFB9B100D68223 /* JoieFullTests.swift */,
+			);
+			path = JoieFullTests;
+			sourceTree = "<group>";
+		};
+		23F6E3102CBFB9BB00D68223 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23F6E3142CBFBA4200D68223 /* CatalogProductTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23F6E3112CBFB9C200D68223 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = JoieFullTests;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		23FDB72F2CBD4939008046EA /* Protocols */ = {
@@ -168,28 +188,27 @@
 			);
 			name = JoieFull;
 			packageProductDependencies = (
-				23FC5E532CBEA15600B0E872 /* Kingfisher */,
 			);
 			productName = JoieFull;
 			productReference = 23B5691A2CB8135100FBC18D /* JoieFull.app */;
 			productType = "com.apple.product-type.application";
 		};
-		23B569292CB8135600FBC18D /* JoieFullTests */ = {
+		23F6E3062CBFB9B000D68223 /* JoieFullTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 23B569412CB8135600FBC18D /* Build configuration list for PBXNativeTarget "JoieFullTests" */;
+			buildConfigurationList = 23F6E30D2CBFB9B100D68223 /* Build configuration list for PBXNativeTarget "JoieFullTests" */;
 			buildPhases = (
-				23B569262CB8135600FBC18D /* Sources */,
-				23B569272CB8135600FBC18D /* Frameworks */,
-				23B569282CB8135600FBC18D /* Resources */,
+				23F6E3032CBFB9B000D68223 /* Sources */,
+				23F6E3042CBFB9B000D68223 /* Frameworks */,
+				23F6E3052CBFB9B000D68223 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				23B5692C2CB8135600FBC18D /* PBXTargetDependency */,
+				23F6E30C2CBFB9B100D68223 /* PBXTargetDependency */,
 			);
 			name = JoieFullTests;
 			productName = JoieFullTests;
-			productReference = 23B5692A2CB8135600FBC18D /* JoieFullTests.xctest */;
+			productReference = 23F6E3072CBFB9B000D68223 /* JoieFullTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -205,7 +224,7 @@
 					23B569192CB8135100FBC18D = {
 						CreatedOnToolsVersion = 14.2;
 					};
-					23B569292CB8135600FBC18D = {
+					23F6E3062CBFB9B000D68223 = {
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = 23B569192CB8135100FBC18D;
 					};
@@ -221,14 +240,13 @@
 			);
 			mainGroup = 23B569112CB8135100FBC18D;
 			packageReferences = (
-				23FC5E522CBEA15600B0E872 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 23B5691B2CB8135100FBC18D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				23B569192CB8135100FBC18D /* JoieFull */,
-				23B569292CB8135600FBC18D /* JoieFullTests */,
+				23F6E3062CBFB9B000D68223 /* JoieFullTests */,
 			);
 		};
 /* End PBXProject section */
@@ -244,7 +262,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		23B569282CB8135600FBC18D /* Resources */ = {
+		23F6E3052CBFB9B000D68223 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,20 +287,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		23B569262CB8135600FBC18D /* Sources */ = {
+		23F6E3032CBFB9B000D68223 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23F6E30A2CBFB9B100D68223 /* JoieFullTests.swift in Sources */,
+				23F6E3152CBFBA4200D68223 /* CatalogProductTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		23B5692C2CB8135600FBC18D /* PBXTargetDependency */ = {
+		23F6E30C2CBFB9B100D68223 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 23B569192CB8135100FBC18D /* JoieFull */;
-			targetProxy = 23B5692B2CB8135600FBC18D /* PBXContainerItemProxy */;
+			targetProxy = 23F6E30B2CBFB9B100D68223 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -463,16 +483,14 @@
 			};
 			name = Release;
 		};
-		23B569422CB8135600FBC18D /* Debug */ = {
+		23F6E30E2CBFB9B100D68223 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 99UMC25BBL;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Joiefull.JoieFullTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -483,16 +501,14 @@
 			};
 			name = Debug;
 		};
-		23B569432CB8135600FBC18D /* Release */ = {
+		23F6E30F2CBFB9B100D68223 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 99UMC25BBL;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Joiefull.JoieFullTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -524,35 +540,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		23B569412CB8135600FBC18D /* Build configuration list for PBXNativeTarget "JoieFullTests" */ = {
+		23F6E30D2CBFB9B100D68223 /* Build configuration list for PBXNativeTarget "JoieFullTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				23B569422CB8135600FBC18D /* Debug */,
-				23B569432CB8135600FBC18D /* Release */,
+				23F6E30E2CBFB9B100D68223 /* Debug */,
+				23F6E30F2CBFB9B100D68223 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		23FC5E522CBEA15600B0E872 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		23FC5E532CBEA15600B0E872 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 23FC5E522CBEA15600B0E872 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 23B569122CB8135100FBC18D /* Project object */;
 }

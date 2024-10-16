@@ -38,5 +38,9 @@ class ArticleListViewModel : ObservableObject {
         }
     }
     
+    func reloadArticles() async throws  {
+      try await loadArticles()
+    }
     
+
 }

@@ -8,9 +8,11 @@ import Kingfisher
 import SwiftUI
 
 struct DetailView: View {
-    let articleCatalog: ArticleCatalog
+    var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
-    
+    @ObservedObject var articleListViewModel :ArticleListViewModel
+    @State var showRightColor: Bool = false
+
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -26,6 +28,7 @@ struct DetailView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .clipShape(RoundedRectangle(cornerRadius: 25))
                                     .padding()
+                                    .accessibilityValue("Image représentant \(article.name)")
 
 
                             } placeholder: {
@@ -34,7 +37,9 @@ struct DetailView: View {
                             
                             ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
                                 Label("", image: "Share")
-                            }.padding([.top, .trailing], 30)
+                            }
+                            .padding([.top, .trailing], 30)
+                            .accessibilityLabel("Partager ce contenu")
                         }
                         
                         LikesView(article: article,width:
@@ -43,9 +48,9 @@ struct DetailView: View {
                         
                     }
                     VStack {
-                        SupplementData(article: article)
+                        SupplementData(article: article, showRightColor: $showRightColor)
                         
-                        ReviewControl(comment: $comment)
+                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel, showRightColor: $showRightColor)
                     }
                     
                 }
@@ -54,50 +59,15 @@ struct DetailView: View {
     }
 }
 
-struct ImageSystemName : View {
-    @State var foregroundColor : Color = .gray
-    @State var showRightColor: Bool = false
-    @State var start : String = "star"
-    var order : Int
-    
-    var body: some View {
-        
-        Button {
-            
-            showRightColor.toggle()
-            
-            
-            if showRightColor {
-                foregroundColor = .yellow
-                start = "star.fill"
-                
-            }else{
-                foregroundColor = .gray
-                start = "star"
-            }
-            
-            for _ in 1...5 {
-                print("\(order)")
-                
-            }
-            
-        } label: {
-            Image(systemName: start)
-                .resizable()
-                .frame(width: 27.51, height: 23.98)
-                .foregroundColor(foregroundColor)
-            
-        }
-        
-    }
-    
-}
 
 
 
 
 struct ReviewControl: View {
     @Binding var comment : String
+    var articleCatalog: ArticleCatalog
+    @StateObject var articleListViewModel :ArticleListViewModel
+    @Binding var showRightColor: Bool
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -109,11 +79,11 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(order: 1)
-                        ImageSystemName(order: 2)
-                        ImageSystemName(order: 3)
-                        ImageSystemName(order: 4)
-                        ImageSystemName(order: 5)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
                     }
                     Spacer()
                 }
@@ -131,9 +101,9 @@ struct ReviewControl: View {
                 TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
                     .font(.custom("SF Pro", size: 14))
                     .fontWeight(.regular)
-                    .font(.largeTitle)
                     .multilineTextAlignment(.leading)
                     .padding()
+                    .accessibilityValue("Zone de texte pour vos impressions sur l'article")
             }
             .padding()
             
@@ -141,8 +111,54 @@ struct ReviewControl: View {
     }
 }
 
+struct ImageSystemName : View {
+    @State var foregroundColor : Color = .gray
+    @Binding var showRightColor: Bool
+    @State var start : String
+    var articleCatalog: ArticleCatalog
+    @StateObject var articleListViewModel :ArticleListViewModel
+
+    var body: some View {
+        
+        Button {
+            
+            showRightColor.toggle()
+            
+           
+            
+            if showRightColor{
+                foregroundColor = .yellow
+                start = "star.fill"
+               
+                
+            }else{
+                foregroundColor = .gray
+                start = "star"
+                
+            }
+                        
+        } label: {
+            Image(systemName: start)
+                .resizable()
+                .frame(width: 27.51, height: 23.98)
+                .foregroundColor(foregroundColor)
+            
+        }.accessibilityElement(children: .combine)
+            
+            .accessibilityLabel(showRightColor ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
+            .onTapGesture {
+                showRightColor.toggle()
+                
+            }
+        
+    }
+   
+    
+}
+
 struct SupplementData: View {
     var article : ArticleCatalog
+    @Binding var showRightColor : Bool
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -169,9 +185,8 @@ struct SupplementData: View {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
                             
-                            if let article = article.likes {
-                                
-                                Text("\(article)")
+                            if let articleLikes = article.likes {
+                                Text("\(articleLikes)")
                                     .font(.system(size: 14))
                                     .fontWeight(.semibold)
                                     .lineSpacing(2.71)
