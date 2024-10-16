@@ -68,7 +68,6 @@ struct ReviewControl: View {
     var articleCatalog: ArticleCatalog
     @StateObject var articleListViewModel :ArticleListViewModel
     @Binding var showRightColor: Bool
-
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -80,11 +79,11 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(showRightColor: $showRightColor, order: 1, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor, order: 2, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor, order: 3, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor, order: 4, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor, order: 5, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
                     }
                     Spacer()
                 }
@@ -115,8 +114,7 @@ struct ReviewControl: View {
 struct ImageSystemName : View {
     @State var foregroundColor : Color = .gray
     @Binding var showRightColor: Bool
-    @State var start : String = "star"
-    var order : Int
+    @State var start : String
     var articleCatalog: ArticleCatalog
     @StateObject var articleListViewModel :ArticleListViewModel
 
@@ -126,12 +124,13 @@ struct ImageSystemName : View {
             
             showRightColor.toggle()
             
+           
             
-            if showRightColor {
+            if showRightColor{
                 foregroundColor = .yellow
                 start = "star.fill"
-                
                
+                
             }else{
                 foregroundColor = .gray
                 start = "star"
@@ -150,14 +149,10 @@ struct ImageSystemName : View {
             .onTapGesture {
                 showRightColor.toggle()
                 
-            }.onAppear {
-                Task{
-                try await articleListViewModel.reloadArticles()
-                }
             }
-            
         
     }
+   
     
 }
 
@@ -190,9 +185,8 @@ struct SupplementData: View {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
                             
-                            if let article = article.likes {
-                                
-                                Text("\(article)")
+                            if let articleLikes = article.likes {
+                                Text("\(articleLikes)")
                                     .font(.system(size: 14))
                                     .fontWeight(.semibold)
                                     .lineSpacing(2.71)
