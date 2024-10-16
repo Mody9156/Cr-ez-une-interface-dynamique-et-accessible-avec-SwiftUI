@@ -34,7 +34,9 @@ struct DetailView: View {
                             
                             ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
                                 Label("", image: "Share")
-                            }.padding([.top, .trailing], 30)
+                            }
+                            .padding([.top, .trailing], 30)
+                            .accessibilityLabel("Partager ce contenu")
                         }
                         
                         LikesView(article: article,width:
@@ -87,10 +89,13 @@ struct ImageSystemName : View {
                 .frame(width: 27.51, height: 23.98)
                 .foregroundColor(foregroundColor)
             
-        }.accessibilityLabel(showRightColor ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
+        }.accessibilityElement(children: .combine)
+            
+            .accessibilityLabel(showRightColor ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
             .onTapGesture {
                 showRightColor.toggle()
             }
+            
         
     }
     
