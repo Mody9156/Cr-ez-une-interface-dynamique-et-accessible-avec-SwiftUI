@@ -11,6 +11,8 @@ struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
     @ObservedObject var articleListViewModel :ArticleListViewModel
+    @State var showRightColor: Bool = false
+
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -46,9 +48,9 @@ struct DetailView: View {
                         
                     }
                     VStack {
-                        SupplementData(article: article)
+                        SupplementData(article: article, showRightColor: $showRightColor)
                         
-                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
+                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel, showRightColor: $showRightColor)
                     }
                     
                 }
@@ -65,6 +67,7 @@ struct ReviewControl: View {
     @Binding var comment : String
     var articleCatalog: ArticleCatalog
     @StateObject var articleListViewModel :ArticleListViewModel
+    @Binding var showRightColor: Bool
 
     var body: some View {
         Section{
@@ -77,11 +80,11 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(order: 1, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
-                        ImageSystemName(order: 2, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(order: 3, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(order: 4, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(order: 5, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, order: 1, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, order: 2, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, order: 3, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, order: 4, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor, order: 5, articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
                     }
                     Spacer()
                 }
@@ -111,7 +114,7 @@ struct ReviewControl: View {
 
 struct ImageSystemName : View {
     @State var foregroundColor : Color = .gray
-    @State var showRightColor: Bool = false
+    @Binding var showRightColor: Bool
     @State var start : String = "star"
     var order : Int
     var articleCatalog: ArticleCatalog
@@ -127,10 +130,8 @@ struct ImageSystemName : View {
             if showRightColor {
                 foregroundColor = .yellow
                 start = "star.fill"
-                if var likes = articleCatalog.likes {
-                    likes += order
-                    print("likes = \(likes)")
-                }
+                
+               
             }else{
                 foregroundColor = .gray
                 start = "star"
@@ -148,6 +149,7 @@ struct ImageSystemName : View {
             .accessibilityLabel(showRightColor ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
             .onTapGesture {
                 showRightColor.toggle()
+                
             }.onAppear {
                 Task{
                 try await articleListViewModel.reloadArticles()
@@ -161,6 +163,7 @@ struct ImageSystemName : View {
 
 struct SupplementData: View {
     var article : ArticleCatalog
+    @Binding var showRightColor : Bool
     var body: some View {
         Section {
             VStack(alignment: .leading) {

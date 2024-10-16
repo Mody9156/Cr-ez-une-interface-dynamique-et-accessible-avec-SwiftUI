@@ -42,5 +42,5 @@ class ArticleListViewModel : ObservableObject {
       try await loadArticles()
     }
     
-    
+
 }
