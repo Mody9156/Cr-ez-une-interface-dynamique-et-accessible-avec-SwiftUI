@@ -30,8 +30,8 @@ struct ArticleListView: View {
                 }
             }.onAppear {
                 Task {
+
                     try? await articleListViewModel.loadArticles()
-                    
                 }
             }
             
@@ -60,8 +60,9 @@ struct ShowCategories: View {
             VStack {
                 
                 NavigationLink {
-                    
+
                     DetailView(articleCatalog: article)
+                    
                 } label: {
                     ZStack(alignment: .bottomTrailing){
                         

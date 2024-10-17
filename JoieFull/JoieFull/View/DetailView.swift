@@ -65,6 +65,8 @@ struct ReviewControl: View {
     @Binding var comment : String
     var articleCatalog: ArticleCatalog
     @Binding var showRightColor: Bool
+    @State var add : [Int] = []
+
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -76,11 +78,12 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(showRightColor: $showRightColor,  order: 1, articleCatalog: articleCatalog)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 2, articleCatalog: articleCatalog)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 3, articleCatalog: articleCatalog)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 4, articleCatalog: articleCatalog)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 5, articleCatalog: articleCatalog)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 1, articleCatalog: articleCatalog, add: $add)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 2, articleCatalog: articleCatalog, add: $add)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 3, articleCatalog: articleCatalog, add: $add)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 4, articleCatalog: articleCatalog, add: $add
+                        )
+                        ImageSystemName(showRightColor: $showRightColor,  order: 5, articleCatalog: articleCatalog, add: $add)
                     }
                     Spacer()
                 }
@@ -114,42 +117,39 @@ struct ImageSystemName : View {
     @State var start : String = "star"
     var order : Int
     var articleCatalog: ArticleCatalog
-    @State var add : [Int] = []
+    @Binding var add : [Int]
+    
     var body: some View {
-        
+        var chooseIndex = add.contains(order)
+       
         Button {
             
-            showRightColor.toggle()
-           
-            if showRightColor{
-                foregroundColor = .yellow
-                start = "star.fill"
-                add = Array(1..<order)
-                for adds in add {
-                    print(adds)
-                }
-                print("add \(order)")
-            }else{
-                foregroundColor = .gray
-                start = "star"
-                print("hallo")
+            startUpdate(order: order)
                 
+            if chooseIndex {
+                add.removeAll()
             }
-                        
+            
         } label: {
-            Image(systemName: start)
+            Image(systemName: chooseIndex ?  "star.fill" : "star")
                 .resizable()
                 .frame(width: 27.51, height: 23.98)
-                .foregroundColor(foregroundColor)
+                .foregroundColor(chooseIndex ? .yellow : .gray)
             
         }.accessibilityElement(children: .combine)
             
-            .accessibilityLabel(showRightColor ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
-            .onTapGesture {
-                showRightColor.toggle()
+            .accessibilityLabel(chooseIndex
+                                ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
+            
+        
+    }
+    private func startUpdate(order:Int){
+        for index in 1...order {
+            if !add.contains(index){
+                add.append(index)
                 
             }
-        
+        }
     }
    
     
