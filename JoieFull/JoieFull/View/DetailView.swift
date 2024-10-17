@@ -151,7 +151,7 @@ struct SupplementData: View {
     var article : ArticleCatalog
     @Binding var valueCombiner : [Int]
     var someArray : [Int] = []
-    var ramdomArray : [Double] = [3.4,4.5,4.4,1.3]
+    var ramdomArray : [Int] = [3,4,4,1,6,7]
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -179,8 +179,9 @@ struct SupplementData: View {
                                 .foregroundColor(.yellow)
                             if let note = ramdomArray.randomElement() {
                                let moyen = addition()
-                                let result  = moyen + note / 2
-                                Text("\(result, format: .number.rounded(increment: 0.1))")
+                                
+                                let result  = (moyen + note) / 2
+                                Text("\(Double(result))")
                                 .font(.system(size: 14))
                                 .fontWeight(.semibold)
                                 .lineSpacing(2.71)
