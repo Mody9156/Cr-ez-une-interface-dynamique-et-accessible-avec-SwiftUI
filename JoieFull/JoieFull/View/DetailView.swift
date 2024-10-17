@@ -4,13 +4,11 @@
 //
 //  Created by KEITA on 13/10/2024.
 //
-import Kingfisher
 import SwiftUI
 
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
-    @ObservedObject var articleListViewModel :ArticleListViewModel
     @State var showRightColor: Bool = false
 
     var body: some View {
@@ -50,7 +48,7 @@ struct DetailView: View {
                     VStack {
                         SupplementData(article: article, showRightColor: $showRightColor)
                         
-                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel, showRightColor: $showRightColor)
+                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, showRightColor: $showRightColor)
                     }
                     
                 }
@@ -66,7 +64,6 @@ struct DetailView: View {
 struct ReviewControl: View {
     @Binding var comment : String
     var articleCatalog: ArticleCatalog
-    @StateObject var articleListViewModel :ArticleListViewModel
     @Binding var showRightColor: Bool
     var body: some View {
         Section{
@@ -79,11 +76,11 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 1, articleCatalog: articleCatalog)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 2, articleCatalog: articleCatalog)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 3, articleCatalog: articleCatalog)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 4, articleCatalog: articleCatalog)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 5, articleCatalog: articleCatalog)
                     }
                     Spacer()
                 }
@@ -115,9 +112,9 @@ struct ImageSystemName : View {
     @State var foregroundColor : Color = .gray
     @Binding var showRightColor: Bool
     @State var start : String = "star"
+    var order : Int
     var articleCatalog: ArticleCatalog
-    @StateObject var articleListViewModel :ArticleListViewModel
-
+    @State var add : [Int] = []
     var body: some View {
         
         Button {
@@ -127,11 +124,15 @@ struct ImageSystemName : View {
             if showRightColor{
                 foregroundColor = .yellow
                 start = "star.fill"
-               
-                
+                add = Array(1..<order)
+                for adds in add {
+                    print(adds)
+                }
+                print("add \(order)")
             }else{
                 foregroundColor = .gray
                 start = "star"
+                print("hallo")
                 
             }
                         
@@ -214,5 +215,12 @@ struct SupplementData: View {
             }
             
         }.padding()
+    }
+}
+
+
+struct DetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailView(articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "", description: "Simple"), name: "Jack", category: "", price: 33.33, original_price: 33.33), showRightColor: true)
     }
 }

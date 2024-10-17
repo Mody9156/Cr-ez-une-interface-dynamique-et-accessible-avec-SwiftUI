@@ -2,9 +2,15 @@ import SwiftUI
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
     @State var presentArticles: Bool = false
-    
-    
+    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    var articleCatalog : ArticleCatalog
+    var isDeviceLandscapeMode : Bool{
+        horizontalSizeClass == .regular
+    }
+  
+
     var body: some View {
+        
         NavigationSplitView {
             ScrollView(showsIndicators: true) {
                 HStack {
@@ -16,34 +22,36 @@ struct ArticleListView: View {
                         
                         ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
                     }
-                    .onAppear {
-                        Task {
-                            try? await articleListViewModel.loadArticles()
+                    if isDeviceLandscapeMode {
+                        if presentArticles {
+                            DetailView(articleCatalog: articleCatalog)
                         }
                     }
-                    
+                }
+            }.onAppear {
+                Task {
+                    try? await articleListViewModel.loadArticles()
                     
                 }
             }
-               
+            
             
         } detail: {
-            Text("Sélectionne une article")
+         
+           Text("Sélectionnez un article")
+                    
         }
+        
+        
     }
 }
 
 struct ShowCategories: View {
     var article: ArticleCatalog
     var category : String = ""
-    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
-
     
-    var isDeviceLandscapeMode : Bool{
-        horizontalSizeClass == .regular
-    }
     
     var body: some View {
         
@@ -51,38 +59,31 @@ struct ShowCategories: View {
             
             VStack {
                 
-                
-                if isDeviceLandscapeMode {
-                   
-
-                    DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
-                }else{
-                    //
-                    NavigationLink {
+                NavigationLink {
+                    
+                    DetailView(articleCatalog: article)
+                } label: {
+                    ZStack(alignment: .bottomTrailing){
                         
-                        DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
-                    } label: {
-                        ZStack(alignment: .bottomTrailing){
+                        AsyncImage(url: URL(string: article.picture.url)) { image in
+                            image
+                                .resizable()
                             
-                            AsyncImage(url: URL(string: article.picture.url)) { image in
-                                image
-                                    .resizable()
-                                
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(width: 198, height: 297)
-                            .cornerRadius(20)
-                            
-                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
-                                .padding()
+                        } placeholder: {
+                            ProgressView()
                         }
+                        .frame(width: 198, height: 297)
+                        .cornerRadius(20)
                         
-                    }.accessibilityLabel(Text("You select \(article.name)"))
+                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                            .padding()
+                    }
                     
-                    
-                    InfoExtract(article: article)
-                }
+                }.accessibilityLabel(Text("You select \(article.name)"))
+                
+                
+                InfoExtract(article: article)
+                
             }
             
         }
@@ -162,7 +163,7 @@ struct ExtractionDeviceLandscapeMode : View{
     @Binding var presentArticles : Bool
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
-
+    
     var body: some View {
         VStack {
             VStack {
@@ -189,7 +190,7 @@ struct ExtractionDeviceLandscapeMode : View{
                     
                 }
             }.accessibilityLabel(Text("You select \(article.name)")).sheet(isPresented: $presentArticles) {
-                DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
+                DetailView(articleCatalog: article)
             }
             
             InfoExtract(article: article)
@@ -238,5 +239,11 @@ struct InfoExtract: View {
                     .multilineTextAlignment(.leading).foregroundColor(.gray)
             }
         }
+    }
+}
+
+struct ArticleListView_Previews: PreviewProvider {
+    static var previews: some View {
+        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true , articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "", description: "String"), name: "", category: "", price: 33.33, original_price: 33.33) )
     }
 }
