@@ -9,7 +9,6 @@ import SwiftUI
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
-    @State var showRightColor: Bool = false
 
     var body: some View {
         ScrollView {
@@ -46,9 +45,9 @@ struct DetailView: View {
                         
                     }
                     VStack {
-                        SupplementData(article: article, showRightColor: $showRightColor)
+                        SupplementData(article: article)
                         
-                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, showRightColor: $showRightColor)
+                        ReviewControl(comment: $comment, articleCatalog: articleCatalog)
                     }
                     
                 }
@@ -64,7 +63,6 @@ struct DetailView: View {
 struct ReviewControl: View {
     @Binding var comment : String
     var articleCatalog: ArticleCatalog
-    @Binding var showRightColor: Bool
     @State var valueCombiner : [Int] = []
 
     var body: some View {
@@ -78,12 +76,12 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(showRightColor: $showRightColor,  order: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner
+                        ImageSystemName( order: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  order: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  order: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  order: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner
                         )
-                        ImageSystemName(showRightColor: $showRightColor,  order: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  order: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
                     Spacer()
                 }
@@ -113,8 +111,6 @@ struct ReviewControl: View {
 
 struct ImageSystemName : View {
     @State var foregroundColor : Color = .gray
-    @Binding var showRightColor: Bool
-    @State var start : String = "star"
     var order : Int
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
@@ -157,7 +153,6 @@ struct ImageSystemName : View {
 
 struct SupplementData: View {
     var article : ArticleCatalog
-    @Binding var showRightColor : Bool
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -221,6 +216,6 @@ struct SupplementData: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "", description: "Simple"), name: "Jack", category: "", price: 33.33, original_price: 33.33), showRightColor: true)
+        DetailView(articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "", description: "Simple"), name: "Jack", category: "", price: 33.33, original_price: 33.33))
     }
 }
