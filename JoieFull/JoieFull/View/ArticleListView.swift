@@ -195,9 +195,7 @@ struct ExtractionDeviceLandscapeMode : View{
                     
                     
                 }
-            }.accessibilityLabel(Text("You select \(article.name)")).sheet(isPresented: $presentArticles) {
-                DetailView(articleCatalog: article)
-            }
+            }.accessibilityLabel(Text("You select \(article.name)"))
             
             InfoExtract(article: article)
         }
@@ -206,7 +204,7 @@ struct ExtractionDeviceLandscapeMode : View{
 
 struct InfoExtract: View {
     var article: ArticleCatalog
-    
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {

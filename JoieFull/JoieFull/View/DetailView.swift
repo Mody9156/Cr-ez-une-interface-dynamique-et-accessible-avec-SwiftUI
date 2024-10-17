@@ -9,7 +9,7 @@ import SwiftUI
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
-
+    @State var valueCombiner : [Int] = []
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -18,16 +18,16 @@ struct DetailView: View {
                     ZStack(alignment: .bottomTrailing){
                         
                         ZStack (alignment: .topTrailing){
-
+                            
                             AsyncImage(url: URL(string: article.picture.url)) { image in
-                               image
+                                image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .clipShape(RoundedRectangle(cornerRadius: 25))
                                     .padding()
                                     .accessibilityValue("Image représentant \(article.name)")
-
-
+                                
+                                
                             } placeholder: {
                                 ProgressView()
                             }
@@ -45,9 +45,9 @@ struct DetailView: View {
                         
                     }
                     VStack {
-                        SupplementData(article: article)
+                        SupplementData(article: article, valueCombiner: $valueCombiner)
                         
-                        ReviewControl(comment: $comment, articleCatalog: articleCatalog)
+                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
                     
                 }
@@ -63,8 +63,7 @@ struct DetailView: View {
 struct ReviewControl: View {
     @Binding var comment : String
     var articleCatalog: ArticleCatalog
-    @State var valueCombiner : [Int] = []
-
+    @Binding var valueCombiner : [Int]
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -110,22 +109,20 @@ struct ReviewControl: View {
 }
 
 struct ImageSystemName : View {
-    @State var foregroundColor : Color = .gray
     var sortArray : Int
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
-    
     var body: some View {
-        let chooseIndex = valueCombiner.contains(sortArray)
-       
+    let chooseIndex = valueCombiner.contains(sortArray)
+        
         Button {
             
             appendToArray(order: sortArray)
-                
             if chooseIndex {
                 valueCombiner.removeAll()
             }
-            
+            print("valueCombiner : \(valueCombiner)")
+
         } label: {
             Image(systemName: chooseIndex ?  "star.fill" : "star")
                 .resizable()
@@ -133,26 +130,27 @@ struct ImageSystemName : View {
                 .foregroundColor(chooseIndex ? .yellow : .gray)
             
         }.accessibilityElement(children: .combine)
-            
+        
             .accessibilityLabel(chooseIndex
                                 ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
-            
+        
         
     }
     private func appendToArray(order:Int){
         for index in 1...order {
             if !valueCombiner.contains(index){
                 valueCombiner.append(index)
-                
             }
         }
     }
-   
+    
     
 }
 
 struct SupplementData: View {
     var article : ArticleCatalog
+    @Binding var valueCombiner : [Int]
+    var someArray : [Int] = []
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -178,14 +176,13 @@ struct SupplementData: View {
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
-                            
-                            if let articleLikes = article.likes {
-                                Text("\(articleLikes)")
+                      
+                            Text("L")
                                     .font(.system(size: 14))
                                     .fontWeight(.semibold)
                                     .lineSpacing(2.71)
                                     .multilineTextAlignment(.leading)
-                            }
+                            
                         }
                         
                         
@@ -211,6 +208,18 @@ struct SupplementData: View {
             
         }.padding()
     }
+    func addition()->Int{
+        var array = 0
+        if let lastElement = valueCombiner.last  {
+             array = lastElement
+            return array
+        }
+        return 0
+    }
+    
+
+
+    
 }
 
 
