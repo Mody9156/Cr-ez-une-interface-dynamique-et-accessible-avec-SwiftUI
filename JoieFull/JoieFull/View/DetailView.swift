@@ -65,7 +65,7 @@ struct ReviewControl: View {
     @Binding var comment : String
     var articleCatalog: ArticleCatalog
     @Binding var showRightColor: Bool
-    @State var add : [Int] = []
+    @State var valueCombiner : [Int] = []
 
     var body: some View {
         Section{
@@ -78,12 +78,12 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(showRightColor: $showRightColor,  order: 1, articleCatalog: articleCatalog, add: $add)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 2, articleCatalog: articleCatalog, add: $add)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 3, articleCatalog: articleCatalog, add: $add)
-                        ImageSystemName(showRightColor: $showRightColor,  order: 4, articleCatalog: articleCatalog, add: $add
+                        ImageSystemName(showRightColor: $showRightColor,  order: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner
                         )
-                        ImageSystemName(showRightColor: $showRightColor,  order: 5, articleCatalog: articleCatalog, add: $add)
+                        ImageSystemName(showRightColor: $showRightColor,  order: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
                     Spacer()
                 }
@@ -117,17 +117,17 @@ struct ImageSystemName : View {
     @State var start : String = "star"
     var order : Int
     var articleCatalog: ArticleCatalog
-    @Binding var add : [Int]
+    @Binding var valueCombiner : [Int]
     
     var body: some View {
-        var chooseIndex = add.contains(order)
+        var chooseIndex = valueCombiner.contains(order)
        
         Button {
             
-            startUpdate(order: order)
+            appendToArray(order: order)
                 
             if chooseIndex {
-                add.removeAll()
+                valueCombiner.removeAll()
             }
             
         } label: {
@@ -143,10 +143,10 @@ struct ImageSystemName : View {
             
         
     }
-    private func startUpdate(order:Int){
+    private func appendToArray(order:Int){
         for index in 1...order {
-            if !add.contains(index){
-                add.append(index)
+            if !valueCombiner.contains(index){
+                valueCombiner.append(index)
                 
             }
         }
