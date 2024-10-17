@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct ArticleCatalog : Identifiable,Codable {
     var id : Int
@@ -16,9 +17,12 @@ struct ArticleCatalog : Identifiable,Codable {
     var price : Double
     var original_price : Double
     
+   
+    
 }
 
 struct URLBuilder : Codable {
     var url : String
     var description : String
 }
+

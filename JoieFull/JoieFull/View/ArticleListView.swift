@@ -204,7 +204,7 @@ struct ExtractionDeviceLandscapeMode : View{
 
 struct InfoExtract: View {
     var article: ArticleCatalog
-
+    var note : Int = 4
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -224,9 +224,9 @@ struct InfoExtract: View {
             VStack(alignment: .trailing) {
                 HStack {
                     Image(systemName: "star.fill").foregroundColor(.yellow)
-                    if let article = article.likes {
+                    if let article = note {
                         
-                        Text("\(article)")
+                        Text("\(Double(article), format: .number.rounded(increment: 0.1))")
                             .font(.system(size: 14))
                             .fontWeight(.semibold)
                             .lineSpacing(2.71)

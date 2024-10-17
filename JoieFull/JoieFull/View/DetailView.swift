@@ -151,7 +151,8 @@ struct SupplementData: View {
     var article : ArticleCatalog
     @Binding var valueCombiner : [Int]
     var someArray : [Int] = []
-    var ramdomArray : [Int] = [3,4,4,1,6,7]
+    var ramdomArray : Int = 4
+    @State var addNewElement  : Bool = false
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -177,16 +178,20 @@ struct SupplementData: View {
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
-                            if let note = ramdomArray.randomElement() {
+                         
+                                
+                          
+                            
                                let moyen = addition()
                                 
-                                let result  = (moyen + note) / 2
-                                Text("\(Double(result))")
+                                let result  = (ramdomArray + moyen ) / 2
+                           
+                            Text("\( Double(result), format: .number.rounded(increment: 0.1))")
                                 .font(.system(size: 14))
                                 .fontWeight(.semibold)
                                 .lineSpacing(2.71)
                                 .multilineTextAlignment(.leading)
-                        }
+                        
                         }
                         
                         
@@ -214,12 +219,14 @@ struct SupplementData: View {
     }
     func addition()->Int{
         var array = 0
-        if let lastElement = valueCombiner.last  {
-             array = lastElement
-            return array
+        
+        if !valueCombiner.isEmpty {
+            if let lastElement = valueCombiner.last  {
+                 array = lastElement
+            }
         }
-        print("array:\(array)")
-        return 0
+       
+        return array
     }
     
 
