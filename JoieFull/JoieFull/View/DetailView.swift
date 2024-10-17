@@ -79,11 +79,11 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor, start: "star", articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
                     }
                     Spacer()
                 }
@@ -114,7 +114,7 @@ struct ReviewControl: View {
 struct ImageSystemName : View {
     @State var foregroundColor : Color = .gray
     @Binding var showRightColor: Bool
-    @State var start : String
+    @State var start : String = "star"
     var articleCatalog: ArticleCatalog
     @StateObject var articleListViewModel :ArticleListViewModel
 
