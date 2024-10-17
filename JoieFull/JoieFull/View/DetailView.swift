@@ -151,6 +151,7 @@ struct SupplementData: View {
     var article : ArticleCatalog
     @Binding var valueCombiner : [Int]
     var someArray : [Int] = []
+    var ramdomArray : [Double] = [3.4,4.5,4.4,1.3]
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -176,13 +177,15 @@ struct SupplementData: View {
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
-                      
-                            Text("L")
-                                    .font(.system(size: 14))
-                                    .fontWeight(.semibold)
-                                    .lineSpacing(2.71)
-                                    .multilineTextAlignment(.leading)
-                            
+                            if let note = ramdomArray.randomElement() {
+                               let moyen = addition()
+                                let result  = moyen + note / 2
+                                Text("\(result, format: .number.rounded(increment: 0.1))")
+                                .font(.system(size: 14))
+                                .fontWeight(.semibold)
+                                .lineSpacing(2.71)
+                                .multilineTextAlignment(.leading)
+                        }
                         }
                         
                         
@@ -214,6 +217,7 @@ struct SupplementData: View {
              array = lastElement
             return array
         }
+        print("array:\(array)")
         return 0
     }
     
