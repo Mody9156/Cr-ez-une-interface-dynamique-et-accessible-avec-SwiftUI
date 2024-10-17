@@ -99,32 +99,37 @@ struct LikesView :View {
     var height : Double
     var widthFrame : Double
     var heightFrame : Double
+    @State var addInFavoris : Bool = false
     var body: some View {
-        
-        HStack{
-            ZStack {
-                
-                Capsule()
-                    .fill(.white)
-                    .frame(width: widthFrame, height: heightFrame)
-                HStack{
-                    Image(systemName: "heart")
-                        .resizable()
-                        .frame(width: width, height: height)
-                        .foregroundColor(.black)
-                    
-                    
-                    if let likes = article.likes {
-                        Text("\(likes)")
-                            .foregroundColor(.black)
-                        
-                    }
-                }
-            }
             
+            Button {
+                addInFavoris.toggle()
+            } label: {
+                HStack{
+                    ZStack {
+                        
+                        Capsule()
+                            .fill(.white)
+                            .frame(width: widthFrame, height: heightFrame)
+                        HStack{
+                            Image(systemName: addInFavoris ? "heart.fill":"heart")
+                                .resizable()
+                                .frame(width: width, height: height)
+                                .foregroundColor(addInFavoris ? .yellow : .black)
+                            
+                            
+                            if let likes = article.likes {
+                                Text("\(addInFavoris ?( likes + 1) :  likes)")
+                                    .foregroundColor(.black)
+                                
+                            }
+                        }
+                    }
+                    
+                }
         }
-        
-    }
+        }
+
 }
 
 struct ArticlesFinder: View {

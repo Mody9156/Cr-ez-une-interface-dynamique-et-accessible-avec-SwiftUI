@@ -76,12 +76,12 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName( order: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  order: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  order: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  order: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner
+                        ImageSystemName( sortArray: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  sortArray: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  sortArray: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  sortArray: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner
                         )
-                        ImageSystemName(  order: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  sortArray: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
                     Spacer()
                 }
@@ -111,16 +111,16 @@ struct ReviewControl: View {
 
 struct ImageSystemName : View {
     @State var foregroundColor : Color = .gray
-    var order : Int
+    var sortArray : Int
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
     
     var body: some View {
-        var chooseIndex = valueCombiner.contains(order)
+        let chooseIndex = valueCombiner.contains(sortArray)
        
         Button {
             
-            appendToArray(order: order)
+            appendToArray(order: sortArray)
                 
             if chooseIndex {
                 valueCombiner.removeAll()
@@ -216,6 +216,6 @@ struct SupplementData: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "", description: "Simple"), name: "Jack", category: "", price: 33.33, original_price: 33.33))
+        DetailView(articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "url", description: "description"), name: "name", category: "category", price: 33.33, original_price: 33.33))
     }
 }
