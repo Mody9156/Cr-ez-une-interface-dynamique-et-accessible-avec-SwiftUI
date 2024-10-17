@@ -7,6 +7,11 @@
 
 import Foundation
 
+class testViewModel {
+    var articleCatalog : [ArticleCatalog] = []
+}
+
+
 class ArticleListViewModel : ObservableObject {
     let catalogProduct : CatalogProduct
     @Published var articleCatalog : [ArticleCatalog] = []

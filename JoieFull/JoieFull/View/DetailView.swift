@@ -4,15 +4,12 @@
 //
 //  Created by KEITA on 13/10/2024.
 //
-import Kingfisher
 import SwiftUI
 
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
-    @ObservedObject var articleListViewModel :ArticleListViewModel
-    @State var showRightColor: Bool = false
-
+    @State var valueCombiner : [Int] = []
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -21,16 +18,16 @@ struct DetailView: View {
                     ZStack(alignment: .bottomTrailing){
                         
                         ZStack (alignment: .topTrailing){
-
+                            
                             AsyncImage(url: URL(string: article.picture.url)) { image in
-                               image
+                                image
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .clipShape(RoundedRectangle(cornerRadius: 25))
                                     .padding()
                                     .accessibilityValue("Image représentant \(article.name)")
-
-
+                                
+                                
                             } placeholder: {
                                 ProgressView()
                             }
@@ -48,9 +45,9 @@ struct DetailView: View {
                         
                     }
                     VStack {
-                        SupplementData(article: article, showRightColor: $showRightColor)
+                        SupplementData(article: article, valueCombiner: $valueCombiner)
                         
-                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, articleListViewModel: articleListViewModel, showRightColor: $showRightColor)
+                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
                     
                 }
@@ -66,8 +63,7 @@ struct DetailView: View {
 struct ReviewControl: View {
     @Binding var comment : String
     var articleCatalog: ArticleCatalog
-    @StateObject var articleListViewModel :ArticleListViewModel
-    @Binding var showRightColor: Bool
+    @Binding var valueCombiner : [Int]
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -79,11 +75,12 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog, articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
-                        ImageSystemName(showRightColor: $showRightColor,  articleCatalog: articleCatalog,articleListViewModel: articleListViewModel)
+                        ImageSystemName( sortArray: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  sortArray: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  sortArray: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  sortArray: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner
+                        )
+                        ImageSystemName(  sortArray: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
                     Spacer()
                 }
@@ -112,53 +109,50 @@ struct ReviewControl: View {
 }
 
 struct ImageSystemName : View {
-    @State var foregroundColor : Color = .gray
-    @Binding var showRightColor: Bool
-    @State var start : String = "star"
+    var sortArray : Int
     var articleCatalog: ArticleCatalog
-    @StateObject var articleListViewModel :ArticleListViewModel
-
+    @Binding var valueCombiner : [Int]
     var body: some View {
+    let chooseIndex = valueCombiner.contains(sortArray)
         
         Button {
             
-            showRightColor.toggle()
-            
-           
-            
-            if showRightColor{
-                foregroundColor = .yellow
-                start = "star.fill"
-               
-                
-            }else{
-                foregroundColor = .gray
-                start = "star"
-                
+            appendToArray(order: sortArray)
+            if chooseIndex {
+                valueCombiner.removeAll()
             }
-                        
+            print("valueCombiner : \(valueCombiner)")
+
         } label: {
-            Image(systemName: start)
+            Image(systemName: chooseIndex ?  "star.fill" : "star")
                 .resizable()
                 .frame(width: 27.51, height: 23.98)
-                .foregroundColor(foregroundColor)
+                .foregroundColor(chooseIndex ? .yellow : .gray)
             
         }.accessibilityElement(children: .combine)
-            
-            .accessibilityLabel(showRightColor ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
-            .onTapGesture {
-                showRightColor.toggle()
-                
-            }
+        
+            .accessibilityLabel(chooseIndex
+                                ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
+        
         
     }
-   
+    private func appendToArray(order:Int){
+        for index in 1...order {
+            if !valueCombiner.contains(index){
+                valueCombiner.append(index)
+            }
+        }
+    }
+    
     
 }
 
 struct SupplementData: View {
     var article : ArticleCatalog
-    @Binding var showRightColor : Bool
+    @Binding var valueCombiner : [Int]
+    var someArray : [Int] = []
+    var ramdomArray : Int = 4
+    @State var addNewElement  : Bool = false
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -184,14 +178,20 @@ struct SupplementData: View {
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
+                         
+                                
+                          
                             
-                            if let articleLikes = article.likes {
-                                Text("\(articleLikes)")
-                                    .font(.system(size: 14))
-                                    .fontWeight(.semibold)
-                                    .lineSpacing(2.71)
-                                    .multilineTextAlignment(.leading)
-                            }
+                               let moyen = addition()
+                                
+                                let result  = (ramdomArray + moyen ) / 2
+                           
+                            Text("\( Double(result), format: .number.rounded(increment: 0.1))")
+                                .font(.system(size: 14))
+                                .fontWeight(.semibold)
+                                .lineSpacing(2.71)
+                                .multilineTextAlignment(.leading)
+                        
                         }
                         
                         
@@ -216,5 +216,27 @@ struct SupplementData: View {
             }
             
         }.padding()
+    }
+    func addition()->Int{
+        var array = 0
+        
+        if !valueCombiner.isEmpty {
+            if let lastElement = valueCombiner.last  {
+                 array = lastElement
+            }
+        }
+       
+        return array
+    }
+    
+
+
+    
+}
+
+
+struct DetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailView(articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "url", description: "description"), name: "name", category: "category", price: 33.33, original_price: 33.33))
     }
 }
