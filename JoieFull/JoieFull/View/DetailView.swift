@@ -123,9 +123,7 @@ struct ImageSystemName : View {
         Button {
             
             showRightColor.toggle()
-            
            
-            
             if showRightColor{
                 foregroundColor = .yellow
                 start = "star.fill"
