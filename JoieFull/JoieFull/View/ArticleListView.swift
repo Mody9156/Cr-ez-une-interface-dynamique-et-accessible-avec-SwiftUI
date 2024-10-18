@@ -7,8 +7,8 @@ struct ArticleListView: View {
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
     }
-    @State var selectedArticle: ArticleCatalog? = nil // Remplace le boolean presentArticles
-    @Binding var addInFavoris :Bool
+    @State var selectedArticle: ArticleCatalog? = nil 
+    @State var addNewElement  : Bool = false
     var body: some View {
         
         NavigationStack {
@@ -16,17 +16,16 @@ struct ArticleListView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
+                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addNewElement)
                         
-                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addNewElement)
                         
-                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
-                        
-                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addNewElement)
                     }
                     
                     if isDeviceLandscapeMode {
                             if let article =  selectedArticle {
-                                DetailView(articleCatalog: article, addInFavoris: addInFavoris)
+                                DetailView(articleCatalog: article, addInFavoris: $addNewElement)
                             }
                         
                     }
@@ -68,7 +67,7 @@ struct ShowCategories: View {
                     
                     NavigationLink {
 
-                        DetailView(articleCatalog: article, addInFavoris: addInFavoris)
+                        DetailView(articleCatalog: article, addInFavoris: $addInFavoris)
                         
                     } label: {
                         ZStack(alignment: .bottomTrailing){

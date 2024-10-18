@@ -21,7 +21,6 @@ struct ArticleCatalog : Equatable,Identifiable,Codable{
     var likes : Int?
     var price : Double
     var original_price : Double
-    
    
     
 }

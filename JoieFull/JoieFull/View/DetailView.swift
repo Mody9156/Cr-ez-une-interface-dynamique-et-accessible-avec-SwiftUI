@@ -10,7 +10,7 @@ struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
     @State var valueCombiner : [Int] = []
-    @State var addInFavoris : Bool
+    @Binding var addInFavoris : Bool
 
     var body: some View {
         ScrollView {
@@ -41,12 +41,12 @@ struct DetailView: View {
                             .accessibilityLabel("Partager ce contenu")
                         }
                         
-                        LikesViewForDetailleView(article: article, addInFavoris: addInFavoris)
+                        LikesViewForDetailleView(article: article, addInFavoris: $addInFavoris)
                         .padding([.bottom, .trailing], 30)
                         
                     }
                     VStack {
-                        SupplementData(article: article, valueCombiner: $valueCombiner)
+                        SupplementData(article: article, valueCombiner: $valueCombiner, addNewElement: $addInFavoris)
                         
                         ReviewControl(comment: $comment, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
@@ -63,7 +63,7 @@ struct LikesViewForDetailleView :View {
     var height : Double = 20.92
     var widthFrame : Double = 90
     var heightFrame : Double = 40
-    @State var addInFavoris : Bool
+    @Binding var addInFavoris : Bool
     var body: some View {
             
             Button {
@@ -190,7 +190,7 @@ struct SupplementData: View {
     @Binding var valueCombiner : [Int]
     var someArray : [Int] = []
     var ramdomArray : Int = 4
-    @State var addNewElement  : Bool = false
+    @Binding var addNewElement  : Bool
     var body: some View {
         Section {
             VStack(alignment: .leading) {
