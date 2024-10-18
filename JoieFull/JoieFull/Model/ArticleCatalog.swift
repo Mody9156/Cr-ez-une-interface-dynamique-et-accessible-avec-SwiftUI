@@ -13,7 +13,6 @@ struct ArticleCatalog : Equatable,Identifiable,Codable{
         return lhs.id == rhs.id
     }
     
-    
     var id : Int
     var picture : URLBuilder
     var name :String
@@ -21,7 +20,6 @@ struct ArticleCatalog : Equatable,Identifiable,Codable{
     var likes : Int?
     var price : Double
     var original_price : Double
-   
     
 }
 

@@ -2,13 +2,15 @@ import SwiftUI
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
     @State var presentArticles: Bool = false
+    @State var selectedArticle: ArticleCatalog? = nil
+    @State  var addInFavoris : Bool = false
     @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     var articleCatalog : ArticleCatalog
+    @State var addNewFavoris : Bool = false
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
     }
-    @State var selectedArticle: ArticleCatalog? = nil 
-    @State var addNewElement  : Bool = false
+    
     var body: some View {
         
         NavigationStack {
@@ -16,16 +18,17 @@ struct ArticleListView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addNewElement)
+                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                         
-                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addNewElement)
+                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                         
-                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addNewElement)
+                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                     }
                     
                     if isDeviceLandscapeMode {
                             if let article =  selectedArticle {
-                                DetailView(articleCatalog: article, addInFavoris: $addNewElement)
+                                DetailView(articleCatalog: article, addInFavoris: $addInFavoris)
+                                
                             }
                         
                     }
@@ -60,7 +63,6 @@ struct ShowCategories: View {
             if isDeviceLandscapeMode {
                
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
-                    
                 
             }else{
                 VStack {
@@ -82,7 +84,7 @@ struct ShowCategories: View {
                             .frame(width: 198, height: 297)
                             .cornerRadius(20)
                             
-                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addInFavoris: $addInFavoris)
+                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addNewFavoris: $addInFavoris)
                                 .padding()
                         }
                         
@@ -100,76 +102,6 @@ struct ShowCategories: View {
     }
 }
 
-
-struct LikesView :View {
-    var article: ArticleCatalog
-    var width : Double
-    var height : Double
-    var widthFrame : Double
-    var heightFrame : Double
-    @Binding var addInFavoris : Bool
-    var body: some View {
-            
-           
-                HStack{
-                    ZStack {
-                        
-                        Capsule()
-                            .fill(.white)
-                            .frame(width: widthFrame, height: heightFrame)
-                        HStack{
-                            Image(systemName: addInFavoris ? "heart.fill":"heart")
-                                .resizable()
-                                .frame(width: width, height: height)
-                                .foregroundColor(addInFavoris ? .yellow : .black)
-                            
-                            
-                            if let likes = article.likes {
-                                Text("\(addInFavoris ?( likes + 1) :  likes)")
-                                    .foregroundColor(.black)
-                                
-                            }
-                        }
-                    }
-                    
-                }
-        
-        }
-
-}
-
-struct ArticlesFinder: View {
-    var sectionName : String
-    var categoryName : String
-    @Binding var presentArticles : Bool
-    @StateObject var articleListViewModel: ArticleListViewModel
-    @Binding var selectedArticle: ArticleCatalog?  // Gère l'article sélectionné
-    @Binding var addInFavoris : Bool
-    var body: some View {
-        VStack(alignment: .leading) {
-            Section(header:Text(sectionName)
-                .font(.system(size: 22))
-                .fontWeight(.semibold)
-                .lineSpacing(4.25)
-                .multilineTextAlignment(.leading)) {
-                    
-                    ScrollView(.horizontal){
-                        
-                        HStack {
-                            
-                            ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
-                            }
-                            
-                        }
-                    }
-                    
-                }.padding(.leading)
-                .padding(.trailing)
-            
-        }
-    }
-}
 
 
 struct ExtractionDeviceLandscapeMode : View{
@@ -196,7 +128,7 @@ struct ExtractionDeviceLandscapeMode : View{
                         .frame(width: 198, height: 297)
                         .cornerRadius(20)
                         
-                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addInFavoris: $addInFavoris)
+                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addNewFavoris: $addInFavoris)
                             .padding()
                     }.border(presentArticles ? .blue : .clear, width:3)
                     
@@ -208,6 +140,38 @@ struct ExtractionDeviceLandscapeMode : View{
             InfoExtract(article: article)
         }
     }
+}
+
+struct LikesView :View {
+    var article: ArticleCatalog
+    var width : Double
+    var height : Double
+    var widthFrame : Double
+    var heightFrame : Double
+    @Binding var addNewFavoris : Bool
+    var body: some View {
+            
+                HStack{
+                    ZStack {
+                        
+                        Capsule()
+                            .fill(.white)
+                            .frame(width: widthFrame, height: heightFrame)
+                        
+                        HStack{
+                            Image(systemName: addNewFavoris ? "heart.fill":"heart")
+                                .resizable()
+                                .frame(width: width, height: height)
+                                .foregroundColor(addNewFavoris ? .yellow : .black)
+                            
+                            if let likes = article.likes {
+                                Text("\(addNewFavoris ?( likes + 1) :  likes)")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    }
+                }
+        }
 }
 
 struct InfoExtract: View {
@@ -250,6 +214,39 @@ struct InfoExtract: View {
                     .lineSpacing(2.71)
                     .multilineTextAlignment(.leading).foregroundColor(.gray)
             }
+        }
+    }
+}
+
+struct ArticlesFinder: View {
+    var sectionName : String
+    var categoryName : String
+    @Binding var presentArticles : Bool
+    @StateObject var articleListViewModel: ArticleListViewModel
+    @Binding var selectedArticle: ArticleCatalog?  // Gère l'article sélectionné
+    @Binding var addInFavoris : Bool
+    var body: some View {
+        VStack(alignment: .leading) {
+            Section(header:Text(sectionName)
+                .font(.system(size: 22))
+                .fontWeight(.semibold)
+                .lineSpacing(4.25)
+                .multilineTextAlignment(.leading)) {
+                    
+                    ScrollView(.horizontal){
+                        
+                        HStack {
+                            
+                            ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
+                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                            }
+                            
+                        }
+                    }
+                    
+                }.padding(.leading)
+                .padding(.trailing)
+            
         }
     }
 }

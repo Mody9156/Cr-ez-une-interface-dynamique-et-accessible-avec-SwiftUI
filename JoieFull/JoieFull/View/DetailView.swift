@@ -11,7 +11,6 @@ struct DetailView: View {
     @State private var comment: String = ""
     @State var valueCombiner : [Int] = []
     @Binding var addInFavoris : Bool
-
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -46,7 +45,7 @@ struct DetailView: View {
                         
                     }
                     VStack {
-                        SupplementData(article: article, valueCombiner: $valueCombiner, addNewElement: $addInFavoris)
+                        SupplementData(article: article, valueCombiner: $valueCombiner)
                         
                         ReviewControl(comment: $comment, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
@@ -190,7 +189,7 @@ struct SupplementData: View {
     @Binding var valueCombiner : [Int]
     var someArray : [Int] = []
     var ramdomArray : Int = 4
-    @Binding var addNewElement  : Bool
+    @State var addNewElement  : Bool = false
     var body: some View {
         Section {
             VStack(alignment: .leading) {
