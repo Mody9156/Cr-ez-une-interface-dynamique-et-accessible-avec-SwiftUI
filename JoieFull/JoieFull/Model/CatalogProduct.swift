@@ -25,7 +25,6 @@ class CatalogProduct {
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")//
         
         return request
     }

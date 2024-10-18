@@ -10,6 +10,7 @@ struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State private var comment: String = ""
     @State var valueCombiner : [Int] = []
+    @Binding var addInFavoris : Bool
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -39,8 +40,7 @@ struct DetailView: View {
                             .accessibilityLabel("Partager ce contenu")
                         }
                         
-                        LikesView(article: article,width:
-                                    20.92,height: 20.92,widthFrame: 90,heightFrame: 40)
+                        LikesViewForDetailleView(article: article, addInFavoris: $addInFavoris)
                         .padding([.bottom, .trailing], 30)
                         
                     }
@@ -56,7 +56,44 @@ struct DetailView: View {
     }
 }
 
+struct LikesViewForDetailleView :View {
+    var article: ArticleCatalog
+    var width : Double = 20.92
+    var height : Double = 20.92
+    var widthFrame : Double = 90
+    var heightFrame : Double = 40
+    @Binding var addInFavoris : Bool
+    var body: some View {
+            
+            Button {
+                addInFavoris.toggle()
+            } label: {
+                HStack{
+                    ZStack {
+                        
+                        Capsule()
+                            .fill(.white)
+                            .frame(width: widthFrame, height: heightFrame)
+                        HStack{
+                            Image(systemName: addInFavoris ? "heart.fill":"heart")
+                                .resizable()
+                                .frame(width: width, height: height)
+                                .foregroundColor(addInFavoris ? .yellow : .black)
+                            
+                            
+                            if let likes = article.likes {
+                                Text("\(addInFavoris ?( likes + 1) :  likes)")
+                                    .foregroundColor(.black)
+                                
+                            }
+                        }
+                    }
+                    
+                }
+        }
+        }
 
+}
 
 
 
@@ -232,11 +269,4 @@ struct SupplementData: View {
 
 
     
-}
-
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "url", description: "description"), name: "name", category: "category", price: 33.33, original_price: 33.33))
-    }
 }
