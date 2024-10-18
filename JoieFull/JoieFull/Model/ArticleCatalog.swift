@@ -8,7 +8,12 @@
 import Foundation
 import SwiftUI
 
-struct ArticleCatalog : Identifiable,Codable {
+struct ArticleCatalog : Equatable,Identifiable,Codable{
+    static func == (lhs: ArticleCatalog, rhs: ArticleCatalog) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    
     var id : Int
     var picture : URLBuilder
     var name :String

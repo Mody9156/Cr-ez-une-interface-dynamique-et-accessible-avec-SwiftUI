@@ -7,7 +7,7 @@ struct ArticleListView: View {
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
     }
-  
+    @State var selectedArticle: ArticleCatalog? = nil // Remplace le boolean presentArticles
 
     var body: some View {
         
@@ -15,30 +15,30 @@ struct ArticleListView: View {
             ScrollView(showsIndicators: true) {
                 HStack {
                     VStack(alignment: .leading) {
-                        // Passer les bindings aux ArticlesFinder (ici on n'a pas la définition, mais ça doit fonctionner de manière similaire)
-                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
                         
-                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
                         
-                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
+                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        
+                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        
+                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
                     }
+                    
                     if isDeviceLandscapeMode {
-                        if presentArticles {
-                            DetailView(articleCatalog: articleCatalog)
-                        }
+                            if let article =  selectedArticle {
+                                DetailView(articleCatalog: article)
+                            }
+                        
                     }
-                }
-            }.onAppear {
-                Task {
+                    
+                }.onAppear {
+                    Task {
 
-                    try? await articleListViewModel.loadArticles()
-                }
+                        try? await articleListViewModel.loadArticles()
+                    }
             }
-            
-            
         }
-        
-        
+        }
     }
 }
 
@@ -47,42 +47,55 @@ struct ShowCategories: View {
     var category : String = ""
     @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
-    
+    @Binding var selectedArticle: ArticleCatalog? // Utilisation de l'article sélectionné
+
+    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
+    var isDeviceLandscapeMode : Bool{
+        horizontalSizeClass == .regular
+    }
     
     var body: some View {
         
         if article.category == category {
             
-            VStack {
+            if isDeviceLandscapeMode {
+               
+                ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                    
                 
-                NavigationLink {
+            }else{
+                VStack {
+                    
+                    NavigationLink {
 
-                    DetailView(articleCatalog: article)
-                    
-                } label: {
-                    ZStack(alignment: .bottomTrailing){
+                        DetailView(articleCatalog: article)
                         
-                        AsyncImage(url: URL(string: article.picture.url)) { image in
-                            image
-                                .resizable()
+                    } label: {
+                        ZStack(alignment: .bottomTrailing){
                             
-                        } placeholder: {
-                            ProgressView()
+                            AsyncImage(url: URL(string: article.picture.url)) { image in
+                                image
+                                    .resizable()
+                                
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 198, height: 297)
+                            .cornerRadius(20)
+                            
+                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                                .padding()
                         }
-                        .frame(width: 198, height: 297)
-                        .cornerRadius(20)
                         
-                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
-                            .padding()
-                    }
+                    }.accessibilityLabel(Text("You select \(article.name)"))
                     
-                }.accessibilityLabel(Text("You select \(article.name)"))
-                
-                
-                InfoExtract(article: article)
-                
-            }
-            
+                    
+                    InfoExtract(article: article)
+                    
+                }
+
+                }
+           
         }
         
     }
@@ -133,7 +146,8 @@ struct ArticlesFinder: View {
     var categoryName : String
     @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
-    
+    @Binding var selectedArticle: ArticleCatalog?  // Gère l'article sélectionné
+
     var body: some View {
         VStack(alignment: .leading) {
             Section(header:Text(sectionName)
@@ -147,7 +161,7 @@ struct ArticlesFinder: View {
                         HStack {
                             
                             ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel)
+                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
                             }
                             
                         }
@@ -165,12 +179,12 @@ struct ExtractionDeviceLandscapeMode : View{
     @Binding var presentArticles : Bool
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
-    
+    @Binding var selectedArticle: ArticleCatalog?  // Suivre l'article sélectionné
     var body: some View {
         VStack {
             VStack {
                 Button {
-                    presentArticles.toggle()
+                    selectedArticle = (selectedArticle == article) ? nil : article
                 } label: {
                     ZStack(alignment: .bottomTrailing){
                         
