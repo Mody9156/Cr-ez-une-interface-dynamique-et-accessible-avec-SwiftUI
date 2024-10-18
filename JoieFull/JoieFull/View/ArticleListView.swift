@@ -8,7 +8,7 @@ struct ArticleListView: View {
         horizontalSizeClass == .regular
     }
     @State var selectedArticle: ArticleCatalog? = nil // Remplace le boolean presentArticles
-
+    @Binding var addInFavoris :Bool
     var body: some View {
         
         NavigationStack {
@@ -17,16 +17,16 @@ struct ArticleListView: View {
                     VStack(alignment: .leading) {
                         
                         
-                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                         
-                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                         
-                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                     }
                     
                     if isDeviceLandscapeMode {
                             if let article =  selectedArticle {
-                                DetailView(articleCatalog: article)
+                                DetailView(articleCatalog: article, addInFavoris: addInFavoris)
                             }
                         
                     }
@@ -48,7 +48,7 @@ struct ShowCategories: View {
     @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog? // Utilisation de l'article sélectionné
-
+    @Binding var addInFavoris : Bool
     @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
@@ -60,7 +60,7 @@ struct ShowCategories: View {
             
             if isDeviceLandscapeMode {
                
-                ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                     
                 
             }else{
@@ -68,7 +68,7 @@ struct ShowCategories: View {
                     
                     NavigationLink {
 
-                        DetailView(articleCatalog: article)
+                        DetailView(articleCatalog: article, addInFavoris: addInFavoris)
                         
                     } label: {
                         ZStack(alignment: .bottomTrailing){
@@ -83,7 +83,7 @@ struct ShowCategories: View {
                             .frame(width: 198, height: 297)
                             .cornerRadius(20)
                             
-                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addInFavoris: $addInFavoris)
                                 .padding()
                         }
                         
@@ -108,12 +108,10 @@ struct LikesView :View {
     var height : Double
     var widthFrame : Double
     var heightFrame : Double
-    @State var addInFavoris : Bool = false
+    @Binding var addInFavoris : Bool
     var body: some View {
             
-            Button {
-                addInFavoris.toggle()
-            } label: {
+           
                 HStack{
                     ZStack {
                         
@@ -136,7 +134,7 @@ struct LikesView :View {
                     }
                     
                 }
-        }
+        
         }
 
 }
@@ -147,7 +145,7 @@ struct ArticlesFinder: View {
     @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?  // Gère l'article sélectionné
-
+    @Binding var addInFavoris : Bool
     var body: some View {
         VStack(alignment: .leading) {
             Section(header:Text(sectionName)
@@ -161,7 +159,7 @@ struct ArticlesFinder: View {
                         HStack {
                             
                             ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
-                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle)
+                                ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                             }
                             
                         }
@@ -180,6 +178,7 @@ struct ExtractionDeviceLandscapeMode : View{
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?  // Suivre l'article sélectionné
+    @Binding var addInFavoris : Bool
     var body: some View {
         VStack {
             VStack {
@@ -198,7 +197,7 @@ struct ExtractionDeviceLandscapeMode : View{
                         .frame(width: 198, height: 297)
                         .cornerRadius(20)
                         
-                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30)
+                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addInFavoris: $addInFavoris)
                             .padding()
                     }.border(presentArticles ? .blue : .clear, width:3)
                     
@@ -253,11 +252,5 @@ struct InfoExtract: View {
                     .multilineTextAlignment(.leading).foregroundColor(.gray)
             }
         }
-    }
-}
-
-struct ArticleListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true , articleCatalog: ArticleCatalog(id: 33, picture: URLBuilder(url: "", description: "String"), name: "", category: "", price: 33.33, original_price: 33.33) )
     }
 }
