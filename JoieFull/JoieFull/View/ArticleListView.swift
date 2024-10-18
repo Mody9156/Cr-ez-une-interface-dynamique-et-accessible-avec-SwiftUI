@@ -11,7 +11,7 @@ struct ArticleListView: View {
 
     var body: some View {
         
-        NavigationSplitView {
+        NavigationStack {
             ScrollView(showsIndicators: true) {
                 HStack {
                     VStack(alignment: .leading) {
@@ -36,10 +36,6 @@ struct ArticleListView: View {
             }
             
             
-        } detail: {
-         
-           Text("Sélectionnez un article")
-                    
         }
         
         
