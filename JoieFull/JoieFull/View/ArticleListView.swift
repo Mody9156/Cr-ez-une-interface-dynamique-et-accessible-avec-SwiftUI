@@ -128,7 +128,7 @@ struct ExtractionDeviceLandscapeMode : View{
                         .frame(width: 198, height: 297)
                         .cornerRadius(20)
                         
-                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addNewFavoris: $addInFavoris)
+                        LikesView(article: article, addNewFavoris: $addInFavoris)
                             .padding()
                     }.border(presentArticles ? .blue : .clear, width:3)
                     
@@ -144,10 +144,10 @@ struct ExtractionDeviceLandscapeMode : View{
 
 struct LikesView :View {
     var article: ArticleCatalog
-    var width : Double
-    var height : Double
-    var widthFrame : Double
-    var heightFrame : Double
+    var width : Double = 14.01
+    var height : Double = 12.01
+    var widthFrame : Double = 60
+    var heightFrame : Double = 30
     @Binding var addNewFavoris : Bool
     var body: some View {
             
