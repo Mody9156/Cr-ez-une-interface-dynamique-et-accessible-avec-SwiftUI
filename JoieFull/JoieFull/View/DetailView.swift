@@ -71,7 +71,6 @@ struct LikesViewForDetailleView :View {
         
         Button {
             articleListViewModel.toggleFavoris(article: article)
-            addInFavoris.toggle()
         } label: {
             HStack{
                 ZStack {
