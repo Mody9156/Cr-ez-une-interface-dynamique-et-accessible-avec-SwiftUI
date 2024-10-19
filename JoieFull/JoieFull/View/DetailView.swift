@@ -65,6 +65,21 @@ struct LikesViewForDetailleView :View {
     var heightFrame : Double = 40
     @Binding var addInFavoris : Bool
     var articleListViewModel : ArticleListViewModel
+    
+    func toggleFavoris(){
+       var favoriteArticles = articleListViewModel.favoriteArticles
+        if favoriteArticles.contains(article.id){
+            favoriteArticles.remove(article.id)
+        }else{
+            favoriteArticles.insert(article.id)
+        }
+    }
+    
+    func isFavoris()->Bool{
+        var favoriteArticles = articleListViewModel.favoriteArticles
+
+        return favoriteArticles.contains(article.id)
+    }
     var body: some View {
             
             Button {

@@ -27,7 +27,7 @@ struct ArticleListView: View {
                     
                     if isDeviceLandscapeMode {
                             if let article =  selectedArticle {
-                                DetailView(articleCatalog: article, addInFavoris: $addInFavoris)
+                                DetailView(articleCatalog: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
                                 
                             }
                         
@@ -69,7 +69,7 @@ struct ShowCategories: View {
                     
                     NavigationLink {
 
-                        DetailView(articleCatalog: article, addInFavoris: $addInFavoris)
+                        DetailView(articleCatalog: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
                         
                     } label: {
                         ZStack(alignment: .bottomTrailing){
