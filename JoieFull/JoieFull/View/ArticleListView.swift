@@ -165,6 +165,8 @@ struct LikesView :View {
                                 .foregroundColor(addNewFavoris ? .yellow : .black)
                             
                             if let likes = article.likes {
+                               
+                                
                                 Text("\(addNewFavoris ?( likes + 1) :  likes)")
                                     .foregroundColor(.black)
                             }

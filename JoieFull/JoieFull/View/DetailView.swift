@@ -11,6 +11,7 @@ struct DetailView: View {
     @State private var comment: String = ""
     @State var valueCombiner : [Int] = []
     @Binding var addInFavoris : Bool
+    var articleListViewModel : ArticleListViewModel
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -40,7 +41,7 @@ struct DetailView: View {
                             .accessibilityLabel("Partager ce contenu")
                         }
                         
-                        LikesViewForDetailleView(article: article, addInFavoris: $addInFavoris)
+                        LikesViewForDetailleView(article: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
                         .padding([.bottom, .trailing], 30)
                         
                     }
@@ -63,6 +64,7 @@ struct LikesViewForDetailleView :View {
     var widthFrame : Double = 90
     var heightFrame : Double = 40
     @Binding var addInFavoris : Bool
+    var articleListViewModel : ArticleListViewModel
     var body: some View {
             
             Button {
@@ -92,6 +94,7 @@ struct LikesViewForDetailleView :View {
                 }
         }
         }
+    
 
 }
 
@@ -180,6 +183,7 @@ struct ImageSystemName : View {
             }
         }
     }
+    
     
     
 }

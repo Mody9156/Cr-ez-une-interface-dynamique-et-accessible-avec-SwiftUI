@@ -7,15 +7,13 @@
 
 import Foundation
 
-class testViewModel {
-    var articleCatalog : [ArticleCatalog] = []
-}
+
 
 
 class ArticleListViewModel : ObservableObject {
     let catalogProduct : CatalogProduct
     @Published var articleCatalog : [ArticleCatalog] = []
-    
+    @Published var favoriteArticles : Set<Int> = []
     init(catalogProduct: CatalogProduct)    {
         self.catalogProduct = catalogProduct
     }
@@ -46,6 +44,6 @@ class ArticleListViewModel : ObservableObject {
     func reloadArticles() async throws  {
       try await loadArticles()
     }
-    
 
+    
 }
