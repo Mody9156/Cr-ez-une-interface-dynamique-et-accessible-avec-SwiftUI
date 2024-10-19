@@ -84,6 +84,7 @@ struct LikesViewForDetailleView :View {
             
             Button {
                 addInFavoris.toggle()
+                toggleFavoris()
             } label: {
                 HStack{
                     ZStack {
@@ -92,14 +93,14 @@ struct LikesViewForDetailleView :View {
                             .fill(.white)
                             .frame(width: widthFrame, height: heightFrame)
                         HStack{
-                            Image(systemName: addInFavoris ? "heart.fill":"heart")
+                            Image(systemName: isFavoris() ? "heart.fill":"heart")
                                 .resizable()
                                 .frame(width: width, height: height)
-                                .foregroundColor(addInFavoris ? .yellow : .black)
+                                .foregroundColor(isFavoris() ? .yellow : .black)
                             
                             
                             if let likes = article.likes {
-                                Text("\(addInFavoris ?( likes + 1) :  likes)")
+                                Text("\(isFavoris() ?( likes + 1) :  likes)")
                                     .foregroundColor(.black)
                                 
                             }
