@@ -45,5 +45,21 @@ class ArticleListViewModel : ObservableObject {
       try await loadArticles()
     }
 
+    func toggleFavoris(article:ArticleCatalog)  {
+        if favoriteArticles.contains(article.id){
+            print("favoriteArticles : \(favoriteArticles)")
+
+            favoriteArticles.remove(article.id)
+        }else{
+            print("favoriteArticles : \(favoriteArticles)")
+
+            favoriteArticles.insert(article.id)
+
+        }
+    }
     
+    func isFavoris(article:ArticleCatalog) -> Bool{
+        
+        return favoriteArticles.contains(article.id)
+    }
 }
