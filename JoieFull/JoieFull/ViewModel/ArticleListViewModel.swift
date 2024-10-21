@@ -11,8 +11,7 @@ class ArticleListViewModel : ObservableObject {
     let catalogProduct : CatalogProduct
     @Published var articleCatalog : [ArticleCatalog] = []
     @Published var favoriteArticles : Set<Int> = []
-    @Published  var score : [Int] = [4,3,1,2]
-    @Published var grade = 0
+
     init(catalogProduct: CatalogProduct)    {
         self.catalogProduct = catalogProduct
     }
@@ -62,11 +61,5 @@ class ArticleListViewModel : ObservableObject {
         return favoriteArticles.contains(article.id)
     }
     
-   @discardableResult
-    func randomsScore()->Int{
-        if let score = score.randomElement() {
-            grade = score
-        }
-       return grade
-    }
+   
 }
