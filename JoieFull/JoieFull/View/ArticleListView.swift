@@ -92,7 +92,7 @@ struct ShowCategories: View {
                     }.accessibilityLabel(Text("You select \(article.name)"))
                     
                     
-                    InfoExtract(article: article)
+                    InfoExtract(article: article, articleListViewModel: articleListViewModel)
                     
                 }
 
@@ -138,7 +138,7 @@ struct ExtractionDeviceLandscapeMode : View{
                 }
             }.accessibilityLabel(Text("You select \(article.name)"))
             
-            InfoExtract(article: article)
+            InfoExtract(article: article, articleListViewModel: articleListViewModel)
         }
     }
 }
@@ -180,7 +180,7 @@ struct LikesView :View {
 struct InfoExtract: View {
     var article: ArticleCatalog
     @StateObject var articleListViewModel : ArticleListViewModel
-    var note : Int = 4
+    var note = 4
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -200,14 +200,13 @@ struct InfoExtract: View {
             VStack(alignment: .trailing) {
                 HStack {
                     Image(systemName: "star.fill").foregroundColor(.yellow)
-                    if let article = articleListViewModel.score {
                         
-                        Text("\(Double(article), format: .number.rounded(increment: 0.1))")
+                    Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
                             .font(.system(size: 14))
                             .fontWeight(.semibold)
                             .lineSpacing(2.71)
                             .multilineTextAlignment(.leading)
-                    }
+                  
                 }
                 
                 
