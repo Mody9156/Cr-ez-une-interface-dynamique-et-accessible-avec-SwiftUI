@@ -38,7 +38,7 @@ class ArticleListViewModel : ObservableObject {
             throw ArticleListViewModelError.loadArticlesError
         }
     }
-    
+
     func reloadArticles() async throws  {
         try await loadArticles()
     }
@@ -60,7 +60,7 @@ class ArticleListViewModel : ObservableObject {
         
         return favoriteArticles.contains(article.id)
     }
-    
+   @discardableResult
     func randomsScore()->Int{
         var grade = 0
         if let score = score.randomElement() {
