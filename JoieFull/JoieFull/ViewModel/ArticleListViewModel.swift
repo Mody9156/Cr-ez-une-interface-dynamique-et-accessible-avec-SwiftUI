@@ -7,9 +7,6 @@
 
 import Foundation
 
-
-
-
 class ArticleListViewModel : ObservableObject {
     let catalogProduct : CatalogProduct
     @Published var articleCatalog : [ArticleCatalog] = []
@@ -43,19 +40,19 @@ class ArticleListViewModel : ObservableObject {
     }
     
     func reloadArticles() async throws  {
-      try await loadArticles()
+        try await loadArticles()
     }
-
+    
     func toggleFavoris(article:ArticleCatalog)  {
         if favoriteArticles.contains(article.id){
             print("favoriteArticles : \(favoriteArticles)")
-
+            
             favoriteArticles.remove(article.id)
         }else{
             print("favoriteArticles : \(favoriteArticles)")
-
+            
             favoriteArticles.insert(article.id)
-
+            
         }
     }
     
