@@ -27,7 +27,7 @@ struct ArticleListView: View {
                     
                     if isDeviceLandscapeMode {
                             if let article =  selectedArticle {
-                                DetailView(articleCatalog: article, addInFavoris: $addInFavoris)
+                                DetailView(articleCatalog: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
                                 
                             }
                         
@@ -69,7 +69,7 @@ struct ShowCategories: View {
                     
                     NavigationLink {
 
-                        DetailView(articleCatalog: article, addInFavoris: $addInFavoris)
+                        DetailView(articleCatalog: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
                         
                     } label: {
                         ZStack(alignment: .bottomTrailing){
@@ -84,7 +84,7 @@ struct ShowCategories: View {
                             .frame(width: 198, height: 297)
                             .cornerRadius(20)
                             
-                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addNewFavoris: $addInFavoris)
+                            LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
                         }
                         
@@ -128,7 +128,7 @@ struct ExtractionDeviceLandscapeMode : View{
                         .frame(width: 198, height: 297)
                         .cornerRadius(20)
                         
-                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addNewFavoris: $addInFavoris)
+                        LikesView(article: article, articleListViewModel: articleListViewModel)
                             .padding()
                     }.border(presentArticles ? .blue : .clear, width:3)
                     
@@ -144,11 +144,11 @@ struct ExtractionDeviceLandscapeMode : View{
 
 struct LikesView :View {
     var article: ArticleCatalog
-    var width : Double
-    var height : Double
-    var widthFrame : Double
-    var heightFrame : Double
-    @Binding var addNewFavoris : Bool
+    var width : Double = 14.01
+    var height : Double = 12.01
+    var widthFrame : Double = 60
+    var heightFrame : Double = 30
+    @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
             
                 HStack{
@@ -159,13 +159,15 @@ struct LikesView :View {
                             .frame(width: widthFrame, height: heightFrame)
                         
                         HStack{
-                            Image(systemName: addNewFavoris ? "heart.fill":"heart")
+                            Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
                                 .resizable()
                                 .frame(width: width, height: height)
-                                .foregroundColor(addNewFavoris ? .yellow : .black)
+                                .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
                             
                             if let likes = article.likes {
-                                Text("\(addNewFavoris ?( likes + 1) :  likes)")
+                               
+                                
+                                Text("\(articleListViewModel.isFavoris(article: article) ? ( likes + 1) :  likes)")
                                     .foregroundColor(.black)
                             }
                         }

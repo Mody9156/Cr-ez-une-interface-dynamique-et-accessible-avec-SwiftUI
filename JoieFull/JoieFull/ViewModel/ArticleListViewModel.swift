@@ -7,15 +7,13 @@
 
 import Foundation
 
-class testViewModel {
-    var articleCatalog : [ArticleCatalog] = []
-}
+
 
 
 class ArticleListViewModel : ObservableObject {
     let catalogProduct : CatalogProduct
     @Published var articleCatalog : [ArticleCatalog] = []
-    
+    @Published var favoriteArticles : Set<Int> = []
     init(catalogProduct: CatalogProduct)    {
         self.catalogProduct = catalogProduct
     }
@@ -46,6 +44,22 @@ class ArticleListViewModel : ObservableObject {
     func reloadArticles() async throws  {
       try await loadArticles()
     }
-    
 
+    func toggleFavoris(article:ArticleCatalog)  {
+        if favoriteArticles.contains(article.id){
+            print("favoriteArticles : \(favoriteArticles)")
+
+            favoriteArticles.remove(article.id)
+        }else{
+            print("favoriteArticles : \(favoriteArticles)")
+
+            favoriteArticles.insert(article.id)
+
+        }
+    }
+    
+    func isFavoris(article:ArticleCatalog) -> Bool{
+        
+        return favoriteArticles.contains(article.id)
+    }
 }

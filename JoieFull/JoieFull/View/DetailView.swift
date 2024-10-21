@@ -11,6 +11,7 @@ struct DetailView: View {
     @State private var comment: String = ""
     @State var valueCombiner : [Int] = []
     @Binding var addInFavoris : Bool
+    @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -40,8 +41,8 @@ struct DetailView: View {
                             .accessibilityLabel("Partager ce contenu")
                         }
                         
-                        LikesViewForDetailleView(article: article, addInFavoris: $addInFavoris)
-                        .padding([.bottom, .trailing], 30)
+                        LikesViewForDetailleView(article: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
+                            .padding([.bottom, .trailing], 30)
                         
                     }
                     VStack {
@@ -63,36 +64,41 @@ struct LikesViewForDetailleView :View {
     var widthFrame : Double = 90
     var heightFrame : Double = 40
     @Binding var addInFavoris : Bool
+    @StateObject var articleListViewModel : ArticleListViewModel
+    
+    
     var body: some View {
-            
-            Button {
-                addInFavoris.toggle()
-            } label: {
-                HStack{
-                    ZStack {
+        
+        Button {
+            articleListViewModel.toggleFavoris(article: article)
+        } label: {
+            HStack{
+                ZStack {
+                    
+                    Capsule()
+                        .fill(.white)
+                        .frame(width: widthFrame, height: heightFrame)
+                    HStack{
+                        Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
+                            .resizable()
+                            .frame(width: width, height: height)
+                            .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
                         
-                        Capsule()
-                            .fill(.white)
-                            .frame(width: widthFrame, height: heightFrame)
-                        HStack{
-                            Image(systemName: addInFavoris ? "heart.fill":"heart")
-                                .resizable()
-                                .frame(width: width, height: height)
-                                .foregroundColor(addInFavoris ? .yellow : .black)
+                        
+                        if let likes = article.likes {
+                            Text("\(articleListViewModel.isFavoris(article: article) ?( likes + 1) :  likes)")
+                                .foregroundColor(.black)
                             
-                            
-                            if let likes = article.likes {
-                                Text("\(addInFavoris ?( likes + 1) :  likes)")
-                                    .foregroundColor(.black)
-                                
-                            }
                         }
                     }
-                    
                 }
+                
+                
+            }
         }
-        }
-
+    }
+    
+    
 }
 
 
@@ -150,7 +156,7 @@ struct ImageSystemName : View {
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
     var body: some View {
-    let chooseIndex = valueCombiner.contains(sortArray)
+        let chooseIndex = valueCombiner.contains(sortArray)
         
         Button {
             
@@ -159,7 +165,7 @@ struct ImageSystemName : View {
                 valueCombiner.removeAll()
             }
             print("valueCombiner : \(valueCombiner)")
-
+            
         } label: {
             Image(systemName: chooseIndex ?  "star.fill" : "star")
                 .resizable()
@@ -180,6 +186,7 @@ struct ImageSystemName : View {
             }
         }
     }
+    
     
     
 }
@@ -214,20 +221,20 @@ struct SupplementData: View {
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
-                         
-                                
-                          
                             
-                               let moyen = addition()
-                                
-                                let result  = (ramdomArray + moyen ) / 2
-                           
+                            
+                            
+                            
+                            let moyen = addition()
+                            
+                            let result  = (ramdomArray + moyen ) / 2
+                            
                             Text("\( Double(result), format: .number.rounded(increment: 0.1))")
                                 .font(.system(size: 14))
                                 .fontWeight(.semibold)
                                 .lineSpacing(2.71)
                                 .multilineTextAlignment(.leading)
-                        
+                            
                         }
                         
                         
@@ -258,14 +265,14 @@ struct SupplementData: View {
         
         if !valueCombiner.isEmpty {
             if let lastElement = valueCombiner.last  {
-                 array = lastElement
+                array = lastElement
             }
         }
-       
+        
         return array
     }
     
-
-
+    
+    
     
 }
