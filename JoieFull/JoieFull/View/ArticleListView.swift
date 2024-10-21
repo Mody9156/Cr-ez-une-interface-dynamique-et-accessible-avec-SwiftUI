@@ -179,6 +179,7 @@ struct LikesView :View {
 
 struct InfoExtract: View {
     var article: ArticleCatalog
+    @StateObject var articleListViewModel : ArticleListViewModel
     var note : Int = 4
     var body: some View {
         HStack {
@@ -199,7 +200,7 @@ struct InfoExtract: View {
             VStack(alignment: .trailing) {
                 HStack {
                     Image(systemName: "star.fill").foregroundColor(.yellow)
-                    if let article = note {
+                    if let article = articleListViewModel.score {
                         
                         Text("\(Double(article), format: .number.rounded(increment: 0.1))")
                             .font(.system(size: 14))

@@ -60,6 +60,7 @@ class ArticleListViewModel : ObservableObject {
         
         return favoriteArticles.contains(article.id)
     }
+    
    @discardableResult
     func randomsScore()->Int{
         var grade = 0
