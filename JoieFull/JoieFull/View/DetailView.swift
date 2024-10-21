@@ -9,7 +9,6 @@ import SwiftUI
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State var valueCombiner : [Int] = []
-    @Binding var addInFavoris : Bool
     @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
         ScrollView {
@@ -40,7 +39,7 @@ struct DetailView: View {
                             .accessibilityLabel("Partager ce contenu")
                         }
                         
-                        LikesViewForDetailleView(article: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
+                        LikesViewForDetailleView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 30)
                         
                     }
@@ -62,13 +61,13 @@ struct LikesViewForDetailleView :View {
     var height : Double = 20.92
     var widthFrame : Double = 90
     var heightFrame : Double = 40
-    @Binding var addInFavoris : Bool
     @StateObject var articleListViewModel : ArticleListViewModel
     
     
     var body: some View {
         
         Button {
+            
             articleListViewModel.toggleFavoris(article: article)
         } label: {
             HStack{
@@ -119,12 +118,12 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName( sortArray: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  sortArray: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  sortArray: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  sortArray: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner
+                        ImageSystemName( sortArray: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        ImageSystemName(  sortArray: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        ImageSystemName(  sortArray: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        ImageSystemName(  sortArray: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel
                         )
-                        ImageSystemName(  sortArray: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ImageSystemName(  sortArray: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
                     Spacer()
                 }
@@ -158,6 +157,7 @@ struct ReviewControl: View {
                     textField.insert(comment)
                 } label: {
                     Text("Envoyer")
+                        .multilineTextAlignment(.trailing)
                     Divider()
                 }
             }
@@ -169,35 +169,38 @@ struct ImageSystemName : View {
     var sortArray : Int
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
+    @StateObject var articleListViewModel : ArticleListViewModel
+
+    
     var body: some View {
-        let chooseIndex = valueCombiner.contains(sortArray)
-        
+
         Button {
+            articleListViewModel.toggleScore(article: articleCatalog)
             
             appendToArray(order: sortArray)
-            if chooseIndex {
-                valueCombiner.removeAll()
-            }
-            print("valueCombiner : \(valueCombiner)")
-            
+          print("valueCombiner2 : \(valueCombiner)")
         } label: {
-            Image(systemName: chooseIndex ?  "star.fill" : "star")
+            Image(systemName: articleListViewModel.isScore(article: articleCatalog) ?  "star.fill" : "star")
                 .resizable()
                 .frame(width: 27.51, height: 23.98)
-                .foregroundColor(chooseIndex ? .yellow : .gray)
+                .foregroundColor(articleListViewModel.isScore(article: articleCatalog) ? .yellow : .gray)
             
         }.accessibilityElement(children: .combine)
         
-            .accessibilityLabel(chooseIndex
+            .accessibilityLabel(articleListViewModel.isScore(article: articleCatalog)
+                                
                                 ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
         
         
     }
     private func appendToArray(order:Int){
         for index in 1...order {
-            if !valueCombiner.contains(index){
+
+            if !articleListViewModel.valueCombiner.contains(index){
+                articleListViewModel.valueCombiner.insert(index)
                 valueCombiner.append(index)
             }
+        
         }
     }
     
@@ -208,10 +211,8 @@ struct ImageSystemName : View {
 struct SupplementData: View {
     var article : ArticleCatalog
     @Binding var valueCombiner : [Int]
-    var ramdomArray : Int = 4
     @StateObject var articleListViewModel : ArticleListViewModel
-    @State var updateScore : Bool = false
-    @State var addNewElement  : Bool = false
+    
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -242,7 +243,8 @@ struct SupplementData: View {
                             
                             let result  = (articleListViewModel.grade + moyen ) / 2
                             
-                            Text("\( Double(updateScore ?  result  :articleListViewModel.grade ), format: .number.rounded(increment: 0.1))")
+                            
+                            Text("\( Double(valueCombiner.isEmpty ?      articleListViewModel.grade  : result), format: .number.rounded(increment: 0.1))")
                                 .font(.system(size: 14))
                                 .fontWeight(.semibold)
                                 .lineSpacing(2.71)
@@ -278,10 +280,10 @@ struct SupplementData: View {
         if !valueCombiner.isEmpty {
             if let lastElement = valueCombiner.last  {
                 array = lastElement
-                updateScore = true
+                
             }
         }
-        updateScore = false
+        
         return array
     }
     

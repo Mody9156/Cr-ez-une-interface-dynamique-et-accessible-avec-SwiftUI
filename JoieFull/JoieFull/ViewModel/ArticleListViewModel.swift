@@ -12,6 +12,8 @@ class ArticleListViewModel : ObservableObject {
     @Published var articleCatalog : [ArticleCatalog] = []
     @Published var favoriteArticles : Set<Int> = []
     @Published var grade : Int = 4
+    @Published var valueCombiner : Set<Int>  = []
+    
     init(catalogProduct: CatalogProduct)    {
         self.catalogProduct = catalogProduct
     }
@@ -61,5 +63,23 @@ class ArticleListViewModel : ObservableObject {
         return favoriteArticles.contains(article.id)
     }
     
-   
+    func toggleScore(article:ArticleCatalog){
+        if valueCombiner.contains(article.id){
+            print("ScoreArticles : \(valueCombiner)")
+            
+            valueCombiner.remove(article.id)
+        }else{
+            print("ScoreArticles : \(valueCombiner)")
+            
+            valueCombiner.insert(article.id)
+            
+        }
+        
+        
+    }
+    
+    func isScore(article:ArticleCatalog) -> Bool{
+        
+        return valueCombiner.contains(article.id)
+    }
 }

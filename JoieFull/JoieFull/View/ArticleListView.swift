@@ -26,20 +26,20 @@ struct ArticleListView: View {
                     }
                     
                     if isDeviceLandscapeMode {
-                            if let article =  selectedArticle {
-                                DetailView(articleCatalog: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
-                                
-                            }
+                        if let article =  selectedArticle {
+                            DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
+                            
+                        }
                         
                     }
                     
                 }.onAppear {
                     Task {
-
+                        
                         try? await articleListViewModel.loadArticles()
                     }
+                }
             }
-        }
         }
     }
 }
@@ -61,15 +61,15 @@ struct ShowCategories: View {
         if article.category == category {
             
             if isDeviceLandscapeMode {
-               
+                
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                 
             }else{
                 VStack {
                     
                     NavigationLink {
-
-                        DetailView(articleCatalog: article, addInFavoris: $addInFavoris, articleListViewModel: articleListViewModel)
+                        
+                        DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
                         
                     } label: {
                         ZStack(alignment: .bottomTrailing){
@@ -94,9 +94,9 @@ struct ShowCategories: View {
                     InfoExtract(article: article, articleListViewModel: articleListViewModel)
                     
                 }
-
-                }
-           
+                
+            }
+            
         }
         
     }
@@ -150,30 +150,30 @@ struct LikesView :View {
     var heightFrame : Double = 30
     @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
-            
+        
+        HStack{
+            ZStack {
+                
+                Capsule()
+                    .fill(.white)
+                    .frame(width: widthFrame, height: heightFrame)
+                
                 HStack{
-                    ZStack {
+                    Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
+                    
+                    if let likes = article.likes {
                         
-                        Capsule()
-                            .fill(.white)
-                            .frame(width: widthFrame, height: heightFrame)
                         
-                        HStack{
-                            Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
-                                .resizable()
-                                .frame(width: width, height: height)
-                                .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
-                            
-                            if let likes = article.likes {
-                               
-                                
-                                Text("\(articleListViewModel.isFavoris(article: article) ? ( likes + 1) :  likes)")
-                                    .foregroundColor(.black)
-                            }
-                        }
+                        Text("\(articleListViewModel.isFavoris(article: article) ? ( likes + 1) :  likes)")
+                            .foregroundColor(.black)
                     }
                 }
+            }
         }
+    }
 }
 
 struct InfoExtract: View {
@@ -199,13 +199,13 @@ struct InfoExtract: View {
             VStack(alignment: .trailing) {
                 HStack {
                     Image(systemName: "star.fill").foregroundColor(.yellow)
-                        
+                    
                     Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
-                            .font(.system(size: 14))
-                            .fontWeight(.semibold)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
-                  
+                        .font(.system(size: 14))
+                        .fontWeight(.semibold)
+                        .lineSpacing(2.71)
+                        .multilineTextAlignment(.leading)
+                    
                 }
                 
                 
