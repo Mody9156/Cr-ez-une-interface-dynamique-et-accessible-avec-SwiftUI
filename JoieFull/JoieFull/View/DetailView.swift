@@ -187,7 +187,6 @@ struct ImageSystemName : View {
 struct SupplementData: View {
     var article : ArticleCatalog
     @Binding var valueCombiner : [Int]
-    var someArray : [Int] = []
     var ramdomArray : Int = 4
     @State var addNewElement  : Bool = false
     var body: some View {
