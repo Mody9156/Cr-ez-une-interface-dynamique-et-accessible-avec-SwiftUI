@@ -60,4 +60,12 @@ class ArticleListViewModel : ObservableObject {
         
         return favoriteArticles.contains(article.id)
     }
+    
+    func randomsScore()->Int{
+        var grade = 0
+        if let score = score.randomElement() {
+            grade = score
+        }
+       return grade
+    }
 }

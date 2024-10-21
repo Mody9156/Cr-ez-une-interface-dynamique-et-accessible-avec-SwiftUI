@@ -37,6 +37,7 @@ struct ArticleListView: View {
                     Task {
 
                         try? await articleListViewModel.loadArticles()
+                        articleListViewModel.randomsScore()
                     }
             }
         }
