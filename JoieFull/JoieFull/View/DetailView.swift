@@ -210,7 +210,7 @@ struct SupplementData: View {
     @Binding var valueCombiner : [Int]
     var ramdomArray : Int = 4
     @StateObject var articleListViewModel : ArticleListViewModel
-
+    @State var updateScore : Bool = false
     @State var addNewElement  : Bool = false
     var body: some View {
         Section {
@@ -242,7 +242,7 @@ struct SupplementData: View {
                             
                             let result  = (articleListViewModel.grade + moyen ) / 2
                             
-                            Text("\( Double(result), format: .number.rounded(increment: 0.1))")
+                            Text("\( Double(updateScore ?  result  :articleListViewModel.grade ), format: .number.rounded(increment: 0.1))")
                                 .font(.system(size: 14))
                                 .fontWeight(.semibold)
                                 .lineSpacing(2.71)
@@ -278,9 +278,10 @@ struct SupplementData: View {
         if !valueCombiner.isEmpty {
             if let lastElement = valueCombiner.last  {
                 array = lastElement
+                updateScore = true
             }
         }
-        
+        updateScore = false
         return array
     }
     
