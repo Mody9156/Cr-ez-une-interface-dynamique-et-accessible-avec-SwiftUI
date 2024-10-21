@@ -8,7 +8,6 @@ import SwiftUI
 
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
-    @State private var comment: String = ""
     @State var valueCombiner : [Int] = []
     @Binding var addInFavoris : Bool
     @StateObject var articleListViewModel : ArticleListViewModel
@@ -48,7 +47,7 @@ struct DetailView: View {
                     VStack {
                         SupplementData(article: article, valueCombiner: $valueCombiner)
                         
-                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
                     
                 }
@@ -104,9 +103,10 @@ struct LikesViewForDetailleView :View {
 
 
 struct ReviewControl: View {
-    @Binding var comment : String
+    @State  var comment: String = ""
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
+    @State var textField : Set<String> = []
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -129,6 +129,11 @@ struct ReviewControl: View {
                 }
             }.padding()
             
+            ForEach(Array(textField),id: \.self) { text in
+                Text(text)
+            }
+                
+            
             ZStack(alignment: .topLeading) {
                 RoundedRectangle(cornerRadius: 20)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
@@ -146,6 +151,12 @@ struct ReviewControl: View {
                     .accessibilityValue("Zone de texte pour vos impressions sur l'article")
             }
             .padding()
+            
+            Button {
+                textField.insert(comment)
+            } label: {
+                Rectangle().frame(width: 50,height: 20).background(Color.red).foregroundColor(.white)
+            }
             
         }
     }
