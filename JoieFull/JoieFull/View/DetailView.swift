@@ -109,7 +109,7 @@ struct ReviewControl: View {
     @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
         Section{
-            VStack(alignment: .leading) {
+            VStack() {
                 
                 HStack {
                     Image("UserPicture")
@@ -127,14 +127,12 @@ struct ReviewControl: View {
                     }
                     Spacer()
                 }
-                ForEach(Array(textField),id: \.self) { text in
-                    Text(text)
-                }
+               
             }.padding()
             
             
-                
-            VStack{
+            
+            VStack(alignment: .leading){
                 ZStack(alignment: .topLeading) {
                     RoundedRectangle(cornerRadius: 20)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
@@ -152,14 +150,26 @@ struct ReviewControl: View {
                         .accessibilityValue("Zone de texte pour vos impressions sur l'article")
                 }
                 .padding()
-                
+
                 Button {
                     textField.insert(comment)
                 } label: {
                     Text("Envoyer")
                         .multilineTextAlignment(.trailing)
                     Divider()
-                }
+            }
+                ForEach(Array(textField),id: \.self) { text in
+                  
+                    HStack {
+                        Image("UserPicture")
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width:50)
+                        Text(text)
+                    }
+                    Divider()
+                }.padding()
+                
             }
         }
     }
@@ -170,24 +180,26 @@ struct ImageSystemName : View {
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
     @StateObject var articleListViewModel : ArticleListViewModel
-
+    
     
     var body: some View {
-
+        let showFavoris = valueCombiner.contains(sortArray)
         Button {
-            articleListViewModel.toggleScore(article: articleCatalog)
-            
             appendToArray(order: sortArray)
-          print("valueCombiner2 : \(valueCombiner)")
+            
+            if showFavoris {
+                valueCombiner.removeAll()
+            }
+            print("valueCombiner2 : \(valueCombiner)")
         } label: {
-            Image(systemName: articleListViewModel.isScore(article: articleCatalog) ?  "star.fill" : "star")
+            Image(systemName: showFavoris ?  "star.fill" : "star")
                 .resizable()
                 .frame(width: 27.51, height: 23.98)
-                .foregroundColor(articleListViewModel.isScore(article: articleCatalog) ? .yellow : .gray)
+                .foregroundColor(showFavoris ? .yellow : .gray)
             
         }.accessibilityElement(children: .combine)
         
-            .accessibilityLabel(articleListViewModel.isScore(article: articleCatalog)
+            .accessibilityLabel(showFavoris
                                 
                                 ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
         
@@ -195,15 +207,15 @@ struct ImageSystemName : View {
     }
     private func appendToArray(order:Int){
         for index in 1...order {
-
-            if !articleListViewModel.valueCombiner.contains(index){
-                articleListViewModel.valueCombiner.insert(index)
+            
+            if !valueCombiner.contains(index){
                 valueCombiner.append(index)
+                
             }
-        
+            
         }
+        
     }
-    
     
     
 }
@@ -274,6 +286,7 @@ struct SupplementData: View {
             
         }.padding()
     }
+    
     func addition()->Int{
         var array = 0
         
@@ -286,8 +299,5 @@ struct SupplementData: View {
         
         return array
     }
-    
-    
-    
     
 }
