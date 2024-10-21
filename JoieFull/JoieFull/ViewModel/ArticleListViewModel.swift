@@ -14,6 +14,7 @@ class ArticleListViewModel : ObservableObject {
     let catalogProduct : CatalogProduct
     @Published var articleCatalog : [ArticleCatalog] = []
     @Published var favoriteArticles : Set<Int> = []
+    @Published var score : [Int] = [4,3,1,2]
     init(catalogProduct: CatalogProduct)    {
         self.catalogProduct = catalogProduct
     }
