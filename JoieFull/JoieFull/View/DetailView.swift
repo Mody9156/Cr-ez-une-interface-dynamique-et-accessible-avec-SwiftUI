@@ -107,6 +107,7 @@ struct ReviewControl: View {
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
     @State var textField : Set<String> = []
+    @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
         Section{
             VStack(alignment: .leading) {
@@ -127,37 +128,39 @@ struct ReviewControl: View {
                     }
                     Spacer()
                 }
+                ForEach(Array(textField),id: \.self) { text in
+                    Text(text)
+                }
             }.padding()
             
-            ForEach(Array(textField),id: \.self) { text in
-                Text(text)
-            }
+            
                 
-            
-            ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: 20)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
-                    .background(Color.white)
-                    .foregroundColor(.white)
-                    .border(Color.gray, width: 1)
-                    .opacity(1)
-                    .cornerRadius(10)
+            VStack{
+                ZStack(alignment: .topLeading) {
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
+                        .background(Color.white)
+                        .foregroundColor(.white)
+                        .border(Color.gray, width: 1)
+                        .opacity(1)
+                        .cornerRadius(10)
+                    
+                    TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
+                        .font(.custom("SF Pro", size: 14))
+                        .fontWeight(.regular)
+                        .multilineTextAlignment(.leading)
+                        .padding()
+                        .accessibilityValue("Zone de texte pour vos impressions sur l'article")
+                }
+                .padding()
                 
-                TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
-                    .font(.custom("SF Pro", size: 14))
-                    .fontWeight(.regular)
-                    .multilineTextAlignment(.leading)
-                    .padding()
-                    .accessibilityValue("Zone de texte pour vos impressions sur l'article")
+                Button {
+                    textField.insert(comment)
+                } label: {
+                    Text("Envoyer")
+                    Divider()
+                }
             }
-            .padding()
-            
-            Button {
-                textField.insert(comment)
-            } label: {
-                Rectangle().frame(width: 50,height: 20).background(Color.red).foregroundColor(.white)
-            }
-            
         }
     }
 }
