@@ -45,9 +45,9 @@ struct DetailView: View {
                         
                     }
                     VStack {
-                        SupplementData(article: article, valueCombiner: $valueCombiner)
+                        SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                         
-                        ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
                     
                 }
@@ -209,6 +209,8 @@ struct SupplementData: View {
     var article : ArticleCatalog
     @Binding var valueCombiner : [Int]
     var ramdomArray : Int = 4
+    @StateObject var articleListViewModel : ArticleListViewModel
+
     @State var addNewElement  : Bool = false
     var body: some View {
         Section {
@@ -236,12 +238,9 @@ struct SupplementData: View {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
                             
-                            
-                            
-                            
                             let moyen = addition()
                             
-                            let result  = (ramdomArray + moyen ) / 2
+                            let result  = (articleListViewModel.grade + moyen ) / 2
                             
                             Text("\( Double(result), format: .number.rounded(increment: 0.1))")
                                 .font(.system(size: 14))
@@ -250,7 +249,6 @@ struct SupplementData: View {
                                 .multilineTextAlignment(.leading)
                             
                         }
-                        
                         
                         Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
                             .strikethrough()
