@@ -107,6 +107,7 @@ struct ReviewControl: View {
     @Binding var valueCombiner :  [Int]
     @State var textField : Set<String> = []
     @StateObject var articleListViewModel : ArticleListViewModel
+    @State var activeStart : Bool = false
     var body: some View {
         Section{
             VStack() {
@@ -127,7 +128,7 @@ struct ReviewControl: View {
                     }
                     Spacer()
                 }
-               
+                
             }.padding()
             
             
@@ -150,39 +151,47 @@ struct ReviewControl: View {
                         .accessibilityValue("Zone de texte pour vos impressions sur l'article")
                 }
                 .padding()
-
-              
-                    Button {
-                        textField.insert(comment)
-                    } label: {
-                        Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
-                           
-                        Divider()
-                }.padding()
-               
-                if !comment.isEmpty {
-                ForEach(Array(textField),id: \.self) { text in
+                
+                
+                Button {
+                    textField.insert(comment)
+                    activeStart = true
+                } label: {
+                    Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
                     
-                    HStack {
-                        Image("UserPicture")
-                            .resizable()
-                            .clipShape(Circle())
-                        .frame(width:50)
-                        VStack {
-                                
-                            Image(systemName:  "star.fill")
-                                .resizable()
-                                .frame(width: 27.51, height: 23.98)
-                                .foregroundColor(
-                                    .yellow )
-                                    Text(text)
-                              
-                        }
-                    }
-                        Divider()
-                 
-                  
+                    Divider()
                 }.padding()
+                
+                if !comment.isEmpty && activeStart == false{
+                    ForEach(Array(textField),id: \.self) { text in
+                        
+                        HStack {
+                            Image("UserPicture")
+                                .resizable()
+                                .clipShape(Circle())
+                                .frame(width:50)
+                            VStack (alignment: .leading){
+                                if activeStart {
+                                    HStack {
+                                        ForEach(valueCombiner,id:\.self) { _ in
+                                            Image(systemName:  "star.fill")
+                                                .resizable()
+                                                .frame(width: 27.51, height: 23.98)
+                                                .foregroundColor(
+                                                    .yellow )
+                                        }
+                                    }
+                                }
+                                   
+                                    Text(text)
+                                
+                                
+                            }
+                        }
+                        Divider()
+                        
+                        
+                    }.padding()
                 }
                 
             }
@@ -200,7 +209,7 @@ struct ImageSystemName : View {
     var body: some View {
         let showStart =  valueCombiner.contains(sortArray)
         Button {
-
+            
             appendToArray(order: sortArray)
             if showStart {
                 valueCombiner.removeAll()
@@ -221,17 +230,17 @@ struct ImageSystemName : View {
     }
     private func appendToArray(order:Int){
         for index in 1...order {
-
+            
             if !valueCombiner.contains(index){
                 valueCombiner.append(index)
                 
             }
-          
-
+            
+            
         }
-
+        
     }
-
+    
     
 }
 
