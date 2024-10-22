@@ -78,11 +78,14 @@ struct ShowCategories: View {
                                 image
                                     .resizable()
                                 
+                                    .scaledToFit()
+                                    .frame(width: 198, height: 198)
+                                    .cornerRadius(20)
+                                
                             } placeholder: {
                                 ProgressView()
                             }
-                            .frame(width: 198, height: 198)
-                            .cornerRadius(20)
+                           
                             
                             LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
