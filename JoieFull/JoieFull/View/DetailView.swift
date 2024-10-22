@@ -183,14 +183,14 @@ struct ImageSystemName : View {
     
     
     var body: some View {
-        let showFavoris = valueCombiner.contains(sortArray)
+        let showFavoris = articleListViewModel.valueCombiner.contains(sortArray)
         Button {
             appendToArray(order: sortArray)
             
             if showFavoris {
-                valueCombiner.removeAll()
+                articleListViewModel.valueCombiner.removeAll()
             }
-            print("valueCombiner2 : \(valueCombiner)")
+            print("valueCombiner2 : \(articleListViewModel.valueCombiner)")
         } label: {
             Image(systemName: showFavoris ?  "star.fill" : "star")
                 .resizable()
@@ -208,8 +208,8 @@ struct ImageSystemName : View {
     private func appendToArray(order:Int){
         for index in 1...order {
             
-            if !valueCombiner.contains(index){
-                valueCombiner.append(index)
+            if !articleListViewModel.valueCombiner.contains(index){
+                articleListViewModel.valueCombiner.append(index)
                 
             }
             
