@@ -95,11 +95,7 @@ struct LikesViewForDetailleView :View {
             }
         }
     }
-    
-    
 }
-
-
 
 struct ReviewControl: View {
     @State  var comment: String = ""
@@ -119,19 +115,13 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName( sortArray: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
-                        ImageSystemName(  sortArray: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
-                        ImageSystemName(  sortArray: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
-                        ImageSystemName(  sortArray: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel
-                        )
-                        ImageSystemName(  sortArray: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        ForEach(1...5, id: \.self) { index in
+                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        }
                     }
                     Spacer()
                 }
-                
             }.padding()
-            
-            
             
             VStack(alignment: .leading){
                 ZStack(alignment: .topLeading) {
@@ -152,17 +142,19 @@ struct ReviewControl: View {
                 }
                 .padding()
                 
-                
                 Button {
-                    textField.insert(comment)
-                    activeStart = true
+                    
+                    if !comment.isEmpty{
+                        textField.insert(comment)
+                        comment = ""
+                        activeStart = true
+                    }
                 } label: {
                     Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
                     
-                    Divider()
                 }.padding()
                 
-                if !comment.isEmpty && activeStart == false{
+                if activeStart{
                     ForEach(Array(textField),id: \.self) { text in
                         
                         HStack {
@@ -170,32 +162,26 @@ struct ReviewControl: View {
                                 .resizable()
                                 .clipShape(Circle())
                                 .frame(width:50)
+                            
                             VStack (alignment: .leading){
-                                if activeStart {
-                                    HStack {
-                                        ForEach(valueCombiner,id:\.self) { _ in
-                                            Image(systemName:  "star.fill")
-                                                .resizable()
-                                                .frame(width: 27.51, height: 23.98)
-                                                .foregroundColor(
-                                                    .yellow )
-                                        }
+                                HStack {
+                                    ForEach(valueCombiner,id:\.self) { _ in
+                                        Image(systemName:  "star.fill")
+                                            .resizable()
+                                            .frame(width: 27.51, height: 23.98)
+                                            .foregroundColor(
+                                                .yellow )
                                     }
                                 }
-                                   
-                                    Text(text)
-                                
-                                
+                                Text(text)
                             }
                         }
                         Divider()
                         
                         
-                    }.padding()
+                    }
                 }
-                
-            }
-            
+            }.padding()
         }
     }
 }
