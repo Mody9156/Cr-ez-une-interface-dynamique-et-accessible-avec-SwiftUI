@@ -77,11 +77,10 @@ struct ShowCategories: View {
                             AsyncImage(url: URL(string: article.picture.url)) { image in
                                 image
                                     .resizable()
-                                
-                                    .scaledToFit()
-                                    .frame(width: 198, height: 198)
+                                    .scaledToFill()  // Remplit le cadre en rognant si nécessaire
+                                    .frame(width: 198, height: 298)
                                     .cornerRadius(20)
-                                
+                                                                    
                             } placeholder: {
                                 ProgressView()
                             }
