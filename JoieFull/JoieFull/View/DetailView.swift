@@ -19,19 +19,26 @@ struct DetailView: View {
                         
                         ZStack (alignment: .topTrailing){
                             
-                            AsyncImage(url: URL(string: article.picture.url)) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                                    .padding()
-                                    .accessibilityValue("Image représentant \(article.name)")
-                                
-                                
-                            } placeholder: {
-                                ProgressView()
+                            AsyncImage(url: URL(string: article.picture.url)) { phase in
+                                if let image = phase.image {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                                        .padding()
+                                        .accessibilityValue("Image représentant \(article.name)")
+                                    
+                                } else if phase.error != nil {
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(.gray)
+                                        .padding()
+                                        .accessibilityValue("Échec du chargement de l'image pour \(article.name)")
+                                } else {
+                                    ProgressView()
+                                }
                             }
-                            
                             ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
                                 Label("", image: "Share")
                             }
@@ -39,7 +46,7 @@ struct DetailView: View {
                             .accessibilityLabel("Partager ce contenu")
                         }
                         
-                        LikesViewForDetailleView(article: article, articleListViewModel: articleListViewModel)
+                        LikesViewForDetaileView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 30)
                         
                     }
@@ -49,20 +56,19 @@ struct DetailView: View {
                         ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
                     
-                }
+                }.navigationBarTitle(Text("Home"))
             }
         }
     }
 }
 
-struct LikesViewForDetailleView :View {
+struct LikesViewForDetaileView :View {
     var article: ArticleCatalog
     var width : Double = 20.92
     var height : Double = 20.92
     var widthFrame : Double = 90
     var heightFrame : Double = 40
     @StateObject var articleListViewModel : ArticleListViewModel
-    
     
     var body: some View {
         
@@ -82,16 +88,15 @@ struct LikesViewForDetailleView :View {
                             .frame(width: width, height: height)
                             .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
                         
-                        
                         if let likes = article.likes {
-                            Text("\(articleListViewModel.isFavoris(article: article) ?( likes + 1) :  likes)")
+                            let adjustedLikes = articleListViewModel.isFavoris(article: article) ?( likes + 1) :  likes
+                            
+                            Text("\(adjustedLikes)")
                                 .foregroundColor(.black)
                             
                         }
                     }
                 }
-                
-                
             }
         }
     }
@@ -144,10 +149,11 @@ struct ReviewControl: View {
                 
                 Button {
                     
-                    if !comment.isEmpty{
+                    if !comment.trimmingCharacters(in: .whitespaces).isEmpty{
                         textField.insert(comment)
                         comment = ""
                         activeStart = true
+                        
                     }
                 } label: {
                     Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
@@ -165,12 +171,11 @@ struct ReviewControl: View {
                             
                             VStack (alignment: .leading){
                                 HStack {
-                                    ForEach(valueCombiner,id:\.self) { _ in
-                                        Image(systemName:  "star.fill")
+                                    ForEach(valueCombiner, id: \.self) { index in
+                                        Image(systemName:"star.fill")
                                             .resizable()
                                             .frame(width: 27.51, height: 23.98)
-                                            .foregroundColor(
-                                                .yellow )
+                                            .foregroundColor(.yellow)
                                     }
                                 }
                                 Text(text)
@@ -200,6 +205,7 @@ struct ImageSystemName : View {
             if showStart {
                 valueCombiner.removeAll()
             }
+            
         } label: {
             Image(systemName: showStart ?  "star.fill" : "star")
                 .resizable()
@@ -207,6 +213,7 @@ struct ImageSystemName : View {
                 .foregroundColor(showStart ? .yellow : .gray)
             
         }.accessibilityElement(children: .combine)
+            .accessibilityHint("Cliquez pour ajouter ou retirer une étoile. Actuellement \(sortArray) étoiles sélectionnées.")
         
             .accessibilityLabel(showStart
                                 
@@ -214,17 +221,12 @@ struct ImageSystemName : View {
         
         
     }
-    private func appendToArray(order:Int){
-        for index in 1...order {
-            
-            if !valueCombiner.contains(index){
-                valueCombiner.append(index)
-                
-            }
-            
-            
+    private func appendToArray(order: Int) {
+        if valueCombiner.contains(order) {
+            valueCombiner.removeAll()
+        } else {
+            valueCombiner = Array(1...order)
         }
-        
     }
     
     
@@ -261,12 +263,11 @@ struct SupplementData: View {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
                             
-                            let moyen = addition()
+                            let currentRating = valueCombiner.isEmpty ? articleListViewModel.grade : addition()
                             
-                            let result  = (articleListViewModel.grade + moyen ) / 2
+                            let averageRating = (articleListViewModel.grade + currentRating) / 2
                             
-                            
-                            Text("\( Double(valueCombiner.isEmpty ?      articleListViewModel.grade  : result), format: .number.rounded(increment: 0.1))")
+                            Text("\( Double(averageRating), format: .number.rounded(increment: 0.1))")
                                 .font(.system(size: 14))
                                 .fontWeight(.semibold)
                                 .lineSpacing(2.71)

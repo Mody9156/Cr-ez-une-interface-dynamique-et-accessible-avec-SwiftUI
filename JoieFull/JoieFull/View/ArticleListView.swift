@@ -88,7 +88,7 @@ struct ShowCategories: View {
                                 .padding()
                         }
                         
-                    }.accessibilityLabel(Text("You select \(article.name)"))
+                    }.accessibilityLabel(Text("You select \(article.name)")).navigationTitle("")
                     
                     
                     InfoExtract(article: article, articleListViewModel: articleListViewModel)
