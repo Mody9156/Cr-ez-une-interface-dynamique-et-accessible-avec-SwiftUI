@@ -12,8 +12,8 @@ class ArticleListViewModel : ObservableObject {
     @Published var articleCatalog : [ArticleCatalog] = []
     @Published var favoriteArticles : Set<Int> = []
     @Published var grade : Int = 4
-    @Published var valueCombiner : [Int] = []
-    
+    @Published var valueCombiner : Set<Int> = []
+
     init(catalogProduct: CatalogProduct)    {
         self.catalogProduct = catalogProduct
     }
@@ -62,5 +62,7 @@ class ArticleListViewModel : ObservableObject {
         
         return favoriteArticles.contains(article.id)
     }
+    
+    
     
 }

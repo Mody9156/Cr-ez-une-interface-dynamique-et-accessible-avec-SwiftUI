@@ -8,7 +8,7 @@ import SwiftUI
 
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
-    @State var valueCombiner : [Int] = []
+    @State var valueCombiner :  [Int] = []
     @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
         ScrollView {
@@ -104,7 +104,7 @@ struct LikesViewForDetailleView :View {
 struct ReviewControl: View {
     @State  var comment: String = ""
     var articleCatalog: ArticleCatalog
-    @Binding var valueCombiner : [Int]
+    @Binding var valueCombiner :  [Int]
     @State var textField : Set<String> = []
     @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
@@ -151,26 +151,42 @@ struct ReviewControl: View {
                 }
                 .padding()
 
-                Button {
-                    textField.insert(comment)
-                } label: {
-                    Text("Envoyer")
-                        .multilineTextAlignment(.trailing)
-                    Divider()
-            }
+              
+                    Button {
+                        textField.insert(comment)
+                    } label: {
+                        Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
+                           
+                        Divider()
+                }.padding()
+               
+                if !comment.isEmpty {
                 ForEach(Array(textField),id: \.self) { text in
-                  
+                    
                     HStack {
                         Image("UserPicture")
                             .resizable()
                             .clipShape(Circle())
-                            .frame(width:50)
-                        Text(text)
+                        .frame(width:50)
+                        VStack {
+                                
+                            Image(systemName:  "star.fill")
+                                .resizable()
+                                .frame(width: 27.51, height: 23.98)
+                                .foregroundColor(
+                                    .yellow )
+                                    Text(text)
+                              
+                        }
                     }
-                    Divider()
+                        Divider()
+                 
+                  
                 }.padding()
+                }
                 
             }
+            
         }
     }
 }
@@ -181,25 +197,23 @@ struct ImageSystemName : View {
     @Binding var valueCombiner : [Int]
     @StateObject var articleListViewModel : ArticleListViewModel
     
-    
     var body: some View {
-        let showFavoris = articleListViewModel.valueCombiner.contains(sortArray)
+        let showStart =  valueCombiner.contains(sortArray)
         Button {
+
             appendToArray(order: sortArray)
-            
-            if showFavoris {
-                articleListViewModel.valueCombiner.removeAll()
+            if showStart {
+                valueCombiner.removeAll()
             }
-            print("valueCombiner2 : \(articleListViewModel.valueCombiner)")
         } label: {
-            Image(systemName: showFavoris ?  "star.fill" : "star")
+            Image(systemName: showStart ?  "star.fill" : "star")
                 .resizable()
                 .frame(width: 27.51, height: 23.98)
-                .foregroundColor(showFavoris ? .yellow : .gray)
+                .foregroundColor(showStart ? .yellow : .gray)
             
         }.accessibilityElement(children: .combine)
         
-            .accessibilityLabel(showFavoris
+            .accessibilityLabel(showStart
                                 
                                 ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
         
@@ -207,22 +221,23 @@ struct ImageSystemName : View {
     }
     private func appendToArray(order:Int){
         for index in 1...order {
-            
-            if !articleListViewModel.valueCombiner.contains(index){
-                articleListViewModel.valueCombiner.append(index)
+
+            if !valueCombiner.contains(index){
+                valueCombiner.append(index)
                 
             }
-            
+          
+
         }
-        
+
     }
-    
+
     
 }
 
 struct SupplementData: View {
     var article : ArticleCatalog
-    @Binding var valueCombiner : [Int]
+    @Binding var valueCombiner :  [Int]
     @StateObject var articleListViewModel : ArticleListViewModel
     
     var body: some View {
@@ -291,7 +306,7 @@ struct SupplementData: View {
         var array = 0
         
         if !valueCombiner.isEmpty {
-            if let lastElement = valueCombiner.last  {
+            if let lastElement = valueCombiner.sorted().last  {
                 array = lastElement
                 
             }
