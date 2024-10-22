@@ -81,14 +81,14 @@ struct ShowCategories: View {
                             } placeholder: {
                                 ProgressView()
                             }
-                            .frame(width: 198, height: 297)
+                            .frame(width: 198, height: 198)
                             .cornerRadius(20)
                             
                             LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
                         }
                         
-                    }.accessibilityLabel(Text("You select \(article.name)")).navigationTitle("")
+                    }.accessibilityLabel(Text("You select \(article.name)")).navigationTitle( "Home").navigationBarTitleDisplayMode(.inline)
                     
                     
                     InfoExtract(article: article, articleListViewModel: articleListViewModel)

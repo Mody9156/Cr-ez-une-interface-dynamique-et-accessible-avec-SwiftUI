@@ -56,7 +56,7 @@ struct DetailView: View {
                         ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
                     
-                }.navigationBarTitle(Text("Home"))
+                }
             }
         }
     }
