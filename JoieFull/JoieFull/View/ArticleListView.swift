@@ -254,3 +254,10 @@ struct ArticlesFinder: View {
         }
     }
 }
+
+
+struct MyPreviewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true, selectedArticle: ArticleCatalog(id: 22, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 22, original_price: 22), addInFavoris: true, articleCatalog: ArticleCatalog(id: 22, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 22, original_price: 22), addNewFavoris: true)
+    }
+}
