@@ -82,8 +82,7 @@ struct ShowCategories: View {
                         }
                     }
                     .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
-                    .navigationTitle("Accueil")
-                    .navigationBarTitleDisplayMode(.inline)
+                   
 
                     InfoExtract(article: article, articleListViewModel: articleListViewModel)
                 }
