@@ -10,12 +10,14 @@ struct ArticleListView: View {
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
     }
+    @State private var searchIsActive : Bool = false
     @State private var searchText = ""
     
     var body: some View {
         
         NavigationStack {
-            Text("Rechercher \(searchText)")
+            Text("\(searchText)")
+            
             ScrollView(showsIndicators: true) {
                 HStack {
                     VStack(alignment: .leading) {
@@ -42,9 +44,25 @@ struct ArticleListView: View {
                     }
                 }
             }
-        }
+            
+        }.searchable(text: $searchText,prompt: "Rechercher un article")
+            
+        
+       
     }
+//    var searchResults : [ArticleCatalog] {
+//        if searchText.isEmpty{
+//            return articleListViewModel.articleCatalog
+//        }else{
+//            return articleListViewModel.articleCatalog.filter { articleCatalog in
+//                articleCatalog.name.localizedStandardContains(searchText)
+//            }
+//        }
+//    }
+    
 }
+  
+
 
 struct ShowCategories: View {
     var article: ArticleCatalog
