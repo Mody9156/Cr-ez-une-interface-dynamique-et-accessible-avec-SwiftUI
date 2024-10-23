@@ -10,10 +10,12 @@ struct ArticleListView: View {
     var isDeviceLandscapeMode : Bool{
         horizontalSizeClass == .regular
     }
+    @State private var searchText = ""
     
     var body: some View {
         
         NavigationStack {
+            Text("Rechercher \(searchText)")
             ScrollView(showsIndicators: true) {
                 HStack {
                     VStack(alignment: .leading) {
