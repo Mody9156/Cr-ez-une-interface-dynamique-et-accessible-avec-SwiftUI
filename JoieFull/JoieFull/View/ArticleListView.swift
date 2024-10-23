@@ -11,22 +11,21 @@ struct ArticleListView: View {
         horizontalSizeClass == .regular
     }
     @State private var searchIsActive : Bool = false
-    @State private var searchText = ""
+    @State var searchText = ""
     
+   
     var body: some View {
         
         NavigationStack {
-            Text("\(searchText)")
-            
             ScrollView(showsIndicators: true) {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                        ArticlesFinder( sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, searchText: $searchText, addInFavoris: $addInFavoris)
                         
-                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                        ArticlesFinder( sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, searchText: $searchText, addInFavoris: $addInFavoris)
                         
-                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                        ArticlesFinder( sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, searchText: $searchText, addInFavoris: $addInFavoris)
                     }
                     
                     if isDeviceLandscapeMode {
@@ -46,22 +45,14 @@ struct ArticleListView: View {
             }
             
         }.searchable(text: $searchText,prompt: "Rechercher un article")
-            
         
-       
+        
+        
     }
-//    var searchResults : [ArticleCatalog] {
-//        if searchText.isEmpty{
-//            return articleListViewModel.articleCatalog
-//        }else{
-//            return articleListViewModel.articleCatalog.filter { articleCatalog in
-//                articleCatalog.name.localizedStandardContains(searchText)
-//            }
-//        }
-//    }
+    
     
 }
-  
+
 
 
 struct ShowCategories: View {
@@ -100,11 +91,11 @@ struct ShowCategories: View {
                                     .scaledToFill()  // Remplit le cadre en rognant si nécessaire
                                     .frame(width: 198, height: 298)
                                     .cornerRadius(20)
-                                                                    
+                                
                             } placeholder: {
                                 ProgressView()
                             }
-                           
+                            
                             
                             LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
@@ -248,7 +239,19 @@ struct ArticlesFinder: View {
     @Binding var presentArticles : Bool
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?  // Gère l'article sélectionné
+    @Binding var searchText : String
     @Binding var addInFavoris : Bool
+    var searchResults : [ArticleCatalog] {
+                    if searchText.isEmpty{
+                        return articleListViewModel.articleCatalog
+                    }else{
+                        return articleListViewModel.articleCatalog.filter { articleCatalog in
+                            articleCatalog.name.localizedStandardContains(searchText)
+                        }
+                    }
+       
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             Section(header:Text(sectionName)
@@ -261,7 +264,7 @@ struct ArticlesFinder: View {
                         
                         HStack {
                             
-                            ForEach(articleListViewModel.articleCatalog, id: \.name) { article in
+                            ForEach(searchResults, id: \.name) { article in
                                 ShowCategories(article: article,category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                             }
                             
@@ -276,8 +279,8 @@ struct ArticlesFinder: View {
 }
 
 
-struct MyPreviewProvider_Previews: PreviewProvider {
-    static var previews: some View {
-        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true, selectedArticle: ArticleCatalog(id: 22, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 22, original_price: 22), addInFavoris: true, articleCatalog: ArticleCatalog(id: 22, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 22, original_price: 22), addNewFavoris: true)
-    }
-}
+//struct MyPreviewProvider_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true, selectedArticle: ArticleCatalog(id: 22, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 22, original_price: 22), addInFavoris: true, articleCatalog: ArticleCatalog(id: 22, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 22, original_price: 22), addNewFavoris: true)
+//    }
+//}
