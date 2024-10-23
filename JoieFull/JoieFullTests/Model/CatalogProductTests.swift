@@ -17,15 +17,45 @@ final class CatalogProductTests: XCTestCase {
          let mockData = Data("Mock response data".utf8)
          let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
          let mockNetworkService = MockNetworkService(mockData: mockData,mockResponse: mockResponse)
+        let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
                   
          do {
-             let (data,response) = try await mockNetworkService.request(URLRequest(url: URL(string:"https://exemple.com")!))
+             let create = try catalogProduct.createURLRequest()
+             XCTAssertNotNil(create.url)
+             XCTAssertNoThrow(create)
+             XCTAssert(create.httpMethod == "GET")
+             
          }catch{
              XCTAssertEqual((error as? URLError)?.code, .notConnectedToInternet, "L'erreur doit être URLError.notConnectedToInternet")
 
          }
     }
     
+    func testLoadArticlesFromURL_Success() async throws {
+        let mockData =  """
+        [
+            {"id": "1", "name": "T-shirt", "price": 25.0, "original_price": 30.0, "likes": 10, "picture": {"url": "https://example.com/tshirt.jpg", "description": "T-shirt description"}},
+            {"id": "2", "name": "Jeans", "price": 50.0, "original_price": 60.0, "likes": 20, "picture": {"url": "https://example.com/jeans.jpg", "description": "Jeans description"}}
+        ]
+        """.data(using: .utf8)
+        
+        let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        let mockNetworkService = MockNetworkService(mockData: mockData,mockResponse: mockResponse)
+
+        let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
+        
+        let loadArticles = try await catalogProduct.loadArticlesFromURL()
+        
+        XCTAssert(loadArticles.count == 2)
+        XCTAssert(loadArticles[1].name == "Jeans")
+        XCTAssert(loadArticles[0].name == "T-shirt")
+        
+
+    }
+    
+    func testStatusCodeNoThrowsError()throws{
+        
+    }
 
     
     
@@ -58,9 +88,6 @@ final class CatalogProductTests: XCTestCase {
         }
     }
 
-    
-    
-    
-    
+   
     
 }

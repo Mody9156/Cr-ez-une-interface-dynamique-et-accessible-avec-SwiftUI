@@ -20,7 +20,7 @@ class CatalogProduct {
         case loadArticlesFromURLError
     }
     
-    func createURLRequest()throws -> URLRequest{
+    func createURLRequest() throws -> URLRequest{
         let url = URL(string: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json")!
         
         var request = URLRequest(url: url)
