@@ -8,9 +8,8 @@ import SwiftUI
 
 struct DetailView: View {
     var articleCatalog: ArticleCatalog
-    @State private var comment: String = ""
-    @State var valueCombiner : [Int] = []
-    @Binding var addInFavoris : Bool
+    @State var valueCombiner :  [Int] = []
+    @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -20,19 +19,26 @@ struct DetailView: View {
                         
                         ZStack (alignment: .topTrailing){
                             
-                            AsyncImage(url: URL(string: article.picture.url)) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                                    .padding()
-                                    .accessibilityValue("Image représentant \(article.name)")
-                                
-                                
-                            } placeholder: {
-                                ProgressView()
+                            AsyncImage(url: URL(string: article.picture.url)) { phase in
+                                if let image = phase.image {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                                        .padding()
+                                        .accessibilityValue("Image représentant \(article.name)")
+                                    
+                                } else if phase.error != nil {
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(.gray)
+                                        .padding()
+                                        .accessibilityValue("Échec du chargement de l'image pour \(article.name)")
+                                } else {
+                                    ProgressView()
+                                }
                             }
-                            
                             ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
                                 Label("", image: "Share")
                             }
@@ -40,14 +46,14 @@ struct DetailView: View {
                             .accessibilityLabel("Partager ce contenu")
                         }
                         
-                        LikesViewForDetailleView(article: article, addInFavoris: $addInFavoris)
-                        .padding([.bottom, .trailing], 30)
+                        LikesViewForDetaileView(article: article, articleListViewModel: articleListViewModel)
+                            .padding([.bottom, .trailing], 30)
                         
                     }
                     VStack {
-                        SupplementData(article: article, valueCombiner: $valueCombiner)
+                        SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                         
-                        ReviewControl(comment: $comment, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
                     
                 }
@@ -56,54 +62,56 @@ struct DetailView: View {
     }
 }
 
-struct LikesViewForDetailleView :View {
+struct LikesViewForDetaileView :View {
     var article: ArticleCatalog
     var width : Double = 20.92
     var height : Double = 20.92
     var widthFrame : Double = 90
     var heightFrame : Double = 40
-    @Binding var addInFavoris : Bool
+    @StateObject var articleListViewModel : ArticleListViewModel
+    
     var body: some View {
+        
+        Button {
             
-            Button {
-                addInFavoris.toggle()
-            } label: {
-                HStack{
-                    ZStack {
+            articleListViewModel.toggleFavoris(article: article)
+        } label: {
+            HStack{
+                ZStack {
+                    
+                    Capsule()
+                        .fill(.white)
+                        .frame(width: widthFrame, height: heightFrame)
+                    HStack{
+                        Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
+                            .resizable()
+                            .frame(width: width, height: height)
+                            .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
                         
-                        Capsule()
-                            .fill(.white)
-                            .frame(width: widthFrame, height: heightFrame)
-                        HStack{
-                            Image(systemName: addInFavoris ? "heart.fill":"heart")
-                                .resizable()
-                                .frame(width: width, height: height)
-                                .foregroundColor(addInFavoris ? .yellow : .black)
+                        if let likes = article.likes {
+                            let adjustedLikes = articleListViewModel.isFavoris(article: article) ?( likes + 1) :  likes
                             
+                            Text("\(adjustedLikes)")
+                                .foregroundColor(.black)
                             
-                            if let likes = article.likes {
-                                Text("\(addInFavoris ?( likes + 1) :  likes)")
-                                    .foregroundColor(.black)
-                                
-                            }
                         }
                     }
-                    
                 }
+            }
         }
-        }
-
+    }
 }
 
-
-
 struct ReviewControl: View {
-    @Binding var comment : String
+    @State  var comment: String = ""
     var articleCatalog: ArticleCatalog
-    @Binding var valueCombiner : [Int]
+    @Binding var valueCombiner :  [Int]
+    @State var textField : Set<String> = []
+    @StateObject var articleListViewModel : ArticleListViewModel
+    @State var activeStart : Bool = false
     var body: some View {
         Section{
-            VStack(alignment: .leading) {
+            VStack() {
                 
                 HStack {
                     Image("UserPicture")
@@ -112,35 +120,73 @@ struct ReviewControl: View {
                         .frame(width:50)
                     
                     HStack {
-                        ImageSystemName( sortArray: 1, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  sortArray: 2, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  sortArray: 3, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
-                        ImageSystemName(  sortArray: 4, articleCatalog: articleCatalog, valueCombiner: $valueCombiner
-                        )
-                        ImageSystemName(  sortArray: 5, articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
+                        ForEach(1...5, id: \.self) { index in
+                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        }
                     }
                     Spacer()
                 }
             }.padding()
             
-            ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: 20)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
-                    .background(Color.white)
-                    .foregroundColor(.white)
-                    .border(Color.gray, width: 1)
-                    .opacity(1)
-                    .cornerRadius(10)
+            VStack(alignment: .leading){
+                ZStack(alignment: .topLeading) {
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
+                        .background(Color.white)
+                        .foregroundColor(.white)
+                        .border(Color.gray, width: 1)
+                        .opacity(1)
+                        .cornerRadius(10)
+                    
+                    TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
+                        .font(.custom("SF Pro", size: 14))
+                        .fontWeight(.regular)
+                        .multilineTextAlignment(.leading)
+                        .padding()
+                        .accessibilityValue("Zone de texte pour vos impressions sur l'article")
+                }
+                .padding()
                 
-                TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
-                    .font(.custom("SF Pro", size: 14))
-                    .fontWeight(.regular)
-                    .multilineTextAlignment(.leading)
-                    .padding()
-                    .accessibilityValue("Zone de texte pour vos impressions sur l'article")
-            }
-            .padding()
-            
+                Button {
+                    
+                    if !comment.trimmingCharacters(in: .whitespaces).isEmpty{
+                        textField.insert(comment)
+                        comment = ""
+                        activeStart = true
+                        
+                    }
+                } label: {
+                    Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
+                    
+                }.padding()
+                
+                if activeStart{
+                    ForEach(Array(textField),id: \.self) { text in
+                        
+                        HStack {
+                            Image("UserPicture")
+                                .resizable()
+                                .clipShape(Circle())
+                                .frame(width:50)
+                            
+                            VStack (alignment: .leading){
+                                HStack {
+                                    ForEach(valueCombiner, id: \.self) { index in
+                                        Image(systemName:"star.fill")
+                                            .resizable()
+                                            .frame(width: 27.51, height: 23.98)
+                                            .foregroundColor(.yellow)
+                                    }
+                                }
+                                Text(text)
+                            }
+                        }
+                        Divider()
+                        
+                        
+                    }
+                }
+            }.padding()
         }
     }
 }
@@ -149,35 +195,37 @@ struct ImageSystemName : View {
     var sortArray : Int
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner : [Int]
+    @StateObject var articleListViewModel : ArticleListViewModel
+    
     var body: some View {
-    let chooseIndex = valueCombiner.contains(sortArray)
-        
+        let showStart =  valueCombiner.contains(sortArray)
         Button {
             
             appendToArray(order: sortArray)
-            if chooseIndex {
+            if showStart {
                 valueCombiner.removeAll()
             }
-            print("valueCombiner : \(valueCombiner)")
-
+            
         } label: {
-            Image(systemName: chooseIndex ?  "star.fill" : "star")
+            Image(systemName: showStart ?  "star.fill" : "star")
                 .resizable()
                 .frame(width: 27.51, height: 23.98)
-                .foregroundColor(chooseIndex ? .yellow : .gray)
+                .foregroundColor(showStart ? .yellow : .gray)
             
         }.accessibilityElement(children: .combine)
+            .accessibilityHint("Cliquez pour ajouter ou retirer une étoile. Actuellement \(sortArray) étoiles sélectionnées.")
         
-            .accessibilityLabel(chooseIndex
+            .accessibilityLabel(showStart
+                                
                                 ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
         
         
     }
-    private func appendToArray(order:Int){
-        for index in 1...order {
-            if !valueCombiner.contains(index){
-                valueCombiner.append(index)
-            }
+    private func appendToArray(order: Int) {
+        if valueCombiner.contains(order) {
+            valueCombiner.removeAll()
+        } else {
+            valueCombiner = Array(1...order)
         }
     }
     
@@ -186,10 +234,9 @@ struct ImageSystemName : View {
 
 struct SupplementData: View {
     var article : ArticleCatalog
-    @Binding var valueCombiner : [Int]
-    var someArray : [Int] = []
-    var ramdomArray : Int = 4
-    @State var addNewElement  : Bool = false
+    @Binding var valueCombiner :  [Int]
+    @StateObject var articleListViewModel : ArticleListViewModel
+    
     var body: some View {
         Section {
             VStack(alignment: .leading) {
@@ -215,22 +262,18 @@ struct SupplementData: View {
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
-                         
-                                
-                          
                             
-                               let moyen = addition()
-                                
-                                let result  = (ramdomArray + moyen ) / 2
-                           
-                            Text("\( Double(result), format: .number.rounded(increment: 0.1))")
+                            let currentRating = valueCombiner.isEmpty ? articleListViewModel.grade : addition()
+                            
+                            let averageRating = (articleListViewModel.grade + currentRating) / 2
+                            
+                            Text("\( Double(averageRating), format: .number.rounded(increment: 0.1))")
                                 .font(.system(size: 14))
                                 .fontWeight(.semibold)
                                 .lineSpacing(2.71)
                                 .multilineTextAlignment(.leading)
-                        
+                            
                         }
-                        
                         
                         Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
                             .strikethrough()
@@ -254,19 +297,18 @@ struct SupplementData: View {
             
         }.padding()
     }
+    
     func addition()->Int{
         var array = 0
         
         if !valueCombiner.isEmpty {
-            if let lastElement = valueCombiner.last  {
-                 array = lastElement
+            if let lastElement = valueCombiner.sorted().last  {
+                array = lastElement
+                
             }
         }
-       
+        
         return array
     }
-    
-
-
     
 }

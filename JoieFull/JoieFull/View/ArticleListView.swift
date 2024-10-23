@@ -26,20 +26,20 @@ struct ArticleListView: View {
                     }
                     
                     if isDeviceLandscapeMode {
-                            if let article =  selectedArticle {
-                                DetailView(articleCatalog: article, addInFavoris: $addInFavoris)
-                                
-                            }
+                        if let article =  selectedArticle {
+                            DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
+                            
+                        }
                         
                     }
                     
                 }.onAppear {
                     Task {
-
+                        
                         try? await articleListViewModel.loadArticles()
                     }
+                }
             }
-        }
         }
     }
 }
@@ -61,15 +61,15 @@ struct ShowCategories: View {
         if article.category == category {
             
             if isDeviceLandscapeMode {
-               
+                
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                 
             }else{
                 VStack {
                     
                     NavigationLink {
-
-                        DetailView(articleCatalog: article, addInFavoris: $addInFavoris)
+                        
+                        DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
                         
                     } label: {
                         ZStack(alignment: .bottomTrailing){
@@ -77,26 +77,28 @@ struct ShowCategories: View {
                             AsyncImage(url: URL(string: article.picture.url)) { image in
                                 image
                                     .resizable()
-                                
+                                    .scaledToFill()  // Remplit le cadre en rognant si nécessaire
+                                    .frame(width: 198, height: 298)
+                                    .cornerRadius(20)
+                                                                    
                             } placeholder: {
                                 ProgressView()
                             }
-                            .frame(width: 198, height: 297)
-                            .cornerRadius(20)
+                           
                             
-                            LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addNewFavoris: $addInFavoris)
+                            LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
                         }
                         
-                    }.accessibilityLabel(Text("You select \(article.name)"))
+                    }.accessibilityLabel(Text("You select \(article.name)")).navigationTitle( "Home").navigationBarTitleDisplayMode(.inline)
                     
                     
-                    InfoExtract(article: article)
+                    InfoExtract(article: article, articleListViewModel: articleListViewModel)
                     
                 }
-
-                }
-           
+                
+            }
+            
         }
         
     }
@@ -128,7 +130,7 @@ struct ExtractionDeviceLandscapeMode : View{
                         .frame(width: 198, height: 297)
                         .cornerRadius(20)
                         
-                        LikesView(article: article,width: 14.01,height: 12.01,widthFrame: 60,heightFrame: 30, addNewFavoris: $addInFavoris)
+                        LikesView(article: article, articleListViewModel: articleListViewModel)
                             .padding()
                     }.border(presentArticles ? .blue : .clear, width:3)
                     
@@ -137,46 +139,49 @@ struct ExtractionDeviceLandscapeMode : View{
                 }
             }.accessibilityLabel(Text("You select \(article.name)"))
             
-            InfoExtract(article: article)
+            InfoExtract(article: article, articleListViewModel: articleListViewModel)
         }
     }
 }
 
 struct LikesView :View {
     var article: ArticleCatalog
-    var width : Double
-    var height : Double
-    var widthFrame : Double
-    var heightFrame : Double
-    @Binding var addNewFavoris : Bool
+    var width : Double = 14.01
+    var height : Double = 12.01
+    var widthFrame : Double = 60
+    var heightFrame : Double = 30
+    @StateObject var articleListViewModel : ArticleListViewModel
     var body: some View {
-            
+        
+        HStack{
+            ZStack {
+                
+                Capsule()
+                    .fill(.white)
+                    .frame(width: widthFrame, height: heightFrame)
+                
                 HStack{
-                    ZStack {
+                    Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
+                    
+                    if let likes = article.likes {
                         
-                        Capsule()
-                            .fill(.white)
-                            .frame(width: widthFrame, height: heightFrame)
                         
-                        HStack{
-                            Image(systemName: addNewFavoris ? "heart.fill":"heart")
-                                .resizable()
-                                .frame(width: width, height: height)
-                                .foregroundColor(addNewFavoris ? .yellow : .black)
-                            
-                            if let likes = article.likes {
-                                Text("\(addNewFavoris ?( likes + 1) :  likes)")
-                                    .foregroundColor(.black)
-                            }
-                        }
+                        Text("\(articleListViewModel.isFavoris(article: article) ? ( likes + 1) :  likes)")
+                            .foregroundColor(.black)
                     }
                 }
+            }
         }
+    }
 }
 
 struct InfoExtract: View {
     var article: ArticleCatalog
-    var note : Int = 4
+    @StateObject var articleListViewModel : ArticleListViewModel
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -196,14 +201,13 @@ struct InfoExtract: View {
             VStack(alignment: .trailing) {
                 HStack {
                     Image(systemName: "star.fill").foregroundColor(.yellow)
-                    if let article = note {
-                        
-                        Text("\(Double(article), format: .number.rounded(increment: 0.1))")
-                            .font(.system(size: 14))
-                            .fontWeight(.semibold)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
-                    }
+                    
+                    Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
+                        .font(.system(size: 14))
+                        .fontWeight(.semibold)
+                        .lineSpacing(2.71)
+                        .multilineTextAlignment(.leading)
+                    
                 }
                 
                 
@@ -248,5 +252,12 @@ struct ArticlesFinder: View {
                 .padding(.trailing)
             
         }
+    }
+}
+
+
+struct MyPreviewProvider_Previews: PreviewProvider {
+    static var previews: some View {
+        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true, selectedArticle: ArticleCatalog(id: 22, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 22, original_price: 22), addInFavoris: true, articleCatalog: ArticleCatalog(id: 22, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 22, original_price: 22), addNewFavoris: true)
     }
 }
