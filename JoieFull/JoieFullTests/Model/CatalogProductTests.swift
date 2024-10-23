@@ -11,52 +11,98 @@ import SwiftUI
 
 
 final class CatalogProductTests: XCTestCase {
-
+    
     
     func testURLRequestCreationWithValidURL() async throws {
-         let mockData = Data("Mock response data".utf8)
-         let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-         let mockNetworkService = MockNetworkService(mockData: mockData,mockResponse: mockResponse)
+        let mockNetworkService = MockNetworkService()
+        
+        let mockData = Data("Mock response data".utf8)
+        mockNetworkService.mockData = mockData
+        let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        mockNetworkService.mockResponse = mockResponse
         let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
-                  
-         do {
-             let create = try catalogProduct.createURLRequest()
-             XCTAssertNotNil(create.url)
-             XCTAssertNoThrow(create)
-             XCTAssert(create.httpMethod == "GET")
-             
-         }catch{
-             XCTAssertEqual((error as? URLError)?.code, .notConnectedToInternet, "L'erreur doit être URLError.notConnectedToInternet")
-
-         }
+        
+        do {
+            let create = try catalogProduct.createURLRequest()
+            XCTAssertNotNil(create.url)
+            XCTAssertNoThrow(create)
+            XCTAssert(create.httpMethod == "GET")
+            
+        }catch{
+            XCTAssertEqual((error as? URLError)?.code, .notConnectedToInternet, "L'erreur doit être URLError.notConnectedToInternet")
+            
+        }
     }
     
     func testLoadArticlesFromURL_Success() async throws {
+        let mockNetworkService = MockNetworkService()
+        
         let mockData =  """
         [
-            {"id": "1", "name": "T-shirt", "price": 25.0, "original_price": 30.0, "likes": 10, "picture": {"url": "https://example.com/tshirt.jpg", "description": "T-shirt description"}},
-            {"id": "2", "name": "Jeans", "price": 50.0, "original_price": 60.0, "likes": 20, "picture": {"url": "https://example.com/jeans.jpg", "description": "Jeans description"}}
+            {
+                "id": 1,
+                "picture": {
+                    "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/4.jpg",
+                    "description": "Sac à bandoulière en cuir noir"
+                },
+                "name": "Sac à bandoulière",
+                "category": "ACCESSORIES",
+                "likes": 75,
+                "price": 89.99,
+                "original_price": 99.99
+            },
+           {
+               "id": 2,
+               "picture": {
+                   "url": "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/3.jpg",
+                   "description": "Ceinture en cuir noir élégante"
+               },
+               "name": "Ceinture en cuir",
+               "category": "ACCESSORIES",
+               "likes": 30,
+               "price": 35.00,
+               "original_price": 40.00
+           }
+
         ]
-        """.data(using: .utf8)
+        """.data(using: .utf8)!
         
+        mockNetworkService.mockData = mockData
         let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        let mockNetworkService = MockNetworkService(mockData: mockData,mockResponse: mockResponse)
-
+        mockResponse.method(for: Selector(("GET")))
+        mockNetworkService.mockResponse = mockResponse
         let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
+       
+            let loadArticles = try await catalogProduct.loadArticlesFromURL()
+            
+            XCTAssert(loadArticles.count == 2)
+            XCTAssert(loadArticles[0].name == "Sac à bandoulière")
+            XCTAssert(loadArticles[1].name == "Ceinture en cuir")
+            print("full succes")
         
-        let loadArticles = try await catalogProduct.loadArticlesFromURL()
-        
-        XCTAssert(loadArticles.count == 2)
-        XCTAssert(loadArticles[1].name == "Jeans")
-        XCTAssert(loadArticles[0].name == "T-shirt")
-        
-
     }
     
+    func testLoadArticlesFromURL_ThrowsErrors() async throws{
+        let mockNetworkService = MockNetworkService()
+        
+        let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        mockNetworkService.mockResponse = mockResponse
+        
+        let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
+
+        do{
+            
+           let _ = try await catalogProduct.loadArticlesFromURL()
+            
+        }catch let error{
+            XCTAssertEqual(error as? CatalogProduct.CandidateFetchError, .loadArticlesFromURLError)
+        }
+        
+    }
     func testStatusCodeNoThrowsError()throws{
         
     }
-
+    
     
     
     class MockNetworkService : HTTPService {
@@ -65,29 +111,17 @@ final class CatalogProductTests: XCTestCase {
         var mockResponse: HTTPURLResponse?
         var mockError: Error?
         
-        init(mockData: Data? = nil, mockResponse: HTTPURLResponse? = nil, mockError: Error? = nil) {
-            self.mockData = mockData
-            self.mockResponse = mockResponse
-            self.mockError = mockError
-        }
-        
         // Mock de la méthode request
         func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-            // Simuler une erreur si elle est définie
-            if let error = mockError {
-                throw error
+            if let data = mockData, let response = mockResponse {
+                return (data, response)
+            } else {
+                throw URLError(.badServerResponse)  // Simuler une erreur si les données ou la réponse sont manquantes
             }
             
-            // Vérifier que les données et la réponse ne sont pas nulles
-            guard let data = mockData,
-                  let response = mockResponse else {
-                throw URLError(.badServerResponse)
-            }
-            
-            return (data, response)
         }
     }
-
-   
+    
+    
     
 }

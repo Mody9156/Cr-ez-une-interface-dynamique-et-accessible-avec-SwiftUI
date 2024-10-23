@@ -37,10 +37,11 @@ class CatalogProduct {
                 throw CandidateFetchError.httpResponseInvalid
             }
             let DecoderArticles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
-            
+           
             return DecoderArticles
             
         }catch{
+            print("error : \(error)")
             throw CandidateFetchError.loadArticlesFromURLError
         }
     }
