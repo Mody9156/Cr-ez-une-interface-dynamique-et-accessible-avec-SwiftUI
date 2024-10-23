@@ -20,7 +20,7 @@ class CatalogProduct {
         case loadArticlesFromURLError
     }
     
-    func createURLRequest()throws -> URLRequest{
+    func createURLRequest() throws -> URLRequest{
         let url = URL(string: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/api/clothes.json")!
         
         var request = URLRequest(url: url)
@@ -30,17 +30,20 @@ class CatalogProduct {
     }
   
     func loadArticlesFromURL() async throws -> [ArticleCatalog] {
+        
+        let (data,response) = try await httpService.request(createURLRequest())
+        
+        guard response.statusCode == 200 else {
+            throw CandidateFetchError.httpResponseInvalid
+        }
         do{
-            let (data,response) = try await httpService.request(createURLRequest())
-            
-            guard response.statusCode == 200 else {
-                throw CandidateFetchError.httpResponseInvalid
-            }
+           
             let DecoderArticles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
-            
+           
             return DecoderArticles
             
         }catch{
+           
             throw CandidateFetchError.loadArticlesFromURLError
         }
     }
