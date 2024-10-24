@@ -49,11 +49,8 @@ struct DetailView: View {
                                 .padding([.bottom, .trailing,.top], 20)
                             
                                 
-//                            ShareLink(item: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/")!) {
-//                                Label("Partager", image: "Share")
-//                            }
-                            
-                            ShareLink(item: url, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
+
+                            ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
                                 Image(systemName: "square.and.arrow.up")
                             }
                             .padding([.top, .trailing], 30)
