@@ -47,7 +47,7 @@ struct DetailView: View {
                         }
                         
                         LikesViewForDetaileView(article: article, articleListViewModel: articleListViewModel)
-                            .padding([.bottom, .trailing], 30)
+                            .padding([.bottom, .trailing], 20)
                         
                     }
                     VStack {
@@ -116,8 +116,8 @@ struct ReviewControl: View {
                 HStack {
                     Image("UserPicture")
                         .resizable()
-                        .clipShape(Circle())
                         .frame(width:50)
+                        .clipShape(Circle())
                     
                     HStack {
                         ForEach(1...5, id: \.self) { index in
@@ -166,8 +166,8 @@ struct ReviewControl: View {
                         HStack {
                             Image("UserPicture")
                                 .resizable()
-                                .clipShape(Circle())
                                 .frame(width:50)
+                                .clipShape(Circle())
                             
                             VStack (alignment: .leading){
                                 HStack {
@@ -312,3 +312,10 @@ struct SupplementData: View {
     }
     
 }
+
+
+//struct ContentView_Previews_Detail: PreviewProvider {
+//    static var previews: some View {
+//        DetailView(articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 33, price: 33.33, original_price: 33.3), valueCombiner: [2], articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()))
+//    }
+//}
