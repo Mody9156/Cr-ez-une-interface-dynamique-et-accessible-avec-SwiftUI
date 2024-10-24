@@ -9,12 +9,14 @@ struct ArticleListView: View {
     var articleCatalog: ArticleCatalog
     @State var addNewFavoris: Bool = false
     @State private var searchText = ""
-
+    
+    
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }
 
     var body: some View {
+        
         NavigationStack {
             ScrollView(showsIndicators: true) {
                 HStack {
@@ -37,9 +39,10 @@ struct ArticleListView: View {
                         try? await articleListViewModel.loadArticles()
                     }
                 }
-            }
+            }.background(isDeviceLandscapeMode ? Color("Background") : Color.white)
             .searchable(text: $searchText, prompt: "Rechercher un article")
         }
+        
     }
 }
 
@@ -223,23 +226,30 @@ struct ArticlesFinder: View {
     }
 
     var body: some View {
+        
         VStack(alignment: .leading) {
             Section(header: Text(sectionName)
                 .font(.system(size: 22))
                 .fontWeight(.semibold)
                 .lineSpacing(4.25)
                 .multilineTextAlignment(.leading)) {
-
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(searchResults, id: \.name) { article in
-                            ShowCategories(article: article, category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                    
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(searchResults, id: \.name) { article in
+                                ShowCategories(article: article, category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                            }
                         }
                     }
                 }
-            }
-            .padding(.leading)
-            .padding(.trailing)
+                .padding(.leading)
+                .padding(.trailing)
         }
     }
-}
+    }
+//
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true, selectedArticle: ArticleCatalog(id: 3, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 33.33, original_price: 22), addInFavoris: true, articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 3, price: 3.3, original_price: 33.3), addNewFavoris: true)
+//    }
+//}

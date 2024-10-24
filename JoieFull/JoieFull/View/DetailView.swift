@@ -10,6 +10,7 @@ struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State var valueCombiner :  [Int] = []
     @StateObject var articleListViewModel : ArticleListViewModel
+    @State private var url : String = "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/"
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -39,15 +40,31 @@ struct DetailView: View {
                                     ProgressView()
                                 }
                             }
-                            ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
-                                Label("", image: "Share")
+                          
+                            
+                                Circle()
+                                .fill(.white)
+                                .frame(width: 50, height: 50)
+                                .opacity(0.4)
+                                .padding([.bottom, .trailing,.top], 20)
+                            
+                                
+
+                            ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
+                                Image(systemName: "square.and.arrow.up")
                             }
                             .padding([.top, .trailing], 30)
-                            .accessibilityLabel("Partager ce contenu")
+                                .accessibilityLabel("Partager ce contenu")
+                            
+                            
+                                
+                               
+                            
+                            
                         }
                         
                         LikesViewForDetaileView(article: article, articleListViewModel: articleListViewModel)
-                            .padding([.bottom, .trailing], 30)
+                            .padding([.bottom, .trailing], 20)
                         
                     }
                     VStack {
@@ -57,6 +74,7 @@ struct DetailView: View {
                     }
                     
                 }
+              
             }
         }
     }
@@ -116,8 +134,8 @@ struct ReviewControl: View {
                 HStack {
                     Image("UserPicture")
                         .resizable()
-                        .clipShape(Circle())
                         .frame(width:50)
+                        .clipShape(Circle())
                     
                     HStack {
                         ForEach(1...5, id: \.self) { index in
@@ -166,8 +184,8 @@ struct ReviewControl: View {
                         HStack {
                             Image("UserPicture")
                                 .resizable()
-                                .clipShape(Circle())
                                 .frame(width:50)
+                                .clipShape(Circle())
                             
                             VStack (alignment: .leading){
                                 HStack {
@@ -312,3 +330,10 @@ struct SupplementData: View {
     }
     
 }
+
+
+//struct ContentView_Previews_Detail: PreviewProvider {
+//    static var previews: some View {
+//        DetailView(articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 33, price: 33.33, original_price: 33.3), valueCombiner: [2], articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()))
+//    }
+//}
