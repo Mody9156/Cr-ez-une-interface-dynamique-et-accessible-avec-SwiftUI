@@ -9,7 +9,8 @@ struct ArticleListView: View {
     var articleCatalog: ArticleCatalog
     @State var addNewFavoris: Bool = false
     @State private var searchText = ""
-
+    
+    
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }

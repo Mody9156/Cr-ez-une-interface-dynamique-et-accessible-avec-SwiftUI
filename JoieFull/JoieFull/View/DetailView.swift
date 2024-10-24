@@ -10,6 +10,7 @@ struct DetailView: View {
     var articleCatalog: ArticleCatalog
     @State var valueCombiner :  [Int] = []
     @StateObject var articleListViewModel : ArticleListViewModel
+    @State private var url : String = "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/"
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
@@ -39,14 +40,30 @@ struct DetailView: View {
                                     ProgressView()
                                 }
                             }
-                            ZStack {
+                          
+                            
                                 Circle()
-                                ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
-                                    Label("", image: "Share")
-                                }
-                                .padding([.top, .trailing], 30)
-                            .accessibilityLabel("Partager ce contenu")
+                                .fill(.white)
+                                .frame(width: 50, height: 50)
+                                .opacity(0.4)
+                                .padding([.bottom, .trailing,.top], 20)
+                            
+                                
+//                            ShareLink(item: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/")!) {
+//                                Label("Partager", image: "Share")
+//                            }
+                            
+                            ShareLink(item: url, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
+                                Image(systemName: "square.and.arrow.up")
                             }
+                            .padding([.top, .trailing], 30)
+                                .accessibilityLabel("Partager ce contenu")
+                            
+                            
+                                
+                               
+                            
+                            
                         }
                         
                         LikesViewForDetaileView(article: article, articleListViewModel: articleListViewModel)
@@ -60,6 +77,7 @@ struct DetailView: View {
                     }
                     
                 }
+              
             }
         }
     }
