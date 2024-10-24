@@ -39,11 +39,14 @@ struct DetailView: View {
                                     ProgressView()
                                 }
                             }
-                            ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
-                                Label("", image: "Share")
-                            }
-                            .padding([.top, .trailing], 30)
+                            ZStack {
+                                Circle()
+                                ShareLink(item: URL(string: "https://developer.apple.com/xcode/swiftui/")!) {
+                                    Label("", image: "Share")
+                                }
+                                .padding([.top, .trailing], 30)
                             .accessibilityLabel("Partager ce contenu")
+                            }
                         }
                         
                         LikesViewForDetaileView(article: article, articleListViewModel: articleListViewModel)
