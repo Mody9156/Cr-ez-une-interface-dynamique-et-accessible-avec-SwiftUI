@@ -10,7 +10,6 @@ struct ArticleListView: View {
     @State var addNewFavoris: Bool = false
     @State private var searchText = ""
     
-    
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }
@@ -32,6 +31,7 @@ struct ArticleListView: View {
                     // Affichage du détail si l'appareil est en mode paysage
                     if isDeviceLandscapeMode, let article = selectedArticle {
                         DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
+                        
                     }
                 }
                 .onAppear {
@@ -66,6 +66,7 @@ struct ShowCategories: View {
             if isDeviceLandscapeMode {
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                 
+                
             } else {
                 VStack {
                     NavigationLink {
@@ -89,7 +90,7 @@ struct ShowCategories: View {
                     .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
                    
 
-                    InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles)
+                    InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
                 }
             }
         }
@@ -104,14 +105,25 @@ struct ExtractionDeviceLandscapeMode: View {
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
     
+    func toggleBackground(id:Int){
+        var array : [Int] = []
+        for index in 1...id {
+            array.append(index)
+            
+            print("index:\(String(describing: array.last))")
+        }
+    }
+    
     var body: some View {
-        let initialiseNewBackground = selectedArticle != nil
 
         VStack {
             Button {
                 selectedArticle = (selectedArticle == article) ? nil : article
-                presentArticles.toggle()
-                
+                if let selectedArticleId = selectedArticle {
+                    print("selectedArticle=\(selectedArticleId.id)")
+                    toggleBackground(id: selectedArticleId.id)
+                }
+              
             } label: {
                 ZStack(alignment: .bottomTrailing) {
                     AsyncImage(url: URL(string: article.picture.url)) { image in
@@ -125,13 +137,12 @@ struct ExtractionDeviceLandscapeMode: View {
                     LikesView(article: article, articleListViewModel: articleListViewModel)
                         .padding()
                 }
-                .border(presentArticles ? Color("Cyan") : .clear, width: 3)
-                .cornerRadius(presentArticles ? 10 : 0)
+                .border(selectedArticle?.id == article.id  ? Color("Cyan") : .clear, width: 3)
                 
             }
             .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
 
-            InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles)
+            InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
         }
     }
 }
@@ -173,7 +184,8 @@ struct InfoExtract: View {
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var presentArticles : Bool
-    
+    @Binding var selectedArticle: ArticleCatalog?
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -182,14 +194,14 @@ struct InfoExtract: View {
                     .fontWeight(.semibold)
                     .lineSpacing(2.71)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(presentArticles ? Color("Cyan") : .black)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     .font(.system(size: 14))
                     .fontWeight(.regular)
                     .lineSpacing(2.71)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(presentArticles ? Color("Cyan") : .black)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
             }
 
             Spacer()
@@ -204,7 +216,7 @@ struct InfoExtract: View {
                         .fontWeight(.semibold)
                         .lineSpacing(2.71)
                         .multilineTextAlignment(.leading)
-                        .foregroundColor(presentArticles ? Color("Cyan") : .black)
+                        .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                 }
 
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
@@ -213,7 +225,7 @@ struct InfoExtract: View {
                     .fontWeight(.regular)
                     .lineSpacing(2.71)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(presentArticles ? Color("Cyan") : .gray)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
             }
         }
     }
@@ -233,6 +245,7 @@ struct ArticlesFinder: View {
         if searchText.isEmpty {
             return articleListViewModel.articleCatalog
         } else {
+            
             return articleListViewModel.articleCatalog.filter { $0.name.localizedStandardContains(searchText) }
         }
     }
@@ -240,7 +253,7 @@ struct ArticlesFinder: View {
     var body: some View {
         
         VStack(alignment: .leading) {
-            Section(header: Text(sectionName)
+            Section(header: Text(searchText.isEmpty ? sectionName : "")
                 .font(.system(size: 22))
                 .fontWeight(.semibold)
                 .lineSpacing(4.25)
@@ -258,7 +271,7 @@ struct ArticlesFinder: View {
                 .padding(.trailing)
         }
     }
-    }
+}
 //
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {

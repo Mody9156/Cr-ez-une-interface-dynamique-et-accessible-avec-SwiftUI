@@ -30,57 +30,51 @@ struct DetailView: View {
                                         .accessibilityValue("Image représentant \(article.name)")
                                     
                                 } else if phase.error != nil {
+                                    
                                     Image(systemName: "photo")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .foregroundColor(.gray)
                                         .padding()
                                         .accessibilityValue("Échec du chargement de l'image pour \(article.name)")
+                                    
                                 } else {
+                                    
                                     ProgressView()
                                 }
                             }
                           
-                            
                                 Circle()
                                 .fill(.white)
                                 .frame(width: 50, height: 50)
                                 .opacity(0.4)
                                 .padding([.bottom, .trailing,.top], 20)
-                            
-                                
 
                             ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
                                 Image(systemName: "square.and.arrow.up")
                             }
                             .padding([.top, .trailing], 30)
+                            .foregroundColor(.black)
                                 .accessibilityLabel("Partager ce contenu")
-                            
-                            
-                                
-                               
-                            
                             
                         }
                         
-                        LikesViewForDetaileView(article: article, articleListViewModel: articleListViewModel)
+                        LikesViewForDetailView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 20)
-                        
                     }
+                    
                     VStack {
                         SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                         
                         ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
-                    
                 }
-              
             }
         }
     }
 }
 
-struct LikesViewForDetaileView :View {
+struct LikesViewForDetailView :View {
     var article: ArticleCatalog
     var width : Double = 20.92
     var height : Double = 20.92
@@ -93,14 +87,19 @@ struct LikesViewForDetaileView :View {
         Button {
             
             articleListViewModel.toggleFavoris(article: article)
+            
         } label: {
+            
             HStack{
+                
                 ZStack {
                     
                     Capsule()
                         .fill(.white)
                         .frame(width: widthFrame, height: heightFrame)
+                    
                     HStack{
+                        
                         Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
                             .resizable()
                             .frame(width: width, height: height)
@@ -111,7 +110,6 @@ struct LikesViewForDetaileView :View {
                             
                             Text("\(adjustedLikes)")
                                 .foregroundColor(.black)
-                            
                         }
                     }
                 }
@@ -130,7 +128,6 @@ struct ReviewControl: View {
     var body: some View {
         Section{
             VStack() {
-                
                 HStack {
                     Image("UserPicture")
                         .resizable()
@@ -142,8 +139,10 @@ struct ReviewControl: View {
                             ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                         }
                     }
+                    
                     Spacer()
                 }
+                
             }.padding()
             
             VStack(alignment: .leading){
@@ -173,6 +172,7 @@ struct ReviewControl: View {
                         activeStart = true
                         
                     }
+                    
                 } label: {
                     Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
                     
@@ -200,8 +200,6 @@ struct ReviewControl: View {
                             }
                         }
                         Divider()
-                        
-                        
                     }
                 }
             }.padding()
@@ -237,8 +235,8 @@ struct ImageSystemName : View {
                                 
                                 ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
         
-        
     }
+    
     private func appendToArray(order: Int) {
         if valueCombiner.contains(order) {
             valueCombiner.removeAll()
@@ -246,8 +244,6 @@ struct ImageSystemName : View {
             valueCombiner = Array(1...order)
         }
     }
-    
-    
 }
 
 struct SupplementData: View {
