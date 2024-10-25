@@ -120,13 +120,14 @@ struct ExtractionDeviceLandscapeMode: View {
                         ProgressView()
                     }
                     .frame(width: 198, height: 297)
-                    .cornerRadius(20)
+                    .cornerRadius(10)
 
                     LikesView(article: article, articleListViewModel: articleListViewModel)
                         .padding()
                 }
                 .border(presentArticles ? Color("Cyan") : .clear, width: 3)
-                .cornerRadius(presentArticles ? 20 : 0)
+                .cornerRadius(presentArticles ? 10 : 0)
+                
             }
             .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
 
@@ -143,7 +144,8 @@ struct LikesView: View {
     var height: Double = 12.01
     var widthFrame: Double = 60
     var heightFrame: Double = 30
-
+    @Binding var presentArticles : Bool
+    
     var body: some View {
         HStack {
             ZStack {
