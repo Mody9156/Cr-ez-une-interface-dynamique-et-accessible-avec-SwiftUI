@@ -133,11 +133,17 @@ struct ExtractionDeviceLandscapeMode: View {
                     }
                     .frame(width: 198, height: 297)
                     .cornerRadius(10)
+                    
 
                     LikesView(article: article, articleListViewModel: articleListViewModel)
                         .padding()
-                }
-                .border(selectedArticle?.id == article.id  ? Color("Cyan") : .clear, width: 3)
+                }.overlay(
+                
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(selectedArticle?.id == article.id  ? Color("Cyan") : .clear, lineWidth: 3)
+                
+                )
+                
                 
             }
             .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
