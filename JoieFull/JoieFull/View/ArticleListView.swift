@@ -82,7 +82,7 @@ struct ShowCategories: View {
                                 ProgressView()
                             }
 
-                            LikesView(article: article, articleListViewModel: articleListViewModel)
+                            LikesView(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles)
                                 .padding()
                         }
                     }
@@ -122,7 +122,7 @@ struct ExtractionDeviceLandscapeMode: View {
                     .frame(width: 198, height: 297)
                     .cornerRadius(10)
 
-                    LikesView(article: article, articleListViewModel: articleListViewModel)
+                    LikesView(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles)
                         .padding()
                 }
                 .border(presentArticles ? Color("Cyan") : .clear, width: 3)
