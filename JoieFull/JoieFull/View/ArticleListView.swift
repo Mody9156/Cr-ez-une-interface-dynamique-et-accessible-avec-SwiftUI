@@ -111,6 +111,7 @@ struct ExtractionDeviceLandscapeMode: View {
             Button {
                 selectedArticle = (selectedArticle == article) ? nil : article
                 presentArticles.toggle()
+                
             } label: {
                 ZStack(alignment: .bottomTrailing) {
                     AsyncImage(url: URL(string: article.picture.url)) { image in
@@ -125,6 +126,7 @@ struct ExtractionDeviceLandscapeMode: View {
                         .padding()
                 }
                 .border(presentArticles ? Color("Cyan") : .clear, width: 3)
+                .cornerRadius(presentArticles ? 20 : 0)
             }
             .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
 
