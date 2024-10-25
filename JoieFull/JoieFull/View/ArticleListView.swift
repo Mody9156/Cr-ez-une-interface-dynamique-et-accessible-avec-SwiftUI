@@ -101,11 +101,14 @@ struct ExtractionDeviceLandscapeMode: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
-
+    
     var body: some View {
+        let initialiseNewBackground = selectedArticle != nil
+
         VStack {
             Button {
                 selectedArticle = (selectedArticle == article) ? nil : article
+                
             } label: {
                 ZStack(alignment: .bottomTrailing) {
                     AsyncImage(url: URL(string: article.picture.url)) { image in
@@ -119,7 +122,7 @@ struct ExtractionDeviceLandscapeMode: View {
                     LikesView(article: article, articleListViewModel: articleListViewModel)
                         .padding()
                 }
-                .border(presentArticles ? .blue : .clear, width: 3)
+                .border(initialiseNewBackground ? .blue : .clear, width: 3)
             }
             .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
 
