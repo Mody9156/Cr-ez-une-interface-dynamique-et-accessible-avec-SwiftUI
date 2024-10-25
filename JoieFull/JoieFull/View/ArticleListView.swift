@@ -62,8 +62,10 @@ struct ShowCategories: View {
 
     var body: some View {
         if article.category == category {
+            
             if isDeviceLandscapeMode {
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                
             } else {
                 VStack {
                     NavigationLink {
@@ -108,7 +110,7 @@ struct ExtractionDeviceLandscapeMode: View {
         VStack {
             Button {
                 selectedArticle = (selectedArticle == article) ? nil : article
-                
+                presentArticles.toggle()
             } label: {
                 ZStack(alignment: .bottomTrailing) {
                     AsyncImage(url: URL(string: article.picture.url)) { image in
@@ -122,7 +124,7 @@ struct ExtractionDeviceLandscapeMode: View {
                     LikesView(article: article, articleListViewModel: articleListViewModel)
                         .padding()
                 }
-                .border(initialiseNewBackground ? .blue : .clear, width: 3)
+                .border(presentArticles ? Color("Cyan") : .clear, width: 3)
             }
             .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
 
