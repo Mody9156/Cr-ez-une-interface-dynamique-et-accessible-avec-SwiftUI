@@ -82,7 +82,7 @@ struct ShowCategories: View {
                                 ProgressView()
                             }
 
-                            LikesView(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles)
+                            LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
                         }
                     }
@@ -122,7 +122,7 @@ struct ExtractionDeviceLandscapeMode: View {
                     .frame(width: 198, height: 297)
                     .cornerRadius(10)
 
-                    LikesView(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles)
+                    LikesView(article: article, articleListViewModel: articleListViewModel)
                         .padding()
                 }
                 .border(presentArticles ? Color("Cyan") : .clear, width: 3)
@@ -144,7 +144,6 @@ struct LikesView: View {
     var height: Double = 12.01
     var widthFrame: Double = 60
     var heightFrame: Double = 30
-    @Binding var presentArticles : Bool
     
     var body: some View {
         HStack {
@@ -163,7 +162,7 @@ struct LikesView: View {
                         Text("\(articleListViewModel.isFavoris(article: article) ? (likes + 1) : likes)")
                             .foregroundColor(.black)
                     }
-                }.foregroundColor(presentArticles ? Color("Cyan") : .clear)
+                }
             }
         }
     }
@@ -173,7 +172,8 @@ struct LikesView: View {
 struct InfoExtract: View {
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
-
+    @Binding var presentArticles : Bool
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
