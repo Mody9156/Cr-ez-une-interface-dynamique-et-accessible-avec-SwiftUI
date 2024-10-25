@@ -89,7 +89,7 @@ struct ShowCategories: View {
                     .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
                    
 
-                    InfoExtract(article: article, articleListViewModel: articleListViewModel)
+                    InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles)
                 }
             }
         }
@@ -131,7 +131,7 @@ struct ExtractionDeviceLandscapeMode: View {
             }
             .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
 
-            InfoExtract(article: article, articleListViewModel: articleListViewModel)
+            InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles)
         }
     }
 }
