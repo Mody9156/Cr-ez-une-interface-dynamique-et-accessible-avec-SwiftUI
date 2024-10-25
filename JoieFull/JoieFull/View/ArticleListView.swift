@@ -104,7 +104,9 @@ struct ExtractionDeviceLandscapeMode: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
-    
+    @State private var scale: CGFloat = 1.0 // Échelle de l'image
+       @State private var lastScale: CGFloat = 1.0 // Dernière échelle appliquée
+
     func toggleBackground(id:Int){
         var array : [Int] = []
         for index in 1...id {
@@ -127,19 +129,22 @@ struct ExtractionDeviceLandscapeMode: View {
             } label: {
                 ZStack(alignment: .bottomTrailing) {
                     AsyncImage(url: URL(string: article.picture.url)) { image in
-                        image.resizable()
+                        image
+                            .resizable()
+                            .frame(width: 221.52, height: 254.47)
+                            .cornerRadius(20)
+                                          
+                            
                     } placeholder: {
                         ProgressView()
                     }
-                    .frame(width: 198, height: 297)
-                    .cornerRadius(10)
-                    
 
                     LikesView(article: article, articleListViewModel: articleListViewModel)
                         .padding()
-                }.overlay(
+                }
+                .overlay(
                 
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 20)
                         .stroke(selectedArticle?.id == article.id  ? Color("Cyan") : .clear, lineWidth: 3)
                 
                 )
@@ -196,11 +201,11 @@ struct InfoExtract: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(article.name)
-                    .font(.system(size: 14))
-                    .fontWeight(.semibold)
-                    .lineSpacing(2.71)
-                    .multilineTextAlignment(.leading)
-                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .font(.custom("SF Pro", size: 18))
+                                .fontWeight(.medium)
+                                .lineSpacing(2.71)
+                                .multilineTextAlignment(.leading) 
+                                .frame(maxWidth: .infinity, alignment: .leading)                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     .font(.system(size: 14))
@@ -232,6 +237,7 @@ struct InfoExtract: View {
                     .lineSpacing(2.71)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .opacity(selectedArticle?.id == article.id ? 1 : 0.7)
             }
         }
     }
