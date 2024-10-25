@@ -163,7 +163,7 @@ struct LikesView: View {
                         Text("\(articleListViewModel.isFavoris(article: article) ? (likes + 1) : likes)")
                             .foregroundColor(.black)
                     }
-                }
+                }.foregroundColor(presentArticles ? Color("Cyan") : .clear)
             }
         }
     }
