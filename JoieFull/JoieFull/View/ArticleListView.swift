@@ -182,14 +182,14 @@ struct InfoExtract: View {
                     .fontWeight(.semibold)
                     .lineSpacing(2.71)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(presentArticles ? Color("Cyan") : .clear)
+                    .foregroundColor(presentArticles ? Color("Cyan") : .black)
 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     .font(.system(size: 14))
                     .fontWeight(.regular)
                     .lineSpacing(2.71)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(presentArticles ? Color("Cyan") : .clear)
+                    .foregroundColor(presentArticles ? Color("Cyan") : .black)
             }
 
             Spacer()
@@ -204,7 +204,7 @@ struct InfoExtract: View {
                         .fontWeight(.semibold)
                         .lineSpacing(2.71)
                         .multilineTextAlignment(.leading)
-                        .foregroundColor(presentArticles ? Color("Cyan") : .clear)
+                        .foregroundColor(presentArticles ? Color("Cyan") : .black)
                 }
 
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
