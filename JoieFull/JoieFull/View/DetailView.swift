@@ -13,7 +13,7 @@ struct DetailView: View {
     @State private var url : String = "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/"
     var body: some View {
         ScrollView {
-            VStack (alignment: .leading){
+            VStack (alignment: .center){
                 ForEach([articleCatalog]) { article in
                     
                     ZStack(alignment: .bottomTrailing){
@@ -67,9 +67,10 @@ struct DetailView: View {
                     }
                     
                     VStack {
-                        SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
-                        
-                        ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                       
+                            SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                            
+                            ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
                 }
             }
@@ -262,9 +263,11 @@ struct SupplementData: View {
                         
                         Text(article.name)
                             .font(.system(size: 14))
-                            .fontWeight(.semibold)
+                            .fontWeight(.bold)
                             .lineSpacing(2.71)
                             .multilineTextAlignment(.leading)
+                            
+                            
                         
                         Text("\(article.price,format: .number.rounded(increment: 10.0))€")
                             .font(.system(size: 14))
@@ -331,8 +334,8 @@ struct SupplementData: View {
 }
 
 
-//struct ContentView_Previews_Detail: PreviewProvider {
-//    static var previews: some View {
-//        DetailView(articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 33, price: 33.33, original_price: 33.3), valueCombiner: [2], articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()))
-//    }
-//}
+struct ContentView_Previews_Detail: PreviewProvider {
+    static var previews: some View {
+        DetailView(articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 33, price: 33.33, original_price: 33.3), valueCombiner: [2], articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()))
+    }
+}

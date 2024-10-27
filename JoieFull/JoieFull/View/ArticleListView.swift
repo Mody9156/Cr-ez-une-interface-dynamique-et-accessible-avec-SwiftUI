@@ -77,7 +77,7 @@ struct ShowCategories: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 198, height: 298)
+                                    .frame(width: 198, height: 198)
                                     .cornerRadius(20)
                             } placeholder: {
                                 ProgressView()
@@ -284,9 +284,9 @@ struct ArticlesFinder: View {
         }
     }
 }
-//
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true, selectedArticle: ArticleCatalog(id: 3, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 33.33, original_price: 22), addInFavoris: true, articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 3, price: 3.3, original_price: 33.3), addNewFavoris: true)
-//    }
-//}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ArticleListView(articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()), presentArticles: true, selectedArticle: ArticleCatalog(id: 3, picture: URLBuilder(url: "", description: ""), name: "", category: "", price: 33.33, original_price: 22), addInFavoris: true, articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 3, price: 3.3, original_price: 33.3), addNewFavoris: true)
+    }
+}
