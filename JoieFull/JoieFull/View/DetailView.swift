@@ -24,12 +24,10 @@ struct DetailView: View {
                                 if let image = phase.image {
                                     image
                                         .resizable()
+                                        .scaledToFill()
                                         .frame(width: 361, height: 431)
-                                        .aspectRatio(contentMode: .fit)
                                         .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
-                                        .padding(.top, 93) // Placez l'image en tenant compte de "top"
-                                            .padding(.leading, 16) // Décale l’image vers la droite pour respecter le "left"
-                                            .opacity(1)
+                                        .padding()
                                         .accessibilityValue("Image représentant \(article.name)")
                                     
                                 } else if phase.error != nil {
