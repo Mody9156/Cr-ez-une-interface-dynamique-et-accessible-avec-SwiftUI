@@ -52,7 +52,7 @@ struct DetailView: View {
 
                             ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
                                 Image(systemName: "square.and.arrow.up").padding([.trailing,.
-                                                                                  top],30)
+                                                                                  top],5)
                                 
                             }
                             .padding([.top, .trailing], 30)
