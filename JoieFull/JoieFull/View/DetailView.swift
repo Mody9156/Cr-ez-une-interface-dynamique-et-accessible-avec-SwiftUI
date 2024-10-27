@@ -24,9 +24,12 @@ struct DetailView: View {
                                 if let image = phase.image {
                                     image
                                         .resizable()
+                                        .frame(width: 361, height: 431)
                                         .aspectRatio(contentMode: .fit)
-                                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                                        .padding()
+                                        .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
+                                        .padding(.top, 93) // Placez l'image en tenant compte de "top"
+                                            .padding(.leading, 16) // Décale l’image vers la droite pour respecter le "left"
+                                            .opacity(1)
                                         .accessibilityValue("Image représentant \(article.name)")
                                     
                                 } else if phase.error != nil {
@@ -51,8 +54,8 @@ struct DetailView: View {
                                 .padding([.bottom, .trailing,.top], 20)
 
                             ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
-                                Image("Share").padding([.trailing,.
-                                                                                  top],5)
+                                Image("Share")
+                                    .padding([.trailing,.top],5)
                                 
                             }
                             .padding([.top, .trailing], 30)
