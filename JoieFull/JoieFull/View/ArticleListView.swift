@@ -255,12 +255,16 @@ struct ArticlesFinder: View {
 
     var searchResults: [ArticleCatalog] {
         if searchText.isEmpty {
-            return articleListViewModel.articleCatalog
+            return articleListViewModel.articleCatalog.sorted(by: {$0.name.localizedCaseInsensitiveCompare($01.name) == .orderedDescending})
         } else {
             
             return articleListViewModel.articleCatalog.filter { $0.name.localizedStandardContains(searchText) }
         }
     }
+    
+    
+    
+  
 
     var body: some View {
         
@@ -273,7 +277,7 @@ struct ArticlesFinder: View {
                     
                     ScrollView(.horizontal) {
                         HStack {
-                            ForEach(searchResults, id: \.name) { article in
+                            ForEach(searchResults.sorted(by: {$0.name<$1.name}), id: \.name) { article in
                                 ShowCategories(article: article, category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                             }
                         }
