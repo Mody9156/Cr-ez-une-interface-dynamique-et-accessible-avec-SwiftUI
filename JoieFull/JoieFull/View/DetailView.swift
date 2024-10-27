@@ -51,7 +51,8 @@ struct DetailView: View {
                                 .padding([.bottom, .trailing,.top], 20)
 
                             ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
-                                Image(systemName: "square.and.arrow.up")
+                                Image(systemName: "square.and.arrow.up").padding()
+                                
                             }
                             .padding([.top, .trailing], 30)
                             .foregroundColor(.black)
