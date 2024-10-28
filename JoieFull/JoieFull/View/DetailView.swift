@@ -144,9 +144,10 @@ struct ReviewControl: View {
                 HStack {
                     Image("UserPicture")
                         .resizable()
+                        .scaledToFill()
+                        .frame(width:50)
                         .clipShape(Circle())
-                        .frame(width:84.47,height:59.84)
-                    
+                        
                     HStack {
                         ForEach(1...5, id: \.self) { index in
                             ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
@@ -197,6 +198,7 @@ struct ReviewControl: View {
                         HStack {
                             Image("UserPicture")
                                 .resizable()
+                                .scaledToFill()
                                 .frame(width:50)
                                 .clipShape(Circle())
                             
@@ -283,7 +285,7 @@ struct SupplementData: View {
                     
                     VStack(alignment: .trailing) {
                         HStack {
-                            Image(systemName: "star.fill")
+                            Image(Color("AccentColor"))
                                 .foregroundColor(.yellow)
                             
                             let currentRating = valueCombiner.isEmpty ? articleListViewModel.grade : addition()
