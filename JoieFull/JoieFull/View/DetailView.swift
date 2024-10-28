@@ -238,10 +238,11 @@ struct ImageSystemName : View {
             }
             
         } label: {
-            Image(systemName: showStart ?  "star.fill" : "star")
+            Image(systemName: showStart ? "star.fill" : "star")
                 .resizable()
-                .frame(width: 27.51, height: 23.98)
-                .foregroundColor(showStart ? .yellow : .gray)
+                .frame(width: 55.02, height: 47.96)
+                .foregroundColor(showStart ? Color("AccentColor") : .black)
+                .opacity(showStart ? 1 : 0.5)
             
         }.accessibilityElement(children: .combine)
             .accessibilityHint("Cliquez pour ajouter ou retirer une étoile. Actuellement \(sortArray) étoiles sélectionnées.")
@@ -285,8 +286,8 @@ struct SupplementData: View {
                     
                     VStack(alignment: .trailing) {
                         HStack {
-                            Image(Color("AccentColor"))
-                                .foregroundColor(.yellow)
+                            Image(systemName: "star.fill")
+                                .foregroundColor(Color("AccentColor"))
                             
                             let currentRating = valueCombiner.isEmpty ? articleListViewModel.grade : addition()
                             
@@ -304,6 +305,7 @@ struct SupplementData: View {
                             .fontWeight(.regular)
                             .foregroundColor(.black)
                             .opacity(0.7)
+                        
                     }.padding()
                     
                 }
