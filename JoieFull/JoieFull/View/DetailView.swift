@@ -11,6 +11,14 @@ struct DetailView: View {
     @State var valueCombiner :  [Int] = []
     @StateObject var articleListViewModel : ArticleListViewModel
     @State private var url : String = "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/"
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    var isDeviceLandscapeMode: Bool {
+        horizontalSizeClass == .regular
+    }
+    
+    
+    
     var body: some View {
         ScrollView {
             VStack (alignment: .center){
@@ -334,8 +342,8 @@ struct SupplementData: View {
 }
 
 
-struct ContentView_Previews_Detail: PreviewProvider {
-    static var previews: some View {
-        DetailView(articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 33, price: 33.33, original_price: 33.3), valueCombiner: [2], articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()))
-    }
-}
+//struct ContentView_Previews_Detail: PreviewProvider {
+//    static var previews: some View {
+//        DetailView(articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 33, price: 33.33, original_price: 33.3), valueCombiner: [2], articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()))
+//    }
+//}
