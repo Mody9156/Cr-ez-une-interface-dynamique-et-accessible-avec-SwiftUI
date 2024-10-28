@@ -12,7 +12,7 @@ struct DetailView: View {
     @StateObject var articleListViewModel : ArticleListViewModel
     @State private var url : String = "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/"
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
+    
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }
@@ -33,9 +33,9 @@ struct DetailView: View {
                                     image
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width:isDeviceLandscapeMode ? 426.95 :  361, height: isDeviceLandscapeMode ? 405.56 : 431)
+//                                        .aspectRatio(contentMode: .fit)
+//                                        .frame(width:isDeviceLandscapeMode ? 426.95 :  361, height: isDeviceLandscapeMode ? 405.56 : 431)
                                         .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
-                                        .padding()
                                         .accessibilityValue("Image représentant \(article.name)")
                                     
                                 } else if phase.error != nil {
@@ -48,17 +48,16 @@ struct DetailView: View {
                                         .accessibilityValue("Échec du chargement de l'image pour \(article.name)")
                                     
                                 } else {
-                                    
                                     ProgressView()
                                 }
-                            }
-                          
-                                Circle()
+                            }.padding()
+                            
+                            Circle()
                                 .fill(.white)
                                 .frame(width: 50, height: 50)
                                 .opacity(0.4)
                                 .padding([.bottom, .trailing,.top], 20)
-
+                            
                             ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
                                 Image("Share")
                                     .padding([.trailing,.top],5)
@@ -66,7 +65,7 @@ struct DetailView: View {
                             }
                             .padding([.top, .trailing], 30)
                             .foregroundColor(.black)
-                                .accessibilityLabel("Partager ce contenu")
+                            .accessibilityLabel("Partager ce contenu")
                             
                         }
                         
@@ -75,10 +74,10 @@ struct DetailView: View {
                     }
                     
                     VStack {
-                       
-                            SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
-                            
-                            ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        
+                        SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        
+                        ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
                 }
             }
@@ -274,8 +273,8 @@ struct SupplementData: View {
                             .fontWeight(.bold)
                             .lineSpacing(2.71)
                             .multilineTextAlignment(.leading)
-                            
-                            
+                        
+                        
                         
                         Text("\(article.price,format: .number.rounded(increment: 10.0))€")
                             .font(.system(size: 14))
