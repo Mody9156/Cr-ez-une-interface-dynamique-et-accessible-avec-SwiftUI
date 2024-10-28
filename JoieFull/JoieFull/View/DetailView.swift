@@ -144,8 +144,8 @@ struct ReviewControl: View {
                 HStack {
                     Image("UserPicture")
                         .resizable()
-                        .frame(width:50)
                         .clipShape(Circle())
+                        .frame(width:84.47,height:59.84)
                     
                     HStack {
                         ForEach(1...5, id: \.self) { index in
@@ -302,13 +302,13 @@ struct SupplementData: View {
                             .fontWeight(.regular)
                             .foregroundColor(.black)
                             .opacity(0.7)
-                    }
+                    }.padding()
                     
                 }
                 
                 Text(article.picture.description)
                     .font(.title3)
-                
+                    
             }
             
         }.padding()
