@@ -211,7 +211,7 @@ struct InfoExtract: View {
                     .fontWeight(.bold)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                     .frame(width: 100)
-                    .lineLimit(2)
+                    .lineLimit(1)
                 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     .font(.title2)
@@ -232,6 +232,7 @@ struct InfoExtract: View {
                 
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
                     .font(.title2)
+                    .strikethrough()
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                     .opacity(selectedArticle?.id == article.id ? 1 : 0.7)
             }
