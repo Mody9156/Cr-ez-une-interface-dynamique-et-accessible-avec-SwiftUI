@@ -33,7 +33,7 @@ struct DetailView: View {
                                     image
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: 361, height: 431)
+                                        .frame(width:isDeviceLandscapeMode ? 426.95 :  361, height: isDeviceLandscapeMode ? 405.56 : 431)
                                         .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
                                         .padding()
                                         .accessibilityValue("Image représentant \(article.name)")
