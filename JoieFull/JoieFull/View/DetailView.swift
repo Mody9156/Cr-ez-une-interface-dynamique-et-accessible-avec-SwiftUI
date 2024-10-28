@@ -35,7 +35,6 @@ struct DetailView: View {
                                     image
                                         .resizable()
                                         .scaledToFill()
-//                                        .aspectRatio(contentMode: .fit)
                                         .frame(height:570)
                                         .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
                                         .accessibilityValue("Image représentant \(article.name)")
@@ -154,7 +153,7 @@ struct ReviewControl: View {
                         .scaledToFill()
                         .frame(width:50)
                         .clipShape(Circle())
-                        
+                    
                     HStack {
                         ForEach(1...5, id: \.self) { index in
                             ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel).padding(.trailing)
@@ -169,19 +168,22 @@ struct ReviewControl: View {
             VStack(alignment: .leading){
                 
                 ZStack(alignment: .topLeading) {
-                    
-                   
-                    
+                    // Fond avec coin arrondi
                     RoundedRectangle(cornerRadius: 20)
-                        .border(Color.gray, width: 1)
-                        .foregroundColor(isDeviceLandscapeMode ? Color("Background") : Color.white)
+                        .fill(isDeviceLandscapeMode ? Color("Background") : Color.white)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
+                        .overlay( // Utiliser overlay pour ajouter la bordure
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray, lineWidth: 1) // Bordure avec le même coin arrondi
+                        )
                     
                     TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
+                        .font(.title3)
                         .padding()
                         .accessibilityValue("Zone de texte pour vos impressions sur l'article")
-                    
                 }
                 .padding()
+                
                 
                 Button {
                     
@@ -214,7 +216,7 @@ struct ReviewControl: View {
                                         Image(systemName:"star.fill")
                                             .resizable()
                                             .frame(width: 27.51, height: 23.98)
-                                            .foregroundColor(.yellow)
+                                            .foregroundColor(Color("AccentColor"))
                                     }
                                 }
                                 Text(text)
@@ -287,7 +289,7 @@ struct SupplementData: View {
                         
                         Text("\(article.price,format: .number.rounded(increment: 10.0))€")
                             .font(.title2)
-                           
+                        
                     }
                     
                     Spacer()
@@ -303,7 +305,7 @@ struct SupplementData: View {
                             
                             Text("\( Double(averageRating), format: .number.rounded(increment: 0.1))")
                                 .font(.title2)
-                               
+                            
                             
                         }
                         
@@ -320,7 +322,7 @@ struct SupplementData: View {
                 
                 Text(article.picture.description)
                     .font(.title3)
-                    
+                
             }
             
         }.padding()

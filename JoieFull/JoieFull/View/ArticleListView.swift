@@ -131,6 +131,7 @@ struct ExtractionDeviceLandscapeMode: View {
                     AsyncImage(url: URL(string: article.picture.url)) { image in
                         image
                             .resizable()
+                            .scaledToFill()
                             .frame(width: 221.52, height: 254.47)
                             .cornerRadius(20)
                         
@@ -206,17 +207,14 @@ struct InfoExtract: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(article.name)
-                    .font(.custom("SF Pro", size: 18))
-                    .fontWeight(.medium)
-                    .lineSpacing(2.71)
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .frame(width: 100)
+                    .lineLimit(2)
                 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
-                    .font(.system(size: 14))
-                    .fontWeight(.regular)
-                    .lineSpacing(2.71)
-                    .multilineTextAlignment(.leading)
+                    .font(.title2)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
             }
             
@@ -228,19 +226,12 @@ struct InfoExtract: View {
                         .foregroundColor(Color("AccentColor"))
                     
                     Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
-                        .font(.system(size: 14))
-                        .fontWeight(.semibold)
-                        .lineSpacing(2.71)
-                        .multilineTextAlignment(.leading)
+                        .font(.title2)
                         .foregroundColor(selectedArticle?.id == article.id  ? Color("Cyan") : .black)
                 }
                 
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                    .strikethrough()
-                    .font(.system(size: 14))
-                    .fontWeight(.regular)
-                    .lineSpacing(2.71)
-                    .multilineTextAlignment(.leading)
+                    .font(.title2)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                     .opacity(selectedArticle?.id == article.id ? 1 : 0.7)
             }
