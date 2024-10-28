@@ -10,11 +10,10 @@ struct ArticleListView: View {
     @State var addNewFavoris: Bool = false
     @State private var searchText = ""
     
-    
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }
-
+    
     var body: some View {
         
         NavigationStack {
@@ -32,6 +31,7 @@ struct ArticleListView: View {
                     // Affichage du détail si l'appareil est en mode paysage
                     if isDeviceLandscapeMode, let article = selectedArticle {
                         DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
+                        
                     }
                 }
                 .onAppear {
@@ -40,7 +40,7 @@ struct ArticleListView: View {
                     }
                 }
             }.background(isDeviceLandscapeMode ? Color("Background") : Color.white)
-            .searchable(text: $searchText, prompt: "Rechercher un article")
+                .searchable(text: $searchText, prompt: "Rechercher un article")
         }
         
     }
@@ -55,15 +55,18 @@ struct ShowCategories: View {
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
+    
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }
-
+    
     var body: some View {
         if article.category == category {
+            
             if isDeviceLandscapeMode {
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
+                
+                
             } else {
                 VStack {
                     NavigationLink {
@@ -74,20 +77,20 @@ struct ShowCategories: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 198, height: 298)
+                                    .frame(width: 198, height: 198)
                                     .cornerRadius(20)
                             } placeholder: {
                                 ProgressView()
                             }
-
+                            
                             LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
                         }
                     }
                     .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
-                   
-
-                    InfoExtract(article: article, articleListViewModel: articleListViewModel)
+                    
+                    
+                    InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
                 }
             }
         }
@@ -101,29 +104,57 @@ struct ExtractionDeviceLandscapeMode: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
-
+    @State private var scale: CGFloat = 1.0 // Échelle de l'image
+    @State private var lastScale: CGFloat = 1.0 // Dernière échelle appliquée
+    
+    func toggleBackground(id:Int){
+        var array : [Int] = []
+        for index in 1...id {
+            array.append(index)
+            
+            print("index:\(String(describing: array.last))")
+        }
+    }
+    
     var body: some View {
+        
         VStack {
             Button {
                 selectedArticle = (selectedArticle == article) ? nil : article
+                if let selectedArticleId = selectedArticle {
+                    print("selectedArticle=\(selectedArticleId.id)")
+                    toggleBackground(id: selectedArticleId.id)
+                }
+                
             } label: {
                 ZStack(alignment: .bottomTrailing) {
                     AsyncImage(url: URL(string: article.picture.url)) { image in
-                        image.resizable()
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 221.52, height: 254.47)
+                            .cornerRadius(20)
+                        
+                        
                     } placeholder: {
                         ProgressView()
                     }
-                    .frame(width: 198, height: 297)
-                    .cornerRadius(20)
-
+                    
                     LikesView(article: article, articleListViewModel: articleListViewModel)
                         .padding()
                 }
-                .border(presentArticles ? .blue : .clear, width: 3)
+                .overlay(
+                    
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(selectedArticle?.id == article.id  ? Color("Cyan") : .clear, lineWidth: 3)
+                    
+                )
+                
+                
             }
             .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
-
-            InfoExtract(article: article, articleListViewModel: articleListViewModel)
+            
+            InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
         }
     }
 }
@@ -136,7 +167,7 @@ struct LikesView: View {
     var height: Double = 12.01
     var widthFrame: Double = 60
     var heightFrame: Double = 30
-
+    
     var body: some View {
         HStack {
             ZStack {
@@ -149,7 +180,7 @@ struct LikesView: View {
                         .resizable()
                         .frame(width: width, height: height)
                         .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
-
+                    
                     if let likes = article.likes {
                         Text("\(articleListViewModel.isFavoris(article: article) ? (likes + 1) : likes)")
                             .foregroundColor(.black)
@@ -164,44 +195,45 @@ struct LikesView: View {
 struct InfoExtract: View {
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
+    @Binding var presentArticles : Bool
+    @Binding var selectedArticle: ArticleCatalog?
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    var isDeviceLandscapeMode: Bool {
+        horizontalSizeClass == .regular
+    }
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(article.name)
-                    .font(.system(size: 14))
-                    .fontWeight(.semibold)
-                    .lineSpacing(2.71)
-                    .multilineTextAlignment(.leading)
-
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .frame(width: 100)
+                    .lineLimit(2)
+                
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
-                    .font(.system(size: 14))
-                    .fontWeight(.regular)
-                    .lineSpacing(2.71)
-                    .multilineTextAlignment(.leading)
+                    .font(.title2)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
             }
-
+            
             Spacer()
-
+            
             VStack(alignment: .trailing) {
                 HStack {
                     Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-
+                        .foregroundColor(Color("AccentColor"))
+                    
                     Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
-                        .font(.system(size: 14))
-                        .fontWeight(.semibold)
-                        .lineSpacing(2.71)
-                        .multilineTextAlignment(.leading)
+                        .font(.title2)
+                        .foregroundColor(selectedArticle?.id == article.id  ? Color("Cyan") : .black)
                 }
-
+                
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                    .strikethrough()
-                    .font(.system(size: 14))
-                    .fontWeight(.regular)
-                    .lineSpacing(2.71)
-                    .multilineTextAlignment(.leading)
-                    .foregroundColor(.gray)
+                    .font(.title2)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .opacity(selectedArticle?.id == article.id ? 1 : 0.7)
             }
         }
     }
@@ -216,19 +248,21 @@ struct ArticlesFinder: View {
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var searchText: String
     @Binding var addInFavoris: Bool
-
+    
     var searchResults: [ArticleCatalog] {
         if searchText.isEmpty {
             return articleListViewModel.articleCatalog
         } else {
+            
             return articleListViewModel.articleCatalog.filter { $0.name.localizedStandardContains(searchText) }
         }
     }
-
+    
+    
     var body: some View {
         
         VStack(alignment: .leading) {
-            Section(header: Text(sectionName)
+            Section(header: Text(searchText.isEmpty ? sectionName : "")
                 .font(.system(size: 22))
                 .fontWeight(.semibold)
                 .lineSpacing(4.25)
@@ -236,7 +270,7 @@ struct ArticlesFinder: View {
                     
                     ScrollView(.horizontal) {
                         HStack {
-                            ForEach(searchResults, id: \.name) { article in
+                            ForEach(searchResults.sorted(by: {$0.name<$1.name}), id: \.name) { article in
                                 ShowCategories(article: article, category: categoryName, presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                             }
                         }
@@ -246,7 +280,7 @@ struct ArticlesFinder: View {
                 .padding(.trailing)
         }
     }
-    }
+}
 //
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {

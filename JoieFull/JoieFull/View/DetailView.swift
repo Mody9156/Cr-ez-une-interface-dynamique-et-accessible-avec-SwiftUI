@@ -11,9 +11,19 @@ struct DetailView: View {
     @State var valueCombiner :  [Int] = []
     @StateObject var articleListViewModel : ArticleListViewModel
     @State private var url : String = "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/"
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    var isDeviceLandscapeMode: Bool {
+        horizontalSizeClass == .regular
+    }
+    
+    var isDeviceLandscapeMode_two: Bool {
+        verticalSizeClass == .compact
+    }
+    
     var body: some View {
         ScrollView {
-            VStack (alignment: .leading){
+            VStack (alignment: .center){
                 ForEach([articleCatalog]) { article in
                     
                     ZStack(alignment: .bottomTrailing){
@@ -24,63 +34,59 @@ struct DetailView: View {
                                 if let image = phase.image {
                                     image
                                         .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .clipShape(RoundedRectangle(cornerRadius: 25))
-                                        .padding()
+                                        .scaledToFill()
+                                        .frame(height:570)
+                                        .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
                                         .accessibilityValue("Image représentant \(article.name)")
                                     
                                 } else if phase.error != nil {
+                                    
                                     Image(systemName: "photo")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .foregroundColor(.gray)
                                         .padding()
                                         .accessibilityValue("Échec du chargement de l'image pour \(article.name)")
+                                    
                                 } else {
                                     ProgressView()
                                 }
-                            }
-                          
+                            }.padding()
                             
-                                Circle()
+                            Circle()
                                 .fill(.white)
                                 .frame(width: 50, height: 50)
                                 .opacity(0.4)
                                 .padding([.bottom, .trailing,.top], 20)
                             
-                                
-
                             ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
-                                Image(systemName: "square.and.arrow.up")
+                                Image("Share")
+                                    .padding([.trailing,.top],5)
+                                
                             }
                             .padding([.top, .trailing], 30)
-                                .accessibilityLabel("Partager ce contenu")
-                            
-                            
-                                
-                               
-                            
+                            .foregroundColor(.black)
+                            .accessibilityLabel("Partager ce contenu")
                             
                         }
                         
-                        LikesViewForDetaileView(article: article, articleListViewModel: articleListViewModel)
+                        LikesViewForDetailView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 20)
-                        
                     }
+                    
                     VStack {
+                        
                         SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                         
                         ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                     }
-                    
                 }
-              
             }
         }
     }
 }
 
-struct LikesViewForDetaileView :View {
+struct LikesViewForDetailView :View {
     var article: ArticleCatalog
     var width : Double = 20.92
     var height : Double = 20.92
@@ -93,14 +99,19 @@ struct LikesViewForDetaileView :View {
         Button {
             
             articleListViewModel.toggleFavoris(article: article)
+            
         } label: {
+            
             HStack{
+                
                 ZStack {
                     
                     Capsule()
                         .fill(.white)
                         .frame(width: widthFrame, height: heightFrame)
+                    
                     HStack{
+                        
                         Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
                             .resizable()
                             .frame(width: width, height: height)
@@ -111,7 +122,6 @@ struct LikesViewForDetaileView :View {
                             
                             Text("\(adjustedLikes)")
                                 .foregroundColor(.black)
-                            
                         }
                     }
                 }
@@ -127,43 +137,53 @@ struct ReviewControl: View {
     @State var textField : Set<String> = []
     @StateObject var articleListViewModel : ArticleListViewModel
     @State var activeStart : Bool = false
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    var isDeviceLandscapeMode: Bool {
+        horizontalSizeClass == .regular
+    }
+    
     var body: some View {
         Section{
             VStack() {
-                
                 HStack {
+                    
                     Image("UserPicture")
                         .resizable()
+                        .scaledToFill()
                         .frame(width:50)
                         .clipShape(Circle())
                     
                     HStack {
                         ForEach(1...5, id: \.self) { index in
-                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel).padding(.trailing)
                         }
                     }
+                    
                     Spacer()
                 }
+                
             }.padding()
             
             VStack(alignment: .leading){
+                
                 ZStack(alignment: .topLeading) {
+                    // Fond avec coin arrondi
                     RoundedRectangle(cornerRadius: 20)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
-                        .background(Color.white)
-                        .foregroundColor(.white)
-                        .border(Color.gray, width: 1)
-                        .opacity(1)
-                        .cornerRadius(10)
+                        .fill(isDeviceLandscapeMode ? Color("Background") : Color.white)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
+                        .overlay( // Utiliser overlay pour ajouter la bordure
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray, lineWidth: 1) // Bordure avec le même coin arrondi
+                        )
                     
                     TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
-                        .font(.custom("SF Pro", size: 14))
-                        .fontWeight(.regular)
-                        .multilineTextAlignment(.leading)
+                        .font(.title3)
                         .padding()
                         .accessibilityValue("Zone de texte pour vos impressions sur l'article")
                 }
                 .padding()
+                
                 
                 Button {
                     
@@ -173,7 +193,9 @@ struct ReviewControl: View {
                         activeStart = true
                         
                     }
+                    
                 } label: {
+                    
                     Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
                     
                 }.padding()
@@ -184,6 +206,7 @@ struct ReviewControl: View {
                         HStack {
                             Image("UserPicture")
                                 .resizable()
+                                .scaledToFill()
                                 .frame(width:50)
                                 .clipShape(Circle())
                             
@@ -193,15 +216,13 @@ struct ReviewControl: View {
                                         Image(systemName:"star.fill")
                                             .resizable()
                                             .frame(width: 27.51, height: 23.98)
-                                            .foregroundColor(.yellow)
+                                            .foregroundColor(Color("AccentColor"))
                                     }
                                 }
                                 Text(text)
                             }
                         }
                         Divider()
-                        
-                        
                     }
                 }
             }.padding()
@@ -216,7 +237,9 @@ struct ImageSystemName : View {
     @StateObject var articleListViewModel : ArticleListViewModel
     
     var body: some View {
+        
         let showStart =  valueCombiner.contains(sortArray)
+        
         Button {
             
             appendToArray(order: sortArray)
@@ -225,10 +248,11 @@ struct ImageSystemName : View {
             }
             
         } label: {
-            Image(systemName: showStart ?  "star.fill" : "star")
+            Image(systemName: showStart ? "star.fill" : "star")
                 .resizable()
-                .frame(width: 27.51, height: 23.98)
-                .foregroundColor(showStart ? .yellow : .gray)
+                .frame(width:50)
+                .foregroundColor(showStart ? Color("AccentColor") : .black)
+                .opacity(showStart ? 1 : 0.5)
             
         }.accessibilityElement(children: .combine)
             .accessibilityHint("Cliquez pour ajouter ou retirer une étoile. Actuellement \(sortArray) étoiles sélectionnées.")
@@ -237,8 +261,8 @@ struct ImageSystemName : View {
                                 
                                 ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
         
-        
     }
+    
     private func appendToArray(order: Int) {
         if valueCombiner.contains(order) {
             valueCombiner.removeAll()
@@ -246,8 +270,6 @@ struct ImageSystemName : View {
             valueCombiner = Array(1...order)
         }
     }
-    
-    
 }
 
 struct SupplementData: View {
@@ -262,16 +284,12 @@ struct SupplementData: View {
                     VStack(alignment: .leading) {
                         
                         Text(article.name)
-                            .font(.system(size: 14))
-                            .fontWeight(.semibold)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
+                            .font(.title)
+                            .fontWeight(.bold)
                         
                         Text("\(article.price,format: .number.rounded(increment: 10.0))€")
-                            .font(.system(size: 14))
-                            .fontWeight(.regular)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
+                            .font(.title2)
+                        
                     }
                     
                     Spacer()
@@ -279,37 +297,31 @@ struct SupplementData: View {
                     VStack(alignment: .trailing) {
                         HStack {
                             Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
+                                .foregroundColor(Color("AccentColor"))
                             
                             let currentRating = valueCombiner.isEmpty ? articleListViewModel.grade : addition()
                             
                             let averageRating = (articleListViewModel.grade + currentRating) / 2
                             
                             Text("\( Double(averageRating), format: .number.rounded(increment: 0.1))")
-                                .font(.system(size: 14))
-                                .fontWeight(.semibold)
-                                .lineSpacing(2.71)
-                                .multilineTextAlignment(.leading)
+                                .font(.title2)
+                            
                             
                         }
                         
                         Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
                             .strikethrough()
-                            .font(.system(size: 14))
+                            .font(.title2)
                             .fontWeight(.regular)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.gray)
-                    }
+                            .foregroundColor(.black)
+                            .opacity(0.7)
+                        
+                    }.padding()
                     
                 }
                 
                 Text(article.picture.description)
-                    .font(.custom("SF Pro", size: 14))
-                    .fontWeight(.regular)
-                    .font(.largeTitle)
-                    .multilineTextAlignment(.leading)
-                    .padding(.top)
+                    .font(.title3)
                 
             }
             
