@@ -171,8 +171,13 @@ struct ReviewControl: View {
                     
                     TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
                         .accessibilityValue("Zone de texte pour vos impressions sur l'article")
-                        .background(isDeviceLandscapeMode ? Color("Background") : .white)
                         .border(.gray,width: 1)
+                        .overlay(
+                            
+                            Rectangle().frame(height: 68.59)
+                                .background(isDeviceLandscapeMode ? Color("Background") : .white)
+
+                        )
 
                
                 
