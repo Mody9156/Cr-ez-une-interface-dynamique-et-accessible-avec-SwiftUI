@@ -32,9 +32,9 @@ struct DetailView: View {
                                 if let image = phase.image {
                                     image
                                         .resizable()
-                                        .scaledToFill()
-//                                        .aspectRatio(contentMode: .fit)
-//                                        .frame(width:isDeviceLandscapeMode ? 426.95 :  361, height: isDeviceLandscapeMode ? 405.56 : 431)
+//                                        .scaledToFill()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(height:isDeviceLandscapeMode ? 405.56 : 431)
                                         .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
                                         .accessibilityValue("Image représentant \(article.name)")
                                     
