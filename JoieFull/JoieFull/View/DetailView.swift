@@ -168,18 +168,20 @@ struct ReviewControl: View {
             
             VStack(alignment: .leading){
                 
+                ZStack(alignment: .topLeading) {
+                    
+                   
+                    
+                    RoundedRectangle(cornerRadius: 20)
+                        .border(Color.gray, width: 1)
+                        .foregroundColor(isDeviceLandscapeMode ? Color("Background") : Color.white)
                     
                     TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
+                        .padding()
                         .accessibilityValue("Zone de texte pour vos impressions sur l'article")
-                        .border(.gray,width: 1)
-                        .overlay(
-                            
-                            Rectangle().frame(height: 68.59)
-                                .background(isDeviceLandscapeMode ? Color("Background") : .white)
-
-                        )
-
-               
+                    
+                }
+                .padding()
                 
                 Button {
                     
