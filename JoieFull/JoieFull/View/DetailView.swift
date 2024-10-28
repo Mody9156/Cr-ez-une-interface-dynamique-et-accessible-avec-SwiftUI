@@ -138,10 +138,17 @@ struct ReviewControl: View {
     @State var textField : Set<String> = []
     @StateObject var articleListViewModel : ArticleListViewModel
     @State var activeStart : Bool = false
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    var isDeviceLandscapeMode: Bool {
+        horizontalSizeClass == .regular
+    }
+    
     var body: some View {
         Section{
             VStack() {
                 HStack {
+                    
                     Image("UserPicture")
                         .resizable()
                         .scaledToFill()
@@ -150,7 +157,7 @@ struct ReviewControl: View {
                         
                     HStack {
                         ForEach(1...5, id: \.self) { index in
-                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel).padding(.trailing)
                         }
                     }
                     
@@ -160,23 +167,14 @@ struct ReviewControl: View {
             }.padding()
             
             VStack(alignment: .leading){
-                ZStack(alignment: .topLeading) {
-                    RoundedRectangle(cornerRadius: 20)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 117)
-                        .background(Color.white)
-                        .foregroundColor(.white)
-                        .border(Color.gray, width: 1)
-                        .opacity(1)
-                        .cornerRadius(10)
+                
                     
                     TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
-                        .font(.custom("SF Pro", size: 14))
-                        .fontWeight(.regular)
-                        .multilineTextAlignment(.leading)
-                        .padding()
                         .accessibilityValue("Zone de texte pour vos impressions sur l'article")
-                }
-                .padding()
+                        .background(isDeviceLandscapeMode ? Color("Background") : .white)
+                        .border(.gray,width: 1)
+
+               
                 
                 Button {
                     
@@ -188,6 +186,7 @@ struct ReviewControl: View {
                     }
                     
                 } label: {
+                    
                     Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
                     
                 }.padding()
@@ -229,7 +228,9 @@ struct ImageSystemName : View {
     @StateObject var articleListViewModel : ArticleListViewModel
     
     var body: some View {
+        
         let showStart =  valueCombiner.contains(sortArray)
+        
         Button {
             
             appendToArray(order: sortArray)
@@ -240,7 +241,7 @@ struct ImageSystemName : View {
         } label: {
             Image(systemName: showStart ? "star.fill" : "star")
                 .resizable()
-                .frame(width: 55.02, height: 47.96)
+                .frame(width:50)
                 .foregroundColor(showStart ? Color("AccentColor") : .black)
                 .opacity(showStart ? 1 : 0.5)
             
