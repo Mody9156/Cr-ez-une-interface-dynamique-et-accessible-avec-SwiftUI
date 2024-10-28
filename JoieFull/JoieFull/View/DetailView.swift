@@ -12,12 +12,14 @@ struct DetailView: View {
     @StateObject var articleListViewModel : ArticleListViewModel
     @State private var url : String = "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/"
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }
     
-    
+    var isDeviceLandscapeMode_two: Bool {
+        verticalSizeClass == .compact
+    }
     
     var body: some View {
         ScrollView {
@@ -32,9 +34,9 @@ struct DetailView: View {
                                 if let image = phase.image {
                                     image
                                         .resizable()
-//                                        .scaledToFill()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(height:isDeviceLandscapeMode ? 405.56 : 431)
+                                        .scaledToFill()
+//                                        .aspectRatio(contentMode: .fit)
+                                        .frame(height:570)
                                         .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
                                         .accessibilityValue("Image représentant \(article.name)")
                                     
@@ -269,18 +271,12 @@ struct SupplementData: View {
                     VStack(alignment: .leading) {
                         
                         Text(article.name)
-                            .font(.system(size: 14))
+                            .font(.title)
                             .fontWeight(.bold)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
-                        
-                        
                         
                         Text("\(article.price,format: .number.rounded(increment: 10.0))€")
-                            .font(.system(size: 14))
-                            .fontWeight(.regular)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
+                            .font(.title2)
+                           
                     }
                     
                     Spacer()
@@ -295,30 +291,23 @@ struct SupplementData: View {
                             let averageRating = (articleListViewModel.grade + currentRating) / 2
                             
                             Text("\( Double(averageRating), format: .number.rounded(increment: 0.1))")
-                                .font(.system(size: 14))
-                                .fontWeight(.semibold)
-                                .lineSpacing(2.71)
-                                .multilineTextAlignment(.leading)
+                                .font(.title2)
+                               
                             
                         }
                         
                         Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
                             .strikethrough()
-                            .font(.system(size: 14))
+                            .font(.title2)
                             .fontWeight(.regular)
-                            .lineSpacing(2.71)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.black)
+                            .opacity(0.7)
                     }
                     
                 }
                 
                 Text(article.picture.description)
-                    .font(.custom("SF Pro", size: 14))
-                    .fontWeight(.regular)
-                    .font(.largeTitle)
-                    .multilineTextAlignment(.leading)
-                    .padding(.top)
+                    .font(.title3)
                 
             }
             
