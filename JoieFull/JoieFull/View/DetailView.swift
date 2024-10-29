@@ -66,7 +66,8 @@ struct DetailView: View {
                             }
                             .padding([.top, .trailing], 30)
                             .foregroundColor(.black)
-                            .accessibilityLabel("Appuyez pour partager ce lien")
+                            .accessibilityLabel("Partager le lien vers le réseau social facebook")
+                            .accessibilityHint("Appuyez pour partager ce lien")
                             
                         }
                         .padding(isDeviceLandscapeMode ? 0 : 16)
@@ -74,6 +75,7 @@ struct DetailView: View {
                         LikesViewForDetailView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 20)
                             .padding()
+                            .accessibilityLabel("Appuyez pour ajouter \(article.name)à vos favoris ")
                     }
                     .padding(isDeviceLandscapeMode ? 0 : 16)
                     
