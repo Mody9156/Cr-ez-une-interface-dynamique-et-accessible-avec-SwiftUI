@@ -161,11 +161,14 @@ struct ReviewControl: View {
                         .scaledToFill()
                         .frame(width: 50)
                         .clipShape(Circle())
-
+                        .accessibilityLabel("Photo de profil de l'utilisateur de la session")
+                    
                     HStack {
                         ForEach(1...5, id: \.self) { index in
                             ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                                 .padding(.trailing)
+                                .accessibilityLabel("Étoile \(index) pour la note")
+                                
                         }
                     }
                     Spacer()
@@ -350,7 +353,7 @@ struct SupplementData: View {
                             .opacity(0.7)
                             .padding(.trailing,isDeviceLandscapeMode ? 0 : 16)
                             .accessibilityLabel("Prix d'origine : \(article.original_price, format: .number.rounded(increment: 10.0))€")
-                                .accessibilityValue("\(article.original_price, format: .number.rounded(increment: 10.0))€")
+                                
                                 .accessibilityHint("Ce prix est le prix d'origine, maintenant réduit")
                         
                     }.padding()
@@ -361,7 +364,6 @@ struct SupplementData: View {
                     .font(.title3)
                     .padding([.leading,.trailing],isDeviceLandscapeMode ? 0 : 16)
                     .accessibilityLabel("Description de l'image : \(article.picture.description)")
-                      .accessibilityValue(article.picture.description)
                       .accessibilityHint("Description de l'image pour un meilleur contexte")
             }
             
