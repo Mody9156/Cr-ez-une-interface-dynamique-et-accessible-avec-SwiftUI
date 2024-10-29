@@ -253,7 +253,7 @@ struct ImageSystemName : View {
         } label: {
             Image(systemName: showStart ? "star.fill" : "star")
                 .resizable()
-                .frame(width:50)
+                .frame(width:27.45, height: 27.45)
                 .foregroundColor(showStart ? Color("AccentColor") : .black)
                 .opacity(showStart ? 1 : 0.5)
             
