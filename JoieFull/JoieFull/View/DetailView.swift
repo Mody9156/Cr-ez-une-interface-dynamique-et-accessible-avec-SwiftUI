@@ -68,11 +68,11 @@ struct DetailView: View {
                             .foregroundColor(.black)
                             .accessibilityLabel("Partager ce contenu")
                             
-                        }.padding(isDeviceLandscapeMode_two ? 0 : 16)
+                        }
                         
                         LikesViewForDetailView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 20).padding()
-                    }
+                    }.padding(isDeviceLandscapeMode_two ? 0 : 16)
                     
                     VStack {
                         
