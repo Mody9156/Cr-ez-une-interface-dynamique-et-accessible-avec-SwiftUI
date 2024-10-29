@@ -279,6 +279,11 @@ struct SupplementData: View {
     var article : ArticleCatalog
     @Binding var valueCombiner :  [Int]
     @StateObject var articleListViewModel : ArticleListViewModel
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
+    var isDeviceLandscapeMode: Bool {
+        horizontalSizeClass == .regular
+    }
     
     var body: some View {
         Section {
@@ -289,9 +294,13 @@ struct SupplementData: View {
                         Text(article.name)
                             .font(.title)
                             .fontWeight(.bold)
+                            .padding(.leading,isDeviceLandscapeMode ? 0 : 16)
+                            .padding(.bottom, isDeviceLandscapeMode ? 0 : 2)
                         
                         Text("\(article.price,format: .number.rounded(increment: 10.0))€")
                             .font(.title2)
+                            .padding(.leading,isDeviceLandscapeMode ? 0 : 16)
+
                         
                     }
                     
@@ -308,6 +317,10 @@ struct SupplementData: View {
                             
                             Text("\( Double(averageRating), format: .number.rounded(increment: 0.1))")
                                 .font(.title2)
+                                .padding(.trailing,isDeviceLandscapeMode ? 0 : 16)
+                                .padding(.bottom, isDeviceLandscapeMode ? 0 : 2)
+
+
                             
                             
                         }
@@ -318,6 +331,8 @@ struct SupplementData: View {
                             .fontWeight(.regular)
                             .foregroundColor(.black)
                             .opacity(0.7)
+                            .padding(.trailing,isDeviceLandscapeMode ? 0 : 16)
+
                         
                     }.padding()
                     
@@ -325,6 +340,7 @@ struct SupplementData: View {
                 
                 Text(article.picture.description)
                     .font(.title3)
+                    .padding([.leading,.trailing],isDeviceLandscapeMode ? 0 : 16)
                 
             }
             
