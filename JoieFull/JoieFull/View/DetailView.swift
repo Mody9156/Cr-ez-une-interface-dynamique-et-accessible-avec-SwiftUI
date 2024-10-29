@@ -133,10 +133,6 @@ struct LikesViewForDetailView :View {
     }
 }
 
-struct Comment {
-    var text: String
-    var stars: Set<Int>
-}
 
 struct ReviewControl: View {
     @State var commentText: String = ""

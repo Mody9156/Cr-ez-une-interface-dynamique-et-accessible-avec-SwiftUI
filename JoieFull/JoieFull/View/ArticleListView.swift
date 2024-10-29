@@ -75,7 +75,6 @@ struct ShowCategories: View {
                             AsyncImage(url: URL(string: article.picture.url)) { image in
                                 image
                                     .resizable()
-//                                    .scaledToFill()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(height: 198)
                                     .cornerRadius(20)
@@ -180,7 +179,7 @@ struct LikesView: View {
                     Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill" : "heart")
                         .resizable()
                         .frame(width: width, height: height)
-                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
+                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? Color("background") : .black)
                     
                     if let likes = article.likes {
                         Text("\(articleListViewModel.isFavoris(article: article) ? (likes + 1) : likes)")
