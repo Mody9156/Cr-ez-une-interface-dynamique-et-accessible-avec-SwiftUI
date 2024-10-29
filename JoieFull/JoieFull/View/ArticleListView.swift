@@ -66,7 +66,6 @@ struct ShowCategories: View {
             if isDeviceLandscapeMode {
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                 
-                
             } else {
                 VStack {
                     NavigationLink {
@@ -79,6 +78,7 @@ struct ShowCategories: View {
                                     .scaledToFill()
                                     .frame(width: 198, height: 198)
                                     .cornerRadius(20)
+                                
                             } placeholder: {
                                 ProgressView()
                             }
@@ -258,7 +258,6 @@ struct ArticlesFinder: View {
             return articleListViewModel.articleCatalog.filter { $0.name.localizedStandardContains(searchText) }
         }
     }
-    
     
     var body: some View {
         
