@@ -311,7 +311,6 @@ struct SupplementData: View {
                             .font(.title2)
                             .padding(.leading,isDeviceLandscapeMode ? 0 : 16)
                             .accessibilityLabel("\(article.name) est à prix réduit, coûtant \(article.price, format: .number.rounded(increment: 10.0))€")
-                                .accessibilityValue("\(article.price, format: .number.rounded(increment: 10.0))€")
                                 .accessibilityHint("Prix après réduction")
 
 
@@ -325,6 +324,8 @@ struct SupplementData: View {
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(Color("AccentColor"))
+                                .accessibilityLabel("Icône des favoris")
+                                 
                             
                             let currentRating = valueCombiner.isEmpty ? articleListViewModel.grade : addition()
                             
@@ -334,8 +335,7 @@ struct SupplementData: View {
                                 .font(.title2)
                                 .padding(.trailing,isDeviceLandscapeMode ? 0 : 16)
                                 .padding(.bottom, isDeviceLandscapeMode ? 0 : 2)
-                                .accessibilityLabel("Note de l'article : \(Double(averageRating), format: .number.rounded(increment: 0.1))")
-                                    .accessibilityValue("\(Double(averageRating), format: .number.rounded(increment: 0.1)) sur 5")
+                                .accessibilityLabel("La note de l'article est de : \(Double(averageRating), format: .number.rounded(increment: 0.1)) sur 5")
                                     .accessibilityHint("Note sur 5 étoiles pour cet article")
 
                             
@@ -349,7 +349,7 @@ struct SupplementData: View {
                             .foregroundColor(.black)
                             .opacity(0.7)
                             .padding(.trailing,isDeviceLandscapeMode ? 0 : 16)
-                            .accessibilityLabel("Prix d'origine : \(article.original_price, format: .number.rounded(increment: 10.0))€, barré")
+                            .accessibilityLabel("Prix d'origine : \(article.original_price, format: .number.rounded(increment: 10.0))€")
                                 .accessibilityValue("\(article.original_price, format: .number.rounded(increment: 10.0))€")
                                 .accessibilityHint("Ce prix est le prix d'origine, maintenant réduit")
                         
@@ -360,7 +360,9 @@ struct SupplementData: View {
                 Text(article.picture.description)
                     .font(.title3)
                     .padding([.leading,.trailing],isDeviceLandscapeMode ? 0 : 16)
-                
+                    .accessibilityLabel("Description de l'image : \(article.picture.description)")
+                      .accessibilityValue(article.picture.description)
+                      .accessibilityHint("Description de l'image pour un meilleur contexte")
             }
             
         }.padding()
