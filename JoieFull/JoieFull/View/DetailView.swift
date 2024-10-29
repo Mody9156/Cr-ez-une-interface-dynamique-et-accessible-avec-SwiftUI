@@ -210,7 +210,10 @@ struct ReviewControl: View {
                         .cornerRadius(5)
                 }
                 .padding()
-                .accessibilityLabel("Envoyer votre commentaire")
+                .accessibilityLabel("Bouton pour envoyer un commentaire")
+                .accessibilityHint("Appuyez pour soumettre votre commentaire et vos étoiles")
+                .accessibilityValue(commentText.isEmpty ? "Aucun commentaire saisi" : "Commentaire : \(commentText)")
+                .accessibilityValue(valueCombiner.isEmpty ? "Aucun étoile n'a été saisi" : "Vous avez sélectionné(e) \(valueCombiner.last ?? 0) étoile(s)")
 
                 if activeStart {
                     ForEach(comments, id: \.text) { comment in
