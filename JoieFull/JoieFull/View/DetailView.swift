@@ -133,102 +133,110 @@ struct LikesViewForDetailView :View {
     }
 }
 
+struct Comment {
+    var text: String
+    var stars: Set<Int>
+}
+
 struct ReviewControl: View {
-    @State  var comment: String = ""
+    @State var commentText: String = ""
     var articleCatalog: ArticleCatalog
-    @Binding var valueCombiner :  [Int]
-    @State var textField : Set<String> = []
-    @StateObject var articleListViewModel : ArticleListViewModel
-    @State var activeStart : Bool = false
+    @Binding var valueCombiner: [Int]
+    @State var comments: [Comment] = []
+    @StateObject var articleListViewModel: ArticleListViewModel
+    @State var activeStart: Bool = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
+
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }
     
     var body: some View {
-        Section{
-            VStack() {
+        Section {
+            VStack {
+                // User Image and Star Ratings
                 HStack {
-                    
                     Image("UserPicture")
                         .resizable()
                         .scaledToFill()
-                        .frame(width:50)
+                        .frame(width: 50)
                         .clipShape(Circle())
-                    
+
                     HStack {
                         ForEach(1...5, id: \.self) { index in
-                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel).padding(.trailing)
+                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                                .padding(.trailing)
                         }
                     }
-                    
                     Spacer()
                 }
-                
-            }.padding()
-            
-            VStack(alignment: .leading){
-                
+                .padding([.leading, .trailing], isDeviceLandscapeMode ? 0 : 16)
+            }
+            .padding()
+
+            VStack(alignment: .leading) {
                 ZStack(alignment: .topLeading) {
-                    // Fond avec coin arrondi
                     RoundedRectangle(cornerRadius: 20)
                         .fill(isDeviceLandscapeMode ? Color("Background") : Color.white)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
-                        .overlay( // Utiliser overlay pour ajouter la bordure
+                        .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.gray, lineWidth: 1) // Bordure avec le même coin arrondi
+                                .stroke(Color.gray, lineWidth: 1)
                         )
-                    
-                    TextField("Partagez ici vos impressions sur cette pièce", text: $comment)
+
+                    TextField("Partagez ici vos impressions sur cette pièce", text: $commentText)
                         .font(.title3)
                         .padding()
                         .accessibilityValue("Zone de texte pour vos impressions sur l'article")
                 }
                 .padding()
-                
-                
-                Button {
-                    
-                    if !comment.trimmingCharacters(in: .whitespaces).isEmpty{
-                        textField.insert(comment)
-                        comment = ""
+
+                Button(action: {
+                    if !commentText.trimmingCharacters(in: .whitespaces).isEmpty && !valueCombiner.isEmpty {
+                        let newComment = Comment(text: commentText, stars: Set(valueCombiner))
+                        comments.append(newComment)
+                        commentText = ""
+                        valueCombiner.removeAll()
                         activeStart = true
-                        
                     }
-                    
-                } label: {
-                    
-                    Text("Envoyer").frame(width: 100,height: 50).background(.orange).foregroundColor(.white).cornerRadius(5)
-                    
-                }.padding()
-                
-                if activeStart{
-                    ForEach(Array(textField),id: \.self) { text in
-                        
+                }) {
+                    Text("Envoyer")
+                        .frame(width: 100, height: 50)
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(5)
+                }
+                .padding()
+                .accessibilityLabel("Envoyer votre commentaire")
+
+                if activeStart {
+                    ForEach(comments, id: \.text) { comment in
                         HStack {
                             Image("UserPicture")
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width:50)
+                                .frame(width: 50)
                                 .clipShape(Circle())
-                            
-                            VStack (alignment: .leading){
+
+                            VStack(alignment: .leading) {
                                 HStack {
-                                    ForEach(valueCombiner, id: \.self) { index in
-                                        Image(systemName:"star.fill")
+                                    ForEach(Array(comment.stars), id: \.self) { star in
+                                        Image(systemName: "star.fill")
                                             .resizable()
                                             .frame(width: 27.51, height: 23.98)
                                             .foregroundColor(Color("AccentColor"))
                                     }
                                 }
-                                Text(text)
+                                Text(comment.text)
                             }
                         }
+                        .padding([.leading, .trailing], isDeviceLandscapeMode ? 0 : 16)
+
                         Divider()
                     }
                 }
-            }.padding()
+            }
+            .padding()
         }
     }
 }
@@ -273,6 +281,8 @@ struct ImageSystemName : View {
             valueCombiner = Array(1...order)
         }
     }
+   
+
 }
 
 struct SupplementData: View {

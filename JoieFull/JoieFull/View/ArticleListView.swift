@@ -9,7 +9,6 @@ struct ArticleListView: View {
     var articleCatalog: ArticleCatalog
     @State var addNewFavoris: Bool = false
     @State private var searchText = ""
-    
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular
     }
@@ -54,6 +53,7 @@ struct ShowCategories: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
+
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     var isDeviceLandscapeMode: Bool {
@@ -250,7 +250,7 @@ struct ArticlesFinder: View {
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var searchText: String
     @Binding var addInFavoris: Bool
-    
+
     var searchResults: [ArticleCatalog] {
         if searchText.isEmpty {
             return articleListViewModel.articleCatalog
