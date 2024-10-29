@@ -72,7 +72,7 @@ struct DetailView: View {
                         
                         LikesViewForDetailView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 20).padding()
-                    }.padding()
+                    }
                     
                     VStack {
                         
