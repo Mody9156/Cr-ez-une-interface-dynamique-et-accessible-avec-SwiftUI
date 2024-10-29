@@ -36,6 +36,7 @@ class CatalogProduct {
         guard response.statusCode == 200 else {
             throw CandidateFetchError.httpResponseInvalid
         }
+        
         do{
             
             let DecoderArticles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
@@ -46,5 +47,6 @@ class CatalogProduct {
             
             throw CandidateFetchError.loadArticlesFromURLError
         }
+        
     }
 }
