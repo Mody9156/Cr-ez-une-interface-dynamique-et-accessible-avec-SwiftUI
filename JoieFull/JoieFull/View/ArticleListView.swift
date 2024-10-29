@@ -66,7 +66,6 @@ struct ShowCategories: View {
             if isDeviceLandscapeMode {
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
                 
-                
             } else {
                 VStack {
                     NavigationLink {
@@ -79,6 +78,7 @@ struct ShowCategories: View {
                                     .scaledToFill()
                                     .frame(width: 198, height: 198)
                                     .cornerRadius(20)
+                                
                             } placeholder: {
                                 ProgressView()
                             }
@@ -211,7 +211,7 @@ struct InfoExtract: View {
                     .fontWeight(.bold)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                     .frame(width: 100)
-                    .lineLimit(2)
+                    .lineLimit(1)
                 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     .font(.title2)
@@ -232,6 +232,7 @@ struct InfoExtract: View {
                 
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
                     .font(.title2)
+                    .strikethrough()
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                     .opacity(selectedArticle?.id == article.id ? 1 : 0.7)
             }
@@ -257,7 +258,6 @@ struct ArticlesFinder: View {
             return articleListViewModel.articleCatalog.filter { $0.name.localizedStandardContains(searchText) }
         }
     }
-    
     
     var body: some View {
         
