@@ -81,9 +81,9 @@ final class CatalogProductTests: XCTestCase {
             
             let loadArticles = try await catalogProduct.loadArticlesFromURL()
             
-            XCTAssert(loadArticles.count == 2)
-            XCTAssert(loadArticles[0].name == "Sac à bandoulière")
-            XCTAssert(loadArticles[1].name == "Ceinture en cuir")
+            XCTAssertEqual(loadArticles.count , 2)
+            XCTAssertEqual(loadArticles[0].name , "Sac à bandoulière")
+            XCTAssertEqual(loadArticles[1].name , "Ceinture en cuir")
             XCTAssertEqual(loadArticles, expectedArticles, "Les articles décodés ne correspondent pas aux articles attendus.")
 
         }catch {
@@ -129,6 +129,8 @@ final class CatalogProductTests: XCTestCase {
         }
         
     }
+    
+    
     func testStatusCodeNoThrowsError() async throws {
         let mockNetworkService = MockNetworkService()
         let mockData =  """
