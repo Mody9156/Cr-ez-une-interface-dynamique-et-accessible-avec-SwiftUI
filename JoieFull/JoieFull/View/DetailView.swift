@@ -118,7 +118,7 @@ struct LikesViewForDetailView :View {
                         Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill":"heart")
                             .resizable()
                             .frame(width: width, height: height)
-                            .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
+                            .foregroundColor(articleListViewModel.isFavoris(article: article) ? Color("AccentColor") : .black)
                         
                         if let likes = article.likes {
                             let adjustedLikes = articleListViewModel.isFavoris(article: article) ?( likes + 1) :  likes

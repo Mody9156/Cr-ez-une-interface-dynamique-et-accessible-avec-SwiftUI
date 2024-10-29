@@ -179,7 +179,7 @@ struct LikesView: View {
                     Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill" : "heart")
                         .resizable()
                         .frame(width: width, height: height)
-                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? Color("background") : .black)
+                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? Color("AccentColor") : .black)
                     
                     if let likes = article.likes {
                         Text("\(articleListViewModel.isFavoris(article: article) ? (likes + 1) : likes)")
@@ -207,14 +207,14 @@ struct InfoExtract: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(article.name)
-                    .font(.title3)
+                    .font(isDeviceLandscapeMode ? .title3 : .none)
                     .fontWeight(.bold)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
-                    .frame(width: 100)
+                    .frame(width: isDeviceLandscapeMode ? 147  : 95, height: isDeviceLandscapeMode ? 20.87  : 17)
                     .lineLimit(1)
                 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
-                    .font(.title2)
+                    .font(isDeviceLandscapeMode ? .title2 : .none)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
             }
             
@@ -226,12 +226,12 @@ struct InfoExtract: View {
                         .foregroundColor(Color("AccentColor"))
                     
                     Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
-                        .font(.title2)
+                        .font(isDeviceLandscapeMode ? .title2 : .none)
                         .foregroundColor(selectedArticle?.id == article.id  ? Color("Cyan") : .black)
                 }
                 
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                    .font(.title2)
+                    .font(isDeviceLandscapeMode ? .title2 : .none)
                     .strikethrough()
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                     .opacity(selectedArticle?.id == article.id ? 1 : 0.7)
