@@ -75,8 +75,9 @@ struct ShowCategories: View {
                             AsyncImage(url: URL(string: article.picture.url)) { image in
                                 image
                                     .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 198, height: 198)
+//                                    .scaledToFill()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 198)
                                     .cornerRadius(20)
                                 
                             } placeholder: {
