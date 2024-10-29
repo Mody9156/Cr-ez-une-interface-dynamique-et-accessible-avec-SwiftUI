@@ -66,7 +66,7 @@ struct DetailView: View {
                             }
                             .padding([.top, .trailing], 30)
                             .foregroundColor(.black)
-                            .accessibilityLabel("Partager ce contenu")
+                            .accessibilityLabel("Appuyez pour partager ce lien")
                             
                         }
                         .padding(isDeviceLandscapeMode ? 0 : 16)
