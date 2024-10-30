@@ -170,7 +170,10 @@ struct ReviewControl: View {
                         ForEach(1...5, id: \.self) { index in
                             ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                                 .padding(.trailing)
-                                .accessibilityLabel("Étoile \(index) pour la note")
+                                .accessibilityLabel("Noter \(articleCatalog.name)")
+                                .accessibilityHint("Appuyez pour donner \(index) étoile(s)")
+                                .accessibilityAddTraits(.isButton) // Indiquer que c'est un bouton
+                                
                                 
                         }
                     }
