@@ -59,14 +59,14 @@ struct DetailView: View {
                                 .opacity(0.4)
                                 .padding([.bottom, .trailing,.top], 20)
                             
-                            ShareLink(item: URL(string: url)!, subject: Text("Check out this link"), message: Text("If you want to learn Swift, take a look at this website.")) {
+                            ShareLink(item: URL(string: url)!, subject: Text("Découvrez ce lien"), message: Text("Si vous voulez apprendre Swift, jetez un œil à ce site web.")) {
                                 Image("Share")
                                     .padding([.trailing,.top],5)
                                 
                             }
                             .padding([.top, .trailing], 30)
                             .foregroundColor(.black)
-                            .accessibilityLabel("Partager le lien vers le réseau social facebook")
+                            .accessibilityLabel("Partager le lien vers Facebook")
                             .accessibilityHint("Appuyez pour partager ce lien")
                             
                         }
@@ -75,8 +75,10 @@ struct DetailView: View {
                         LikesViewForDetailView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 20)
                             .padding()
-                            .accessibilityLabel("\(article.name) a été ajouté au favoris par \(like) personnes")
-                            .accessibilityValue(articleListViewModel.isFavoris(article: articleCatalog) ? "Appuyez pour supprimer \(article.name) de vos favoris" : "Appuyez pour ajouter \(article.name) à vos favoris "  )  .padding(isDeviceLandscapeMode ? 0 : 16)
+                            .accessibilityLabel("\(article.name) a été ajouté aux favoris par \(like) personnes")
+                            .accessibilityValue(articleListViewModel.isFavoris(article: articleCatalog)
+                                                ? "Appuyez pour supprimer \(article.name) de vos favoris"
+                                                : "Appuyez pour ajouter \(article.name) à vos favoris "  )  .padding(isDeviceLandscapeMode ? 0 : 16)
                     }
                   
                     }
@@ -318,10 +320,6 @@ struct SupplementData: View {
                             .padding(.leading,isDeviceLandscapeMode ? 0 : 16)
                             .accessibilityLabel("\(article.name) est à prix réduit, coûtant \(article.price, format: .number.rounded(increment: 10.0))€")
                                 .accessibilityHint("Prix après réduction")
-
-
-
-                        
                     }
                     
                     Spacer()
@@ -343,9 +341,7 @@ struct SupplementData: View {
                                 .padding(.bottom, isDeviceLandscapeMode ? 0 : 2)
                                 .accessibilityLabel("La note de l'article est de : \(Double(averageRating), format: .number.rounded(increment: 0.1)) sur 5")
                                     .accessibilityHint("Note sur 5 étoiles pour cet article")
-
-                            
-                            
+  
                         }
                         
                         Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
