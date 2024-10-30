@@ -68,6 +68,7 @@ struct DetailView: View {
                             .foregroundColor(.black)
                             .accessibilityLabel("Partager le lien vers Facebook")
                             .accessibilityHint("Appuyez pour partager ce lien")
+                            .accessibilityAddTraits(.isButton)
                             
                         }
                         .padding(isDeviceLandscapeMode ? 0 : 16)
