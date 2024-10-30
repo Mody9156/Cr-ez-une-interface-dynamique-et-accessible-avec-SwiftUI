@@ -13,14 +13,13 @@ struct DetailView: View {
     @State private var url : String = "https://www.facebook.com/sharer/sharer.php?u=https://developer.apple.com/xcode/swiftui/"
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.presentationMode) private var presentationMode // Ajouté ici
     
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular && verticalSizeClass == .regular
         
     }
-    var isDeviceLandscapeMode_two: Bool {
-        verticalSizeClass == .compact
-    }
+    
     
     var body: some View {
         ScrollView {
@@ -95,7 +94,24 @@ struct DetailView: View {
                     }
                 }
             }
-        }
+        } .navigationBarBackButtonHidden(isDeviceLandscapeMode ? false : true) // Masquer le bouton de retour
+            .toolbar{
+                ToolbarItem(placement:.navigationBarLeading) {
+                    if !isDeviceLandscapeMode {
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                            
+                        }) {
+                            HStack{
+                                Image("Chevron")
+                                Text("Home").foregroundColor(.blue)
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        
     }
 }
 

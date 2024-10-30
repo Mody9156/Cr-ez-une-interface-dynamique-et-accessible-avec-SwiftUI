@@ -95,6 +95,7 @@ struct ShowCategories: View {
                         .accessibilityLabel("Voir les détails de \(article.name)")
                         
                     }
+                    .navigationTitle("")
                     .accessibilityLabel("Voir les détails de \(article.name)")
                     
                     
