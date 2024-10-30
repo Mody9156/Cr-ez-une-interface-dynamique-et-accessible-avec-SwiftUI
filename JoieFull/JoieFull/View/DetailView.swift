@@ -72,14 +72,16 @@ struct DetailView: View {
                             
                         }
                         .padding(isDeviceLandscapeMode ? 0 : 16)
+                        
                         if let like = article.likes {
                         LikesViewForDetailView(article: article, articleListViewModel: articleListViewModel)
                             .padding([.bottom, .trailing], 20)
                             .padding()
-                            .accessibilityLabel("\(article.name) a été ajouté aux favoris par \(like) personnes")
-                            .accessibilityValue(articleListViewModel.isFavoris(article: articleCatalog)
-                                                ? "Appuyez pour supprimer \(article.name) de vos favoris"
-                                                : "Appuyez pour ajouter \(article.name) à vos favoris "  )  .padding(isDeviceLandscapeMode ? 0 : 16)
+                             .padding(isDeviceLandscapeMode ? 0 : 16)
+                             .accessibilityLabel("\(article.name) a été ajouté aux favoris par \(like) personnes")
+                             .accessibilityValue(articleListViewModel.isFavoris(article: articleCatalog)
+                                                 ? "Appuyez pour supprimer \(article.name) de vos favoris"
+                                                 : "Appuyez pour ajouter \(article.name) à vos favoris "  )
                     }
                   
                     }
@@ -170,11 +172,10 @@ struct ReviewControl: View {
                         ForEach(1...5, id: \.self) { index in
                             ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
                                 .padding(.trailing)
-                                .accessibilityLabel("Noter \(articleCatalog.name)")
-                                .accessibilityHint("Appuyez pour donner \(index) étoile(s)")
-                                .accessibilityAddTraits(.isButton) // Indiquer que c'est un bouton
-                                
-                                
+                                .accessibilityLabel("Noter \(articleCatalog.name) de \(index) étoile(s)")
+                                .accessibilityValue(valueCombiner.last == index ? "Sélectionnée" : "Non sélectionnée")
+                                 .accessibilityHint("Appuyez pour donner \(index) étoile(s)")
+
                         }
                     }
                     Spacer()
@@ -196,7 +197,9 @@ struct ReviewControl: View {
                     TextField("Partagez ici vos impressions sur cette pièce", text: $commentText)
                         .font(.title3)
                         .padding()
-                        .accessibilityValue("Zone de texte pour vos impressions sur l'article")
+                        .accessibilityLabel("Zone de texte pour vos impressions sur l'article")
+                            .accessibilityValue(commentText.isEmpty ? "Veuillez insérer du texte." : "Texte saisi : \(commentText)")
+                            .accessibilityHint("Tapez vos commentaires ici.")gi
                 }
                 .padding()
 
@@ -277,12 +280,7 @@ struct ImageSystemName : View {
                 .foregroundColor(showStart ? Color("AccentColor") : .black)
                 .opacity(showStart ? 1 : 0.5)
             
-        }.accessibilityElement(children: .combine)
-            .accessibilityHint("Cliquez pour ajouter ou retirer une étoile. Actuellement \(sortArray) étoiles sélectionnées.")
-        
-            .accessibilityLabel(showStart
-                                
-                                ? "Retirer une étoile à cet article" : "Ajouter une étoile cet article")
+        }
         
     }
     
