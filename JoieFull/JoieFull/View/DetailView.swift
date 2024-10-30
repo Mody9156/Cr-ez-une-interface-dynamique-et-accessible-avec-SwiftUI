@@ -199,7 +199,8 @@ struct ReviewControl: View {
                         .padding()
                         .accessibilityLabel("Zone de texte pour vos impressions sur l'article")
                             .accessibilityValue(commentText.isEmpty ? "Veuillez insérer du texte." : "Texte saisi : \(commentText)")
-                            .accessibilityHint("Tapez vos commentaires ici.")gi
+                            .accessibilityHint("Tapez vos commentaires ici.")
+                    
                 }
                 .padding()
 
@@ -232,6 +233,7 @@ struct ReviewControl: View {
                                 .scaledToFill()
                                 .frame(width: 50)
                                 .clipShape(Circle())
+                                .accessibilityLabel("Photo de profil de l'utilisateur de la session")
 
                             VStack(alignment: .leading) {
                                 HStack {
@@ -240,6 +242,8 @@ struct ReviewControl: View {
                                             .resizable()
                                             .frame(width: 27.51, height: 23.98)
                                             .foregroundColor(Color("AccentColor"))
+                                            .accessibilityLabel("Vous avez noter \(articleCatalog.name) de \(star) étoile(s)")
+
                                     }
                                 }
                                 Text(comment.text)
