@@ -6,12 +6,13 @@ struct ArticleListView: View {
     @State var selectedArticle: ArticleCatalog? = nil
     @State var addInFavoris: Bool = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     var articleCatalog: ArticleCatalog
     @State var addNewFavoris: Bool = false
     @State private var searchText = ""
-    
     var isDeviceLandscapeMode: Bool {
-        horizontalSizeClass == .regular
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+        
     }
     
     var body: some View {
@@ -41,6 +42,9 @@ struct ArticleListView: View {
                 }
             }.background(isDeviceLandscapeMode ? Color("Background") : Color.white)
                 .searchable(text: $searchText, prompt: "Rechercher un article")
+                .accessibilityLabel("Barre de recherche")
+                .accessibilityHint("Tapez pour rechercher un article par son nom ou sa description.")
+            
         }
         
     }
@@ -54,10 +58,12 @@ struct ShowCategories: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     var isDeviceLandscapeMode: Bool {
-        horizontalSizeClass == .regular
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+        
     }
     
     var body: some View {
@@ -75,8 +81,8 @@ struct ShowCategories: View {
                             AsyncImage(url: URL(string: article.picture.url)) { image in
                                 image
                                     .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 198, height: 198)
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 198)
                                     .cornerRadius(20)
                                 
                             } placeholder: {
@@ -86,8 +92,11 @@ struct ShowCategories: View {
                             LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
                         }
+                        .accessibilityLabel("Voir les détails de \(article.name)")
+                        
                     }
-                    .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
+                    .navigationTitle("")
+                    .accessibilityLabel("Voir les détails de \(article.name)")
                     
                     
                     InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
@@ -179,7 +188,7 @@ struct LikesView: View {
                     Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill" : "heart")
                         .resizable()
                         .frame(width: width, height: height)
-                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? .yellow : .black)
+                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? Color("AccentColor") : .black)
                     
                     if let likes = article.likes {
                         Text("\(articleListViewModel.isFavoris(article: article) ? (likes + 1) : likes)")
@@ -197,24 +206,27 @@ struct InfoExtract: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var presentArticles : Bool
     @Binding var selectedArticle: ArticleCatalog?
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
+    
     var isDeviceLandscapeMode: Bool {
-        horizontalSizeClass == .regular
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+        
     }
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(article.name)
-                    .font(.title3)
+                    .font(isDeviceLandscapeMode ? .title3 : .none)
                     .fontWeight(.bold)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
-                    .frame(width: 100)
-                    .lineLimit(1)
+                    .frame(width: isDeviceLandscapeMode ? 147  : 95, height: isDeviceLandscapeMode ? 20.87  : 17)
+                    .accessibilityLabel("\(article.name), prix : \(article.price, format: .number.rounded(increment: 10.0))€")
+                
                 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
-                    .font(.title2)
+                    .font(isDeviceLandscapeMode ? .title2 : .none)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
             }
             
@@ -224,14 +236,15 @@ struct InfoExtract: View {
                 HStack {
                     Image(systemName: "star.fill")
                         .foregroundColor(Color("AccentColor"))
+                        .accessibilityLabel("Note : \(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1)) étoiles")
                     
                     Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
-                        .font(.title2)
+                        .font(isDeviceLandscapeMode ? .title2 : .none)
                         .foregroundColor(selectedArticle?.id == article.id  ? Color("Cyan") : .black)
                 }
                 
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                    .font(.title2)
+                    .font(isDeviceLandscapeMode ? .title2 : .none)
                     .strikethrough()
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                     .opacity(selectedArticle?.id == article.id ? 1 : 0.7)

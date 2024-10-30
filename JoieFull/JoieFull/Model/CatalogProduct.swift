@@ -28,7 +28,7 @@ class CatalogProduct {
         
         return request
     }
-  
+    
     func loadArticlesFromURL() async throws -> [ArticleCatalog] {
         
         let (data,response) = try await httpService.request(createURLRequest())
@@ -36,15 +36,17 @@ class CatalogProduct {
         guard response.statusCode == 200 else {
             throw CandidateFetchError.httpResponseInvalid
         }
+        
         do{
-           
+            
             let DecoderArticles = try JSONDecoder().decode([ArticleCatalog].self, from: data)
-           
+            
             return DecoderArticles
             
         }catch{
-           
+            
             throw CandidateFetchError.loadArticlesFromURLError
         }
+        
     }
 }
