@@ -39,7 +39,7 @@ struct ArticleListView: View {
                     }
                 }
             }
-            .background(isDeviceLandscapeMode ? Color("Background") : Color.white)
+            .background(isDeviceLandscapeMode ? Color("Background") : Color("Color"))
             .searchable(text: $searchText, prompt: "Rechercher un article")
             .accessibilityLabel("Barre de recherche")
             .accessibilityHint("Tapez pour rechercher un article par son nom ou sa description.")
@@ -201,13 +201,13 @@ struct InfoExtract: View {
                 Text(article.name)
                     .font(isDeviceLandscapeMode ? .title3 : .none)
                     .fontWeight(.bold)
-                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
                     .frame(width: isDeviceLandscapeMode ? 147 : 95, height: isDeviceLandscapeMode ? 20.87 : 17)
                     .accessibilityLabel("\(article.name), prix : \(article.price, format: .number.rounded(increment: 10.0))€")
 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     .font(isDeviceLandscapeMode ? .title2 : .none)
-                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
             }
 
             Spacer()
@@ -220,13 +220,13 @@ struct InfoExtract: View {
 
                     Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
                         .font(isDeviceLandscapeMode ? .title2 : .none)
-                        .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                        .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
                 }
 
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
                     .font(isDeviceLandscapeMode ? .title2 : .none)
                     .strikethrough()
-                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
+                    .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
                     .opacity(selectedArticle?.id == article.id ? 1 : 0.7)
             }
         }

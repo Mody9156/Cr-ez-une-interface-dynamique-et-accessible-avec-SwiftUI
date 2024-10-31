@@ -47,6 +47,5 @@ class CatalogProduct {
             
             throw CandidateFetchError.loadArticlesFromURLError
         }
-        
     }
 }

@@ -30,7 +30,8 @@
       codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "23F6E3062CBFB9B000D68223"
@@ -38,6 +39,41 @@
                BlueprintName = "JoieFullTests"
                ReferencedContainer = "container:JoieFull.xcodeproj">
             </BuildableReference>
+            <SelectedTests>
+               <Test
+                  Identifier = "ArticlesViewModelTests/testLoadArticlesSuccessfully()">
+               </Test>
+               <Test
+                  Identifier = "ArticlesViewModelTests/testLoadArticlesThrowsError()">
+               </Test>
+               <Test
+                  Identifier = "ArticlesViewModelTests/testReloadArticles()">
+               </Test>
+               <Test
+                  Identifier = "ArticlesViewModelTests/testToggleFavoris()">
+               </Test>
+               <Test
+                  Identifier = "CatalogProductTests/testDecoderArticles_Success()">
+               </Test>
+               <Test
+                  Identifier = "CatalogProductTests/testLoadArticlesFromURL_DecodingError()">
+               </Test>
+               <Test
+                  Identifier = "CatalogProductTests/testLoadArticlesFromURL_DecodingThrowsError()">
+               </Test>
+               <Test
+                  Identifier = "CatalogProductTests/testLoadArticlesFromURL_InvalidStatusCode()">
+               </Test>
+               <Test
+                  Identifier = "CatalogProductTests/testLoadArticlesFromURL_ThrowsErrors()">
+               </Test>
+               <Test
+                  Identifier = "CatalogProductTests/testStatusCodeNoThrowsError()">
+               </Test>
+               <Test
+                  Identifier = "CatalogProductTests/testURLRequestCreationWithValidURL()">
+               </Test>
+            </SelectedTests>
          </TestableReference>
       </Testables>
    </TestAction>
