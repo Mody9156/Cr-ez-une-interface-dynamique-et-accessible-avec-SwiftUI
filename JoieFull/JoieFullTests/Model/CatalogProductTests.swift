@@ -81,9 +81,10 @@ final class CatalogProductTests: XCTestCase {
             
             let loadArticles = try await catalogProduct.loadArticlesFromURL()
             
-            XCTAssert(loadArticles.count == 2)
-            XCTAssert(loadArticles[0].name == "Sac à bandoulière")
-            XCTAssert(loadArticles[1].name == "Ceinture en cuir")
+            XCTAssertEqual(loadArticles.count , 2)
+            XCTAssertEqual(loadArticles[0].name , "Sac à bandoulière")
+            XCTAssertFalse(loadArticles.isEmpty)
+            XCTAssertEqual(loadArticles[1].name , "Ceinture en cuir")
             XCTAssertEqual(loadArticles, expectedArticles, "Les articles décodés ne correspondent pas aux articles attendus.")
 
         }catch {
@@ -129,6 +130,8 @@ final class CatalogProductTests: XCTestCase {
         }
         
     }
+    
+    
     func testStatusCodeNoThrowsError() async throws {
         let mockNetworkService = MockNetworkService()
         let mockData =  """
@@ -179,6 +182,66 @@ final class CatalogProductTests: XCTestCase {
     
     
     
+    func testLoadArticlesFromURL_DecodingError() async {
+           // Créez un mock de votre service HTTP
+           let mockNetworkService = MockNetworkService()
+           
+           // Simulez des données malformées qui ne peuvent pas être décodées
+           let mockData = """
+           { "invalid": "data" } // Données malformées
+           """.data(using: .utf8)!
+
+           // Assignez les données malformées au mock
+           mockNetworkService.mockData = mockData
+           mockNetworkService.mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
+
+           // Instanciez votre classe CatalogProduct
+           let catalogProduct = CatalogProduct(httpService: mockNetworkService)
+
+           // Testez la fonction pour vous assurer qu'elle lève l'erreur attendue
+           do {
+               let _ = try await catalogProduct.loadArticlesFromURL()
+               XCTFail("La fonction aurait dû lever une erreur de décodage.")
+           } catch {
+               XCTAssertEqual(error as? CatalogProduct.CandidateFetchError, .loadArticlesFromURLError)
+           }
+       }
     
     
+    func testLoadArticlesFromURL_InvalidStatusCode() async {
+           let mockNetworkService = MockNetworkService()
+           mockNetworkService.mockData = Data() // Pas de données
+           mockNetworkService.mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)
+
+           let catalogProduct = CatalogProduct(httpService: mockNetworkService)
+
+           do {
+               let _ = try await catalogProduct.loadArticlesFromURL()
+               XCTFail("La fonction aurait dû lever une erreur httpResponseInvalid.")
+           } catch {
+               XCTAssertEqual(error as? CatalogProduct.CandidateFetchError, .httpResponseInvalid)
+           }
+       }
+ 
+    
+    func testLoadArticlesFromURL_DecodingThrowsError() async {
+        let mockNetworkService = MockNetworkService()
+        let mockData = """
+           { "invalid": "data" }
+           """.data(using: .utf8)!
+        
+        mockNetworkService.mockData = mockData
+        mockNetworkService.mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
+        
+        let catalogProduct = CatalogProduct(httpService: mockNetworkService)
+        
+        do {
+            let _ = try await catalogProduct.loadArticlesFromURL()
+            XCTFail("La fonction aurait dû lever une erreur de décodage.")
+        } catch {
+            XCTAssertEqual(error as? CatalogProduct.CandidateFetchError, .loadArticlesFromURLError)
+        }
+    }
+   
+
 }

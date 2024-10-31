@@ -6,11 +6,13 @@ struct ArticleListView: View {
     @State var selectedArticle: ArticleCatalog? = nil
     @State var addInFavoris: Bool = false
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     var articleCatalog: ArticleCatalog
     @State var addNewFavoris: Bool = false
     @State private var searchText = ""
     var isDeviceLandscapeMode: Bool {
-        horizontalSizeClass == .regular
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+        
     }
     
     var body: some View {
@@ -40,6 +42,9 @@ struct ArticleListView: View {
                 }
             }.background(isDeviceLandscapeMode ? Color("Background") : Color.white)
                 .searchable(text: $searchText, prompt: "Rechercher un article")
+                .accessibilityLabel("Barre de recherche")
+                .accessibilityHint("Tapez pour rechercher un article par son nom ou sa description.")
+            
         }
         
     }
@@ -53,11 +58,12 @@ struct ShowCategories: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
-
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     var isDeviceLandscapeMode: Bool {
-        horizontalSizeClass == .regular
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+        
     }
     
     var body: some View {
@@ -86,8 +92,11 @@ struct ShowCategories: View {
                             LikesView(article: article, articleListViewModel: articleListViewModel)
                                 .padding()
                         }
+                        .accessibilityLabel("Voir les détails de \(article.name)")
+                        
                     }
-                    .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
+                    .navigationTitle("")
+                    .accessibilityLabel("Voir les détails de \(article.name)")
                     
                     
                     InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
@@ -197,10 +206,12 @@ struct InfoExtract: View {
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var presentArticles : Bool
     @Binding var selectedArticle: ArticleCatalog?
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
+    
     var isDeviceLandscapeMode: Bool {
-        horizontalSizeClass == .regular
+        horizontalSizeClass == .regular && verticalSizeClass == .regular
+        
     }
     
     var body: some View {
@@ -211,7 +222,8 @@ struct InfoExtract: View {
                     .fontWeight(.bold)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : .black)
                     .frame(width: isDeviceLandscapeMode ? 147  : 95, height: isDeviceLandscapeMode ? 20.87  : 17)
-                    .lineLimit(1)
+                    .accessibilityLabel("\(article.name), prix : \(article.price, format: .number.rounded(increment: 10.0))€")
+                
                 
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
                     .font(isDeviceLandscapeMode ? .title2 : .none)
@@ -224,6 +236,7 @@ struct InfoExtract: View {
                 HStack {
                     Image(systemName: "star.fill")
                         .foregroundColor(Color("AccentColor"))
+                        .accessibilityLabel("Note : \(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1)) étoiles")
                     
                     Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
                         .font(isDeviceLandscapeMode ? .title2 : .none)
@@ -249,7 +262,7 @@ struct ArticlesFinder: View {
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var searchText: String
     @Binding var addInFavoris: Bool
-
+    
     var searchResults: [ArticleCatalog] {
         if searchText.isEmpty {
             return articleListViewModel.articleCatalog
