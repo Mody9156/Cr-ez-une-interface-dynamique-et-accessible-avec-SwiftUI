@@ -180,6 +180,7 @@ struct ReviewControl: View {
 
                     TextField("Partagez ici vos impressions sur cette pièce", text: $commentText)
                         .font(.title3)
+                        .foregroundColor(.black)
                         .padding()
                         .accessibilityLabel("Zone de texte pour vos impressions sur l'article")
                         .accessibilityValue(commentText.isEmpty ? "Veuillez insérer du texte." : "Texte saisi : \(commentText)")
