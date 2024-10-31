@@ -176,7 +176,7 @@ struct ReviewControl: View {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(isDeviceLandscapeMode ? Color("Background") : Color("fillColor"))
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
-                        .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.gray, lineWidth: 1))
+                        .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color("strokeColor"), lineWidth: 1))
                     
                     TextField("Partagez ici vos impressions sur cette pièce", text: $commentText)
                         .font(.title3)
@@ -364,8 +364,3 @@ struct SupplementData: View {
     }
 }
 
-// struct ContentView_Previews_Detail: PreviewProvider {
-//     static var previews: some View {
-//         DetailView(articleCatalog: ArticleCatalog(id: 2, picture: URLBuilder(url: "", description: ""), name: "", category: "", likes: 33, price: 33.33, original_price: 33.3), valueCombiner: [2], articleListViewModel: ArticleListViewModel(catalogProduct: CatalogProduct()))
-//     }
-// }
