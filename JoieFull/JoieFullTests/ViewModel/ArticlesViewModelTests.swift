@@ -13,8 +13,8 @@ final class ArticlesViewModelTests: XCTestCase {
 
 
     func testLoadArticlesSuccessfully() async throws {
-        let mockNetworkService = MockNetworkService()
-        let mockData = """
+        let subNetworkService = SubNetworkService()
+        let subData = """
         [
             {
                 "id": 1,
@@ -43,11 +43,11 @@ final class ArticlesViewModelTests: XCTestCase {
         ]
         """.data(using: .utf8)!
         
-        mockNetworkService.mockData = mockData
-        let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        mockNetworkService.mockResponse = mockResponse
+        subNetworkService.subData = subData
+        let subResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        subNetworkService.subResponse = subResponse
         
-        let viewModel = ArticleListViewModel(catalogProduct: CatalogProduct(httpService: mockNetworkService))
+        let viewModel = ArticleListViewModel(catalogProduct: CatalogProduct(httpService: subNetworkService))
         
         do {
             let articles = try await viewModel.loadArticles()
@@ -59,12 +59,12 @@ final class ArticlesViewModelTests: XCTestCase {
     }
 
     func testLoadArticlesThrowsError() async throws {
-        let mockNetworkService = MockNetworkService()
+        let subNetworkService = SubNetworkService()
         
         // Simulez une réponse avec une erreur
-        mockNetworkService.mockError = URLError(.badServerResponse)
+        subNetworkService.subError = URLError(.badServerResponse)
         
-        let viewModel = ArticleListViewModel(catalogProduct: CatalogProduct(httpService: mockNetworkService))
+        let viewModel = ArticleListViewModel(catalogProduct: CatalogProduct(httpService: subNetworkService))
         
         do {
             let _ = try await viewModel.loadArticles()
@@ -75,8 +75,8 @@ final class ArticlesViewModelTests: XCTestCase {
     }
 
     func testReloadArticles() async throws {
-        let mockNetworkService = MockNetworkService()
-        let mockData = """
+        let subNetworkService = SubNetworkService()
+        let subData = """
         [
             {
                 "id": 1,
@@ -93,11 +93,11 @@ final class ArticlesViewModelTests: XCTestCase {
         ]
         """.data(using: .utf8)!
         
-        mockNetworkService.mockData = mockData
-        let mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        mockNetworkService.mockResponse = mockResponse
+        subNetworkService.subData = subData
+        let subResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        subNetworkService.subResponse = subResponse
         
-        let viewModel = ArticleListViewModel(catalogProduct: CatalogProduct(httpService: mockNetworkService))
+        let viewModel = ArticleListViewModel(catalogProduct: CatalogProduct(httpService: subNetworkService))
         
         do {
             let articles: () = try await viewModel.reloadArticles()
@@ -111,7 +111,7 @@ final class ArticlesViewModelTests: XCTestCase {
     func testToggleFavoris() {
         let mockArticle = ArticleCatalog(id: 1, picture: URLBuilder(url: "https://example.com/image1.jpg", description: "Description 1"), name: "Article 1", category: "Category 1", likes: 100, price: 10.0, original_price: 15.0)
         
-        let viewModel = ArticleListViewModel(catalogProduct: CatalogProduct(httpService: MockNetworkService()))
+        let viewModel = ArticleListViewModel(catalogProduct: CatalogProduct(httpService: SubNetworkService()))
         
         // Ajouter à favoris
         viewModel.toggleFavoris(article: mockArticle)

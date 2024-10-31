@@ -14,13 +14,13 @@ final class CatalogProductTests: XCTestCase {
     
     
     func testURLRequestCreationWithValidURL() async throws {
-        let mockNetworkService = MockNetworkService()
+        let subNetworkService = SubNetworkService()
         
-        let mockData = Data("Mock response data".utf8)
-        mockNetworkService.mockData = mockData
-        let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        mockNetworkService.mockResponse = mockResponse
-        let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
+        let subData = Data("Mock response data".utf8)
+        subNetworkService.subData = subData
+        let subResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        subNetworkService.subResponse = subResponse
+        let catalogProduct =  CatalogProduct(httpService: subNetworkService)
         
         do {
             let create = try catalogProduct.createURLRequest()
@@ -35,9 +35,9 @@ final class CatalogProductTests: XCTestCase {
     }
     
     func testDecoderArticles_Success() async throws {
-        let mockNetworkService = MockNetworkService()
+        let subNetworkService = SubNetworkService()
         
-        let mockData =  """
+        let subData =  """
         [
             {
                 "id": 1,
@@ -67,11 +67,11 @@ final class CatalogProductTests: XCTestCase {
         ]
         """.data(using: .utf8)!
         
-        mockNetworkService.mockData = mockData
-        let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        mockResponse.method(for: Selector(("GET")))
-        mockNetworkService.mockResponse = mockResponse
-        let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
+        subNetworkService.subData = subData
+        let subResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        subResponse.method(for: Selector(("GET")))
+        subNetworkService.subResponse = subResponse
+        let catalogProduct =  CatalogProduct(httpService: subNetworkService)
         
         let expectedArticles = [
                 ArticleCatalog(id: 1, picture: URLBuilder(url: "https://raw.githubusercontent.com/OpenClassrooms-Student-Center/Cr-ez-une-interface-dynamique-et-accessible-avec-SwiftUI/main/img/accessories/4.jpg", description: "Sac à bandoulière en cuir noir"), name: "Sac à bandoulière", category: "ACCESSORIES", likes: 75, price: 89.99, original_price: 99.99),
@@ -95,8 +95,8 @@ final class CatalogProductTests: XCTestCase {
     }
     
     func testLoadArticlesFromURL_ThrowsErrors() async throws{
-        let mockNetworkService = MockNetworkService()
-        let mockData =  """
+        let subNetworkService = SubNetworkService()
+        let subData =  """
         
             {
                 "id": 1,
@@ -113,12 +113,12 @@ final class CatalogProductTests: XCTestCase {
            
 
         """.data(using: .utf8)
-        mockNetworkService.mockData = mockData
+        subNetworkService.subData = subData
         
-         let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        mockNetworkService.mockResponse = mockResponse
+         let subResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        subNetworkService.subResponse = subResponse
         
-        let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
+        let catalogProduct =  CatalogProduct(httpService: subNetworkService)
 
         do{
             
@@ -133,8 +133,8 @@ final class CatalogProductTests: XCTestCase {
     
     
     func testStatusCodeNoThrowsError() async throws {
-        let mockNetworkService = MockNetworkService()
-        let mockData =  """
+        let subNetworkService = SubNetworkService()
+        let subData =  """
         [
             {
                 "id": 1,
@@ -164,11 +164,11 @@ final class CatalogProductTests: XCTestCase {
         ]
         """.data(using: .utf8)!
         
-        mockNetworkService.mockData = mockData
-        let mockResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 400, httpVersion: nil, headerFields: nil)!
-        mockNetworkService.mockResponse = mockResponse
+        subNetworkService.subData = subData
+        let subResponse = HTTPURLResponse(url: URL(string:"https://exemple.com")!, statusCode: 400, httpVersion: nil, headerFields: nil)!
+        subNetworkService.subResponse = subResponse
         
-        let catalogProduct =  CatalogProduct(httpService: mockNetworkService)
+        let catalogProduct =  CatalogProduct(httpService: subNetworkService)
        
         do{
             let _ = try await catalogProduct.loadArticlesFromURL()
@@ -184,19 +184,19 @@ final class CatalogProductTests: XCTestCase {
     
     func testLoadArticlesFromURL_DecodingError() async {
            // Créez un mock de votre service HTTP
-           let mockNetworkService = MockNetworkService()
+           let subNetworkService = SubNetworkService()
            
            // Simulez des données malformées qui ne peuvent pas être décodées
-           let mockData = """
+           let subData = """
            { "invalid": "data" } // Données malformées
            """.data(using: .utf8)!
 
            // Assignez les données malformées au mock
-           mockNetworkService.mockData = mockData
-           mockNetworkService.mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
+           subNetworkService.subData = subData
+           subNetworkService.subResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
 
            // Instanciez votre classe CatalogProduct
-           let catalogProduct = CatalogProduct(httpService: mockNetworkService)
+           let catalogProduct = CatalogProduct(httpService: subNetworkService)
 
            // Testez la fonction pour vous assurer qu'elle lève l'erreur attendue
            do {
@@ -209,11 +209,11 @@ final class CatalogProductTests: XCTestCase {
     
     
     func testLoadArticlesFromURL_InvalidStatusCode() async {
-           let mockNetworkService = MockNetworkService()
-           mockNetworkService.mockData = Data() // Pas de données
-           mockNetworkService.mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)
+           let subNetworkService = SubNetworkService()
+           subNetworkService.subData = Data() // Pas de données
+           subNetworkService.subResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)
 
-           let catalogProduct = CatalogProduct(httpService: mockNetworkService)
+           let catalogProduct = CatalogProduct(httpService: subNetworkService)
 
            do {
                let _ = try await catalogProduct.loadArticlesFromURL()
@@ -225,15 +225,15 @@ final class CatalogProductTests: XCTestCase {
  
     
     func testLoadArticlesFromURL_DecodingThrowsError() async {
-        let mockNetworkService = MockNetworkService()
-        let mockData = """
+        let subNetworkService = SubNetworkService()
+        let subData = """
            { "invalid": "data" }
            """.data(using: .utf8)!
         
-        mockNetworkService.mockData = mockData
-        mockNetworkService.mockResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
+        subNetworkService.subData = subData
+        subNetworkService.subResponse = HTTPURLResponse(url: URL(string: "https://example.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
         
-        let catalogProduct = CatalogProduct(httpService: mockNetworkService)
+        let catalogProduct = CatalogProduct(httpService: subNetworkService)
         
         do {
             let _ = try await catalogProduct.loadArticlesFromURL()

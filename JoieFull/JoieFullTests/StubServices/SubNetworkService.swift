@@ -9,19 +9,19 @@ import Foundation
 import SwiftUI
 @testable import JoieFull
 
-class MockNetworkService: HTTPService {
-    var mockData: Data?
-    var mockResponse: HTTPURLResponse?
+class SubNetworkService: HTTPService {
+    var subData: Data?
+    var subResponse: HTTPURLResponse?
     var shouldReturnError = false
-    var mockError: Error?
+    var subError: Error?
 
     // Mock de la méthode request
     func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        if shouldReturnError, let error = mockError {
+        if shouldReturnError, let error = subError {
             throw error  // Simuler l'erreur spécifiée
         }
 
-        guard let data = mockData, let response = mockResponse else {
+        guard let data = subData, let response = subResponse else {
             throw URLError(.badServerResponse)  // Simuler une erreur si les données ou la réponse sont manquantes
         }
 
