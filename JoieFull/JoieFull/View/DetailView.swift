@@ -211,11 +211,7 @@ struct ReviewControl: View {
 
                 if activeStart {
                     ForEach(comments, id: \.text) { comment in
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(isDeviceLandscapeMode ? Color("Background") : Color("fillColor"))
-                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
-                                .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.gray, lineWidth: 1))
+                        
                         HStack {
                             Image("UserPicture")
                                 .resizable()
@@ -223,7 +219,7 @@ struct ReviewControl: View {
                                 .frame(width: 50)
                                 .clipShape(Circle())
                                 .accessibilityLabel("Photo de profil de l'utilisateur de la session")
-                            
+
                             VStack(alignment: .leading) {
                                 HStack {
                                     ForEach(Array(comment.stars), id: \.self) { star in
@@ -235,14 +231,15 @@ struct ReviewControl: View {
                                     .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s) : \(comment.stars.sorted().map { "\($0)" }.joined(separator: ", "))")
                                 }
                                 .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s) : \(comment.stars.sorted().map { "\($0)" }.joined(separator: ", "))")
-                                
+
                                 Text(comment.text)
                                     .accessibilityLabel("Commentaire : \(comment.text)")
                             }
                         }
                         .padding([.leading, .trailing], isDeviceLandscapeMode ? 0 : 16)
-                    }
+                        
                         Divider()
+                            
                     }
                 }
             }
