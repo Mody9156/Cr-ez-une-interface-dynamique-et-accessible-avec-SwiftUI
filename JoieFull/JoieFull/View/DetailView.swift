@@ -174,13 +174,13 @@ struct ReviewControl: View {
             VStack(alignment: .leading) {
                 ZStack(alignment: .topLeading) {
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(isDeviceLandscapeMode ? Color("Background") : Color.white)
+                        .fill(isDeviceLandscapeMode ? Color("Background") : Color("fillColor"))
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
                         .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.gray, lineWidth: 1))
 
                     TextField("Partagez ici vos impressions sur cette pièce", text: $commentText)
                         .font(.title3)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("foreground"))
                         .padding()
                         .accessibilityLabel("Zone de texte pour vos impressions sur l'article")
                         .accessibilityValue(commentText.isEmpty ? "Veuillez insérer du texte." : "Texte saisi : \(commentText)")
