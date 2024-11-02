@@ -10,7 +10,7 @@ Ce projet consiste en le développement d'une application iOS utilisant les comp
 ## Captures d'écran
 
 
-| <p align="center"><img src="Screenshots/connexion.png" width="200" alt="connexion"></p> | <p align="center"><img src="Screenshots/account.png" width="200" alt="account"></p> | <p align="center"><img src="Screenshots/transfer.png" width="200" alt="transfer"></p> |
+| <p align="center"><img src="Screenshots/Home.png" width="200" alt="connexion"></p> | <p align="center"><img src="Screenshots/Details.png" width="200" alt="account"></p> | <p align="center"><img src="Screenshots/Search.png" width="200" alt="transfer"></p> |
 |:--:|:--:|:--:|
 | **Home** | **Details** | **Search** |
 
