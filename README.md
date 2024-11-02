@@ -1,4 +1,8 @@
 
+<div align="center">
+<img src="Screenshots/logo.png" alt="logo" width="150">
+</div>
+
 # Créez une interface dynamique et accessible
 
 Ce projet consiste en le développement d'une application iOS utilisant les compétences acquises lors de la formation OpenClassrooms. L'application est construite avec Swift et SwiftUI, en suivant le design pattern Modèle-Vue-Modèle (MVVM). L'objectif est de fournir une interface utilisateur intuitive pour interagir avec une API et afficher les données correspondantes.
