@@ -1,16 +1,14 @@
-
 <div align="center">
 <img src="Screenshots/logo.png" alt="logo" width="150">
 </div>
 
-# Créez une interface dynamique et accessible
+# Create a Dynamic and Accessible Interface
 
-Ce projet consiste en le développement d'une application iOS utilisant les compétences acquises lors de la formation OpenClassrooms. L'application est construite avec Swift et SwiftUI, en suivant le design pattern Modèle-Vue-Modèle (MVVM). L'objectif est de fournir une interface utilisateur intuitive pour interagir avec une API et afficher les données correspondantes.
+This project involves developing an iOS application using the skills acquired during the OpenClassrooms training. The application is built with Swift and SwiftUI, following the Model-View-ViewModel (MVVM) design pattern. The goal is to provide an intuitive user interface for interacting with an API and displaying the corresponding data.
 
-## Captures d'écran
+## Screenshots
 
-
-| <p align="center"><img src="Screenshots/Home.png" width="200" alt="connexion"></p> | <p align="center"><img src="Screenshots/Details.png" width="200" alt="account"></p> | <p align="center"><img src="Screenshots/Search.png" width="200" alt="transfer"></p> |
+| <p align="center"><img src="Screenshots/Home.png" width="200" alt="home"></p> | <p align="center"><img src="Screenshots/Details.png" width="200" alt="details"></p> | <p align="center"><img src="Screenshots/Search.png" width="200" alt="search"></p> |
 |:--:|:--:|:--:|
 | **Home** | **Details** | **Search** |
 
@@ -22,40 +20,40 @@ Ce projet consiste en le développement d'une application iOS utilisant les comp
 
 These can help illustrate the user flow and functionality visually.
 
-
 ## Demo Video
 
 <div align="center">
 <img src="Screenshots/test.gif" alt="" width="500">
 </div>
 
-## Technologies utilisées
+## Technologies Used
 
 - **Swift**
 - **SwiftUI**
 - **Xcode**
 
-## Fonctionnalités
+## Features
 
-- Affichage des données à partir d'une API
-- Interaction avec l'API pour récupérer et mettre à jour les données
-- Interface utilisateur intuitive et réactive
+- Displaying data from an API
+- Interaction with the API to retrieve and update data
+- Intuitive and responsive user interface
 
 ## Installation
 
-1. Clonez ce dépôt GitHub sur votre machine locale.
-2. Ouvrez le projet dans Xcode.
-3. Installez les dépendances nécessaires en exécutant la commande `pod install` dans votre terminal.
-4. Lancez l'application sur votre simulateur ou sur votre appareil iOS connecté.
+1. Clone this GitHub repository to your local machine.
+2. Open the project in Xcode.
+3. Install the necessary dependencies by running the command `pod install` in your terminal.
+4. Launch the application on your simulator or connected iOS device.
 
 ## Contribution
 
-Les contributions sont les bienvenues ! Si vous souhaitez contribuer à ce projet, suivez ces étapes :
+Contributions are welcome! If you would like to contribute to this project, please follow these steps:
 
-1. Forkez ce dépôt GitHub.
-2. Créez une nouvelle branche avec le nom de votre fonctionnalité : `git checkout -b feature/nom-de-votre-fonctionnalité`.
-3. Apportez vos modifications et améliorez le code.
-4. Effectuez un commit de vos modifications : `git commit -m 'Ajouter une nouvelle fonctionnalité'`.
-5. Poussez vos modifications vers votre fork : `git push origin feature/nom-de-votre-fonctionnalité`.
-6. Ouvrez une pull request pour proposer vos modifications.
+1. Fork this GitHub repository.
+2. Create a new branch for your feature: `git checkout -b feature/your-feature-name`.
+3. Make your modifications and improve the code.
+4. Commit your changes: `git commit -m 'Add a new feature'`.
+5. Push your changes to your fork: `git push origin feature/your-feature-name`.
+6. Open a pull request to propose your changes.
+
 
