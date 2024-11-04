@@ -1,5 +1,13 @@
+//
+//  ArticleListView.swift
+//  JoieFull
+//
+//  Created by KEITA on 10/10/2024.
+//
+
 import SwiftUI
 
+// Vue principale pour afficher la liste des articles
 struct ArticleListView: View {
     @ObservedObject var articleListViewModel: ArticleListViewModel
     @State var presentArticles: Bool = false
@@ -9,6 +17,7 @@ struct ArticleListView: View {
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     @State private var searchText = ""
     
+    // Détecte si l'appareil est en mode paysage
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular && verticalSizeClass == .regular
     }
@@ -18,7 +27,7 @@ struct ArticleListView: View {
             ScrollView(showsIndicators: true) {
                 HStack {
                     VStack(alignment: .leading) {
-                        // Les différentes sections d'articles
+                        // Affiche différentes sections d'articles (Hauts, Bas, Sacs)
                         ArticlesFinder(sectionName: "Hauts", categoryName: "TOPS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, searchText: $searchText, addInFavoris: $addInFavoris)
                         
                         ArticlesFinder(sectionName: "Bas", categoryName: "BOTTOMS", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, searchText: $searchText, addInFavoris: $addInFavoris)
@@ -26,7 +35,7 @@ struct ArticleListView: View {
                         ArticlesFinder(sectionName: "Sacs", categoryName: "ACCESSORIES", presentArticles: $presentArticles, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, searchText: $searchText, addInFavoris: $addInFavoris)
                     }
                     
-                    // Affichage du détail si l'appareil est en mode paysage
+                    // Affiche les détails d'un article sélectionné en mode paysage
                     if isDeviceLandscapeMode, let article = selectedArticle {
                         DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
                     }
@@ -45,7 +54,7 @@ struct ArticleListView: View {
     }
 }
 
-// Extraction pour l'affichage des catégories d'articles
+// Vue pour afficher les catégories d'articles
 struct ShowCategories: View {
     var article: ArticleCatalog
     var category: String = ""
@@ -56,16 +65,19 @@ struct ShowCategories: View {
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
+    // Détecte si l'appareil est en mode paysage
     var isDeviceLandscapeMode: Bool {
         horizontalSizeClass == .regular && verticalSizeClass == .regular
     }
     
     var body: some View {
+        // Affiche l'article uniquement si sa catégorie correspond
         if article.category == category {
             if isDeviceLandscapeMode {
                 ExtractionDeviceLandscapeMode(presentArticles: $presentArticles, article: article, articleListViewModel: articleListViewModel, selectedArticle: $selectedArticle, addInFavoris: $addInFavoris)
             } else {
                 VStack {
+                    // Lien vers la vue de détail de l'article
                     NavigationLink {
                         DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
                     } label: {
@@ -85,9 +97,8 @@ struct ShowCategories: View {
                         }
                         .accessibilityLabel("Voir les détails de \(article.name)")
                     }
-                    .navigationTitle("")
-                    .accessibilityLabel("Voir les détails de \(article.name)")
                     
+                    // Information additionnelle de l'article
                     InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
                 }
             }
@@ -95,32 +106,19 @@ struct ShowCategories: View {
     }
 }
 
-// Mode paysage
+// Vue pour l'affichage en mode paysage
 struct ExtractionDeviceLandscapeMode: View {
     @Binding var presentArticles: Bool
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var selectedArticle: ArticleCatalog?
     @Binding var addInFavoris: Bool
-    @State private var scale: CGFloat = 1.0 // Échelle de l'image
-    @State private var lastScale: CGFloat = 1.0 // Dernière échelle appliquée
-    
-    func toggleBackground(id: Int) {
-        var array: [Int] = []
-        for index in 1...id {
-            array.append(index)
-            print("index:\(String(describing: array.last))")
-        }
-    }
     
     var body: some View {
         VStack {
             Button {
+                // Sélectionne ou désélectionne l'article
                 selectedArticle = (selectedArticle == article) ? nil : article
-                if let selectedArticleId = selectedArticle {
-                    print("selectedArticle=\(selectedArticleId.id)")
-                    toggleBackground(id: selectedArticleId.id)
-                }
             } label: {
                 ZStack(alignment: .bottomTrailing) {
                     AsyncImage(url: URL(string: article.picture.url)) { image in
@@ -141,14 +139,15 @@ struct ExtractionDeviceLandscapeMode: View {
                         .stroke(selectedArticle?.id == article.id ? Color("Cyan") : .clear, lineWidth: 3)
                 )
             }
-            .accessibilityLabel(Text("Vous avez sélectionné \(article.name)"))
+            .accessibilityLabel("Vous avez sélectionné \(article.name)")
             
+            // Information additionnelle de l'article
             InfoExtract(article: article, articleListViewModel: articleListViewModel, presentArticles: $presentArticles, selectedArticle: $selectedArticle)
         }
     }
 }
 
-// Vue pour les likes
+// Vue pour afficher les likes d'un article
 struct LikesView: View {
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
@@ -180,49 +179,43 @@ struct LikesView: View {
     }
 }
 
-// Vue d'informations sur l'article
+// Vue pour afficher les informations de l'article
 struct InfoExtract: View {
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
     @Binding var presentArticles: Bool
     @Binding var selectedArticle: ArticleCatalog?
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-    
-    var isDeviceLandscapeMode: Bool {
-        horizontalSizeClass == .regular && verticalSizeClass == .regular
-    }
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
+                // Nom de l'article
                 Text(article.name)
-                    .font(isDeviceLandscapeMode ? .title3 : .none)
+                    .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
-                    .frame(width: isDeviceLandscapeMode ? 147 : 95, height: isDeviceLandscapeMode ? 20.87 : 17)
-                    .accessibilityLabel("\(article.name), prix : \(article.price, format: .number.rounded(increment: 10.0))€")
+                    .accessibilityLabel("\(article.name), prix : \(article.price)€")
                 
+                // Prix actuel de l'article
                 Text("\(article.price, format: .number.rounded(increment: 10.0))€")
-                    .font(isDeviceLandscapeMode ? .title2 : .none)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
             }
             
             Spacer()
             
             VStack(alignment: .trailing) {
+                // Note de l'article
                 HStack {
                     Image(systemName: "star.fill")
                         .foregroundColor(Color("AccentColor"))
-                        .accessibilityLabel("Note : \(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1)) étoiles")
+                        .accessibilityLabel("Note : \(articleListViewModel.grade) étoiles")
                     
-                    Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
-                        .font(isDeviceLandscapeMode ? .title2 : .none)
+                    Text("\(articleListViewModel.grade)")
                         .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
                 }
                 
+                // Prix original barré
                 Text("\(article.original_price, format: .number.rounded(increment: 10.0))€")
-                    .font(isDeviceLandscapeMode ? .title2 : .none)
                     .strikethrough()
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
                     .opacity(selectedArticle?.id == article.id ? 1 : 0.7)
@@ -231,7 +224,7 @@ struct InfoExtract: View {
     }
 }
 
-// Vue pour trouver les articles dans chaque section
+// Vue pour filtrer les articles par catégorie
 struct ArticlesFinder: View {
     var sectionName: String
     var categoryName: String
@@ -269,4 +262,3 @@ struct ArticlesFinder: View {
         }
     }
 }
-

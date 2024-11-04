@@ -76,7 +76,7 @@ struct DetailView: View {
                     
                     VStack {
                         SupplementData(article: article, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
-                        ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                        ReviewControl(articleCatalog: articleCatalog, valueCombiner: $valueCombiner)
                     }
                 }
             }
@@ -135,7 +135,6 @@ struct ReviewControl: View {
     var articleCatalog: ArticleCatalog
     @Binding var valueCombiner: [Int]
     @State var comments: [Comment] = []
-    @StateObject var articleListViewModel: ArticleListViewModel
     @State var activeStart: Bool = false
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -158,7 +157,7 @@ struct ReviewControl: View {
                     
                     HStack {
                         ForEach(1...5, id: \.self) { index in
-                            ImageSystemName(sortArray: index, articleCatalog: articleCatalog, valueCombiner: $valueCombiner, articleListViewModel: articleListViewModel)
+                            ImageSystemName(sortArray: index, valueCombiner: $valueCombiner)
                                 .padding(.trailing)
                                 .accessibilityLabel("Noter \(articleCatalog.name) de \(index) étoile(s)")
                                 .accessibilityValue(valueCombiner.last == index ? "Sélectionnée" : "Non sélectionnée")
@@ -210,37 +209,7 @@ struct ReviewControl: View {
                 .accessibilityValue(valueCombiner.isEmpty ? "Aucun étoile n'a été saisi" : "Vous avez sélectionné(e) \(valueCombiner.last ?? 0) étoile(s)")
                 
                 if activeStart {
-                    ForEach(comments, id: \.text) { comment in
-                        
-                        HStack {
-                            Image("UserPicture")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 50)
-                                .clipShape(Circle())
-                                .accessibilityLabel("Photo de profil de l'utilisateur de la session")
-                            
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    ForEach(Array(comment.stars), id: \.self) { star in
-                                        Image(systemName: "star.fill")
-                                            .resizable()
-                                            .frame(width: 27.51, height: 23.98)
-                                            .foregroundColor(Color("AccentColor"))
-                                    }
-                                    .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s) : \(comment.stars.sorted().map { "\($0)" }.joined(separator: ", "))")
-                                }
-                                .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s) : \(comment.stars.sorted().map { "\($0)" }.joined(separator: ", "))")
-                                
-                                Text(comment.text)
-                                    .accessibilityLabel("Commentaire : \(comment.text)")
-                            }
-                        }
-                        .padding([.leading, .trailing], isDeviceLandscapeMode ? 0 : 16)
-                        
-                        Divider()
-                        
-                    }
+                    ActiveForEach()
                 }
             }
             .padding()
@@ -248,11 +217,45 @@ struct ReviewControl: View {
     }
 }
 
+extension ReviewControl {
+    func ActiveForEach() -> some View {
+        ForEach(comments, id: \.text) { comment in
+            
+            HStack {
+                Image("UserPicture")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50)
+                    .clipShape(Circle())
+                    .accessibilityLabel("Photo de profil de l'utilisateur de la session")
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        ForEach(Array(comment.stars), id: \.self) { star in
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .frame(width: 27.51, height: 23.98)
+                                .foregroundColor(Color("AccentColor"))
+                        }
+                        .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s) : \(comment.stars.sorted().map { "\($0)" }.joined(separator: ", "))")
+                    }
+                    .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s) : \(comment.stars.sorted().map { "\($0)" }.joined(separator: ", "))")
+                    
+                    Text(comment.text)
+                        .accessibilityLabel("Commentaire : \(comment.text)")
+                }
+            }
+            .padding([.leading, .trailing], isDeviceLandscapeMode ? 0 : 16)
+            
+            Divider()
+            
+        }
+    }
+}
+
 struct ImageSystemName: View {
     var sortArray: Int
-    var articleCatalog: ArticleCatalog
     @Binding var valueCombiner: [Int]
-    @StateObject var articleListViewModel: ArticleListViewModel
     
     var body: some View {
         let showStart = valueCombiner.contains(sortArray)
@@ -317,7 +320,7 @@ struct SupplementData: View {
                                 .foregroundColor(Color("AccentColor"))
                                 .accessibilityLabel("Icône des favoris")
                             
-                            let currentRating = valueCombiner.isEmpty ? articleListViewModel.grade : addition()
+                            let currentRating = valueCombiner.isEmpty ? articleListViewModel.grade : highestRating()
                             let averageRating = (articleListViewModel.grade + currentRating) / 2
                             
                             Text("\(Double(averageRating), format: .number.rounded(increment: 0.1))")
@@ -351,7 +354,7 @@ struct SupplementData: View {
         .padding()
     }
     
-    func addition() -> Int {
+    func highestRating() -> Int {
         var array = 0
         
         if !valueCombiner.isEmpty {

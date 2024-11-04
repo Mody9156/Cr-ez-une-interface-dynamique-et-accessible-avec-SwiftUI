@@ -8,19 +8,23 @@
 import Foundation
 
 class ArticleListViewModel: ObservableObject {
+    // Propriétés
     let catalogProduct: CatalogProduct
     @Published var articleCatalog: [ArticleCatalog] = []
     @Published var favoriteArticles: Set<Int> = []
     @Published var grade: Int = 4
 
+    // Initialiseur
     init(catalogProduct: CatalogProduct) {
         self.catalogProduct = catalogProduct
     }
 
+    // Enumération des erreurs possibles pour ArticleListViewModel
     enum ArticleListViewModelError: Error {
         case loadArticlesError
     }
 
+    // Charge les articles de manière asynchrone
     @MainActor
     @discardableResult
     func loadArticles() async throws -> [ArticleCatalog] {
@@ -35,10 +39,12 @@ class ArticleListViewModel: ObservableObject {
         }
     }
 
+    // Recharge les articles en appelant la méthode loadArticles()
     func reloadArticles() async throws {
         try await loadArticles()
     }
 
+    // Gère l'ajout/suppression d'un article dans les favoris
     func toggleFavoris(article: ArticleCatalog) {
         if favoriteArticles.contains(article.id) {
             favoriteArticles.remove(article.id)
@@ -47,6 +53,7 @@ class ArticleListViewModel: ObservableObject {
         }
     }
 
+    // Vérifie si un article est dans les favoris
     func isFavoris(article: ArticleCatalog) -> Bool {
         return favoriteArticles.contains(article.id)
     }
