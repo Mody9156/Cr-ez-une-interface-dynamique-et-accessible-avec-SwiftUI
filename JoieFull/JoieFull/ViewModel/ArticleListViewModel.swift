@@ -13,7 +13,7 @@ class ArticleListViewModel : ObservableObject {
     @Published var favoriteArticles : Set<Int> = []
     @Published var grade : Int = 4
     @Published var valueCombiner : Set<Int> = []
-
+    
     init(catalogProduct: CatalogProduct)    {
         self.catalogProduct = catalogProduct
     }
@@ -33,6 +33,7 @@ class ArticleListViewModel : ObservableObject {
             DispatchQueue.main.async {
                 self.articleCatalog = articles
             }
+            
             return articles
             
         }catch{
@@ -40,7 +41,7 @@ class ArticleListViewModel : ObservableObject {
             throw ArticleListViewModelError.loadArticlesError
         }
     }
-
+    
     func reloadArticles() async throws  {
         try await loadArticles()
     }
@@ -54,7 +55,6 @@ class ArticleListViewModel : ObservableObject {
             print("favoriteArticles : \(favoriteArticles)")
             
             favoriteArticles.insert(article.id)
-            
         }
     }
     
@@ -62,7 +62,5 @@ class ArticleListViewModel : ObservableObject {
         
         return favoriteArticles.contains(article.id)
     }
-    
-    
     
 }
