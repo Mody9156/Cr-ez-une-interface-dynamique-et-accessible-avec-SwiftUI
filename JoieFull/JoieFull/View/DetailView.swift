@@ -335,7 +335,7 @@ struct SupplementData: View {
                             .strikethrough()
                             .font(.title2)
                             .fontWeight(.regular)
-                            .foregroundColor(Color("AccentColor"))
+                            .foregroundColor(Color("foreground"))
                             .opacity(0.7)
                             .padding(.trailing, isDeviceLandscapeMode ? 0 : 16)
                             .accessibilityLabel("Prix d'origine : \(article.original_price, format: .number.rounded(increment: 10.0))€")
