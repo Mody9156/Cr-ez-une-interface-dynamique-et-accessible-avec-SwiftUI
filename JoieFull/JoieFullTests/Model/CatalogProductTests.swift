@@ -9,7 +9,6 @@ import XCTest
 @testable import JoieFull
 import SwiftUI
 
-
 final class CatalogProductTests: XCTestCase {
     
     
@@ -242,6 +241,5 @@ final class CatalogProductTests: XCTestCase {
             XCTAssertEqual(error as? CatalogProduct.CandidateFetchError, .loadArticlesFromURLError)
         }
     }
-   
 
 }
