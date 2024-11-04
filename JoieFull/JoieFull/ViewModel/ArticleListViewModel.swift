@@ -7,59 +7,47 @@
 
 import Foundation
 
-class ArticleListViewModel : ObservableObject {
-    let catalogProduct : CatalogProduct
-    @Published var articleCatalog : [ArticleCatalog] = []
-    @Published var favoriteArticles : Set<Int> = []
-    @Published var grade : Int = 4
-    
-    init(catalogProduct: CatalogProduct)    {
+class ArticleListViewModel: ObservableObject {
+    let catalogProduct: CatalogProduct
+    @Published var articleCatalog: [ArticleCatalog] = []
+    @Published var favoriteArticles: Set<Int> = []
+    @Published var grade: Int = 4
+
+    init(catalogProduct: CatalogProduct) {
         self.catalogProduct = catalogProduct
     }
-    
-    enum ArticleListViewModelError : Error{
+
+    enum ArticleListViewModelError: Error {
         case loadArticlesError
     }
-    
+
     @MainActor
     @discardableResult
-    
-    func loadArticles() async throws -> [ArticleCatalog]{
-        
-        do{
+    func loadArticles() async throws -> [ArticleCatalog] {
+        do {
             let articles = try await catalogProduct.loadArticlesFromURL()
-            
             DispatchQueue.main.async {
                 self.articleCatalog = articles
             }
-            
             return articles
-            
-        }catch{
-            
+        } catch {
             throw ArticleListViewModelError.loadArticlesError
         }
     }
-    
-    func reloadArticles() async throws  {
+
+    func reloadArticles() async throws {
         try await loadArticles()
     }
-    
-    func toggleFavoris(article:ArticleCatalog)  {
-        if favoriteArticles.contains(article.id){
-            print("favoriteArticles : \(favoriteArticles)")
-            
+
+    func toggleFavoris(article: ArticleCatalog) {
+        if favoriteArticles.contains(article.id) {
             favoriteArticles.remove(article.id)
-        }else{
-            print("favoriteArticles : \(favoriteArticles)")
-            
+        } else {
             favoriteArticles.insert(article.id)
         }
     }
-    
-    func isFavoris(article:ArticleCatalog) -> Bool{
-        
+
+    func isFavoris(article: ArticleCatalog) -> Bool {
         return favoriteArticles.contains(article.id)
     }
-    
 }
