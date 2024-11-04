@@ -30,7 +30,7 @@ struct DetailView: View {
                                     image
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(height: 570)
+                                        .frame(height: 470)
                                         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                                         .accessibilityValue("Image représentant \(article.name)")
                                 } else if phase.error != nil {
