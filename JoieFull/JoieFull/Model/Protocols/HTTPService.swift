@@ -9,5 +9,5 @@ import Foundation
 
 
 protocol HTTPService {
-    func request(_ request : URLRequest) async throws-> (Data,HTTPURLResponse) 
+    func request(_ request : URLRequest) async throws-> (Data,HTTPURLResponse)
 }
