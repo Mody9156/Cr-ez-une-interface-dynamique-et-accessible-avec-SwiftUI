@@ -194,6 +194,7 @@ struct InfoExtract: View {
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
+                    .frame(maxWidth: 100)
                     .accessibilityLabel("\(article.name), prix : \(article.price)€")
                 
                 // Prix actuel de l'article
