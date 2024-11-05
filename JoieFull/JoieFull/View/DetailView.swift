@@ -160,7 +160,7 @@ struct ReviewControl: View {
                         ForEach(1...5, id: \.self) { index in
                             ImageSystemName(sortArray: index, valueCombiner: $valueCombiner)
                                 .padding(.trailing)
-                                .accessibilityLabel("Noter \(articleCatalog.name) de \(index) étoile\(index < 1 ? "s" : "")")
+                                .accessibilityLabel("Noter \(articleCatalog.name) de \(index) étoile\(index > 1 ? "s" : "")")
                                 .accessibilityValue(valueCombiner.last == index ? "Sélectionnée" : "Non sélectionnée")
                                 .accessibilityHint("Appuyez pour donner \(index) étoile(s)")
                         }
@@ -206,8 +206,7 @@ struct ReviewControl: View {
                 .padding()
                 .accessibilityLabel("Bouton pour envoyer un commentaire")
                 .accessibilityHint("Appuyez pour soumettre votre commentaire et vos étoiles")
-                .accessibilityValue(commentText.isEmpty ? "Aucun commentaire saisi" : "Commentaire : \(commentText)")
-                .accessibilityValue(valueCombiner.isEmpty ? "Aucun étoile n'a été saisi" : "Vous avez sélectionné(e) \(valueCombiner.last ?? 0) étoile(s)")
+                .accessibilityValue(valueCombiner.isEmpty ? "Aucune étoile n'a été saisi" : "Vous avez sélectionné(e) \(valueCombiner.last ?? 0) étoile(s)")
                 
                 if activeStart {
                     ActiveForEach()
@@ -239,10 +238,8 @@ extension ReviewControl {
                                 .frame(width: 27.51, height: 23.98)
                                 .foregroundColor(Color("AccentColor"))
                         }
-                        .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s) : \(comment.stars.sorted().map { "\($0)" }.joined(separator: ", "))")
+                        .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s)")
                     }
-                    .accessibilityLabel("Vous avez noté \(articleCatalog.name) avec \(comment.stars.count) étoile(s) : \(comment.stars.sorted().map { "\($0)" }.joined(separator: ", "))")
-                    
                     Text(comment.text)
                         .accessibilityLabel("Commentaire : \(comment.text)")
                 }
