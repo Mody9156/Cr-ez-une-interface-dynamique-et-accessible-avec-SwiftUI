@@ -40,11 +40,10 @@ struct ArticleListView: View {
                         DetailView(articleCatalog: article, articleListViewModel: articleListViewModel)
                     }
                 }
-                .onAppear {
-                    Task {
-                        try? await articleListViewModel.loadArticles()
-                    }
-                }
+                
+            }.task {
+                let _ =  try? await articleListViewModel.loadArticles()
+                
             }
             .background(isDeviceLandscapeMode ? Color("Background") : Color("Color"))
             .searchable(text: $searchText, prompt: "Rechercher un article")
@@ -151,26 +150,24 @@ struct ExtractionDeviceLandscapeMode: View {
 struct LikesView: View {
     var article: ArticleCatalog
     @StateObject var articleListViewModel: ArticleListViewModel
-    var width: Double = 14.01
-    var height: Double = 12.01
-    var widthFrame: Double = 60
-    var heightFrame: Double = 30
-    
+   
     var body: some View {
+        let isFavorited = articleListViewModel.isFavoris(article: article)
+
         HStack {
             ZStack {
                 Capsule()
                     .fill(.white)
-                    .frame(width: widthFrame, height: heightFrame)
+                    .frame(width: 60, height: 30)
                 
                 HStack {
-                    Image(systemName: articleListViewModel.isFavoris(article: article) ? "heart.fill" : "heart")
+                    Image(systemName: isFavorited ? "heart.fill" : "heart")
                         .resizable()
-                        .frame(width: width, height: height)
-                        .foregroundColor(articleListViewModel.isFavoris(article: article) ? Color("AccentColor") : .black)
+                        .frame(width: 14.01, height: 12.01)
+                        .foregroundColor(isFavorited ? Color("AccentColor") : .black)
                     
                     if let likes = article.likes {
-                        Text("\(articleListViewModel.isFavoris(article: article) ? (likes + 1) : likes)")
+                        Text("\(isFavorited ? (likes + 1) : likes)")
                             .foregroundColor(.black)
                     }
                 }
