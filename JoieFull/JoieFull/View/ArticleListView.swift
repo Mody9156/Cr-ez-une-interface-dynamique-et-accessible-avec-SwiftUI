@@ -211,7 +211,7 @@ struct InfoExtract: View {
                         .foregroundColor(Color("AccentColor"))
                         .accessibilityLabel("Note : \(articleListViewModel.grade) étoiles")
                     
-                    Text("\(articleListViewModel.grade)")
+                    Text("\(Double(articleListViewModel.grade), format: .number.rounded(increment: 0.1))")
                         .foregroundColor(selectedArticle?.id == article.id ? Color("Cyan") : Color("foreground"))
                 }
                 

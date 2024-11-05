@@ -28,7 +28,7 @@ struct URLBuilder : Codable {
     var description : String
 }
 
-struct Comment {
+struct Comment : Codable {
     var text: String
     var stars: Set<Int>
 }

@@ -30,7 +30,7 @@ struct DetailView: View {
                                     image
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(height: 470)
+                                        .frame(height: isDeviceLandscapeMode ? 570 : 470)
                                         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                                         .accessibilityValue("Image représentant \(article.name)")
                                 } else if phase.error != nil {
@@ -194,7 +194,7 @@ struct ReviewControl: View {
                         commentText = ""
                         valueCombiner.removeAll()
                         activeStart = true
-                    }
+                        }
                 }) {
                     Text("Envoyer")
                         .frame(width: 100, height: 50)
@@ -213,6 +213,7 @@ struct ReviewControl: View {
                 }
             }
             .padding()
+            
         }
     }
 }
