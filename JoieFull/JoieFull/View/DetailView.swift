@@ -67,7 +67,7 @@ struct DetailView: View {
                             LikesViewForDetailView(article: article, articleListViewModel: articleListViewModel)
                                 .padding([.bottom, .trailing], 20)
                                 .padding(isDeviceLandscapeMode ? 0 : 16)
-                                .accessibilityLabel("\(article.name) a été ajouté aux favoris par \(like) personnes")
+                                .accessibilityLabel("\(article.name) a été ajouté aux favoris par \(like + (articleListViewModel.isFavoris(article: article) ? 1 : 0)) personnes")
                                 .accessibilityValue(articleListViewModel.isFavoris(article: articleCatalog)
                                                     ? "Appuyez pour supprimer \(article.name) de vos favoris"
                                                     : "Appuyez pour ajouter \(article.name) à vos favoris")
@@ -122,6 +122,7 @@ struct LikesViewForDetailView: View {
                         if let likes = article.likes {
                             Text("\(likes + (articleListViewModel.isFavoris(article: article) ? 1 : 0))")
                                 .foregroundColor(.black)
+                                
                         }
                     }
                 }
@@ -159,7 +160,7 @@ struct ReviewControl: View {
                         ForEach(1...5, id: \.self) { index in
                             ImageSystemName(sortArray: index, valueCombiner: $valueCombiner)
                                 .padding(.trailing)
-                                .accessibilityLabel("Noter \(articleCatalog.name) de \(index) étoile(s)")
+                                .accessibilityLabel("Noter \(articleCatalog.name) de \(index) étoile\(index < 1 ? "s" : "")")
                                 .accessibilityValue(valueCombiner.last == index ? "Sélectionnée" : "Non sélectionnée")
                                 .accessibilityHint("Appuyez pour donner \(index) étoile(s)")
                         }
